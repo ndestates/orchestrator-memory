@@ -39,6 +39,9 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # Full factory gate — private ndestates/orchestrator only.
+    # Public product uses product-release.yml (no pre-release-gate).
+    if: github.repository == 'ndestates/orchestrator'
 
     steps:
       - name: Checkout

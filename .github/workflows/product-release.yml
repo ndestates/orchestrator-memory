@@ -1,0 +1,340 @@
+# Product release — wheel + sdist + VSIX only (no factory pre-release gate).
+# Intended for public ndestates/orchestrator-memory.
+# Private factory keeps release.yml (full pytest + security gate).
+name: Product Release
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+'on':
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (for example 2.2.0 or v2.2.0)"
+        required: true
+        type: string
+      target:
+        description: "Target branch for new tag (workflow_dispatch only)"
+        required: false
+        default: "master"
+        type: string
+      prerelease:
+        description: "Mark release as prerelease"
+        required: false
+        default: false
+        type: boolean
+      draft:
+        description: "Create release as draft"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: product-release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # Public product only (never runs factory pre-release gate).
+    if: github.repository == 'ndestates/orchestrator-memory'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install build deps
+        run: pip install pyyaml build
+
+      - name: Resolve release tag
+        id: resolve_tag
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            tag="${{ github.ref_name }}"
+            echo "Using pushed tag: $tag"
+          else
+            requested="${{ github.event.inputs.version }}"
+            if [[ "$requested" == v* ]]; then
+              tag="$requested"
+            else
+              tag="v$requested"
+            fi
+            target="${{ github.event.inputs.target }}"
+            git fetch origin "$target" --tags
+            if git rev-parse --verify "$tag" >/dev/null 2>&1; then
+              echo "Tag already exists: $tag"
+            else
+              git config user.name 'github-actions[bot]'
+              git config user.email 'github-actions[bot]@users.noreply.github.com'
+              git tag -a "$tag" "origin/$target" -m "Release $tag"
+              git push origin "$tag"
+              echo "Created and pushed tag: $tag from origin/$target"
+            fi
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Gate - VERSION matches tag (+ stamp + package.json)
+        run: |
+          set -euo pipefail
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          ver=$(tr -d 'v \n\r' < VERSION)
+          tagv=${tag#v}
+          tag_core=$(echo "$tagv" | sed -E 's/^([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          if [[ ! "$tag_core" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "ERROR: cannot parse core semver from tag ($tag)"
+            exit 1
+          fi
+          if [[ "$tagv" == "$tag_core" ]]; then
+            if [[ "$ver" != "$tagv" ]]; then
+              echo "ERROR: VERSION ($ver) must equal stable tag ($tagv)"
+              exit 1
+            fi
+          else
+            if [[ "$ver" != "$tagv" ]]; then
+              echo "ERROR: VERSION ($ver) must equal pre-release tag without v ($tagv)"
+              exit 1
+            fi
+          fi
+          if [[ -f scripts/orchestrator-template-version ]]; then
+            stamp=$(tr -d 'v \n\r' < scripts/orchestrator-template-version)
+            if [[ "$stamp" != "$ver" ]]; then
+              echo "ERROR: stamp ($stamp) != VERSION ($ver)"
+              exit 1
+            fi
+          fi
+          if [[ -f package.json ]]; then
+            pkg=$(python3 -c 'import json; print(json.load(open("package.json"))["version"])')
+            if [[ "$pkg" != "$ver" ]]; then
+              echo "ERROR: package.json ($pkg) != VERSION ($ver)"
+              exit 1
+            fi
+          fi
+          echo "VERSION $ver == tag $tag ✓ (product gate — no factory pre-release suite)"
+
+      # Intentionally NO pre-release-gate.sh (factory pytest / malware suite).
+      # Product publishes host artifacts only.
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          prev_tag=$(git tag --sort=-creatordate | grep '^v' | grep -Fxv "$tag" | head -n 1 || true)
+          {
+            echo "# Release $tag"
+            echo
+            echo "Public product: **Orchestrator Memory** (host CLI + VS Code extension)."
+            echo
+            if [[ -n "$prev_tag" ]]; then
+              echo "Changes since $prev_tag:"
+              echo
+              git log --no-merges --pretty='- %s (%h)' "$prev_tag..$tag" 2>/dev/null || true
+            else
+              echo "Product release notes."
+              echo
+              git log --no-merges --pretty='- %s (%h)' -n 30 2>/dev/null || true
+            fi
+            echo
+            echo "## Install"
+            echo
+            echo '```bash'
+            echo "VER=${tag#v}"
+            echo 'uv tool install --force \'
+            echo "  \"orchestrator @ https://github.com/${{ github.repository }}/releases/download/v\${VER}/orchestrator-\${VER}-py3-none-any.whl\""
+            echo '```'
+            echo
+            echo "## Factory"
+            echo
+            echo "Full template development: private \`ndestates/orchestrator\`."
+          } > RELEASE_NOTES.md
+
+      - name: Create or update GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          tagv=${tag#v}
+          tag_core=$(echo "$tagv" | sed -E 's/^([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          prerelease_flag=""
+          draft_flag=""
+          if [[ "$tagv" != "$tag_core" ]]; then
+            prerelease_flag="--prerelease"
+          fi
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            [[ "${{ github.event.inputs.prerelease }}" == "true" ]] && prerelease_flag="--prerelease"
+            [[ "${{ github.event.inputs.draft }}" == "true" ]] && draft_flag="--draft"
+          fi
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release edit "$tag" --title "$tag — Orchestrator Memory" --notes-file RELEASE_NOTES.md ${prerelease_flag} ${draft_flag} || \
+              gh release edit "$tag" --title "$tag — Orchestrator Memory" --notes-file RELEASE_NOTES.md
+            echo "Updated existing release: $tag"
+          else
+            gh release create "$tag" --title "$tag — Orchestrator Memory" --notes-file RELEASE_NOTES.md ${prerelease_flag} ${draft_flag} --verify-tag
+            echo "Created new release: $tag"
+          fi
+
+      - name: Build wheel + sdist
+        run: |
+          set -euo pipefail
+          python -m build
+          ls -l dist/
+          cd dist
+          sha256sum *.whl *.tar.gz > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+          cd ..
+          if [[ -f scripts/orchestrator-bundle-hash.py ]]; then
+            python3 scripts/orchestrator-bundle-hash.py generate || true
+            if [[ -f reports/security/bundle-hashes.json ]]; then
+              cp reports/security/bundle-hashes.json dist/bundle-hashes.json
+            fi
+          fi
+
+      - name: Attach packages to GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          shopt -s nullglob
+          files=(dist/*.whl dist/*.tar.gz dist/SHA256SUMS.txt dist/bundle-hashes.json)
+          if [[ ${#files[@]} -eq 0 ]]; then
+            echo "No dist artifacts"
+            exit 1
+          fi
+          gh release upload "$tag" "${files[@]}" --clobber
+          echo "Attached wheel/sdist/checksums"
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@ndestates'
+
+      - name: Sync package.json version from VERSION
+        run: |
+          ver=$(tr -d 'v \n' < VERSION)
+          if [[ -f package.json ]]; then
+            node -e "
+              const fs=require('fs');
+              const p=JSON.parse(fs.readFileSync('package.json','utf8'));
+              p.version=process.argv[1];
+              fs.writeFileSync('package.json', JSON.stringify(p,null,2)+'\n');
+            " "$ver"
+          fi
+
+      - name: Publish to GitHub Packages (npm)
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ ! -f package.json ]]; then
+            echo "No package.json — skip npm"
+            exit 0
+          fi
+          {
+            echo "@ndestates:registry=https://npm.pkg.github.com"
+            echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}"
+          } > .npmrc
+          npm publish --access public || echo "npm publish skipped/failed (may already exist)"
+          rm -f .npmrc
+
+      - name: Publish to npmjs.org (optional)
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [[ -z "${NODE_AUTH_TOKEN:-}" ]]; then
+            echo "Skipping npmjs.org — NPM_TOKEN not set"
+            exit 0
+          fi
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          npm publish --access public --registry https://registry.npmjs.org/ || true
+          rm -f .npmrc
+
+      - name: Publish to PyPI (optional)
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          if [[ -z "${TWINE_PASSWORD:-}" ]]; then
+            echo "Skipping PyPI — PYPI_API_TOKEN not set"
+            exit 0
+          fi
+          pip install twine
+          twine upload --non-interactive dist/*.whl dist/*.tar.gz
+
+      - name: Build VS Code VSIX
+        run: |
+          set -euo pipefail
+          ver=$(tr -d 'v \n\r' < VERSION)
+          if [[ ! -d extensions/vscode-orchestrator ]]; then
+            echo "No extension tree — skip VSIX"
+            exit 0
+          fi
+          node -e "
+            const fs=require('fs');
+            const p=JSON.parse(fs.readFileSync('extensions/vscode-orchestrator/package.json','utf8'));
+            p.version=process.argv[1].split('-')[0];
+            fs.writeFileSync('extensions/vscode-orchestrator/package.json', JSON.stringify(p,null,2)+'\n');
+          " "$ver"
+          npm install -g @vscode/vsce
+          cd extensions/vscode-orchestrator
+          vsce package --allow-missing-repository --skip-license 2>/dev/null || vsce package --allow-missing-repository
+          mkdir -p ../../dist
+          cp -f ./*.vsix ../../dist/
+          ls -la ../../dist/*.vsix
+
+      - name: Attach VSIX to GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          shopt -s nullglob
+          files=(dist/*.vsix)
+          if [[ ${#files[@]} -eq 0 ]]; then
+            echo "No VSIX to attach"
+            exit 0
+          fi
+          gh release upload "$tag" "${files[@]}" --clobber
+
+      - name: Publish VS Code Marketplace (optional)
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          if [[ -z "${VSCE_PAT:-}" ]]; then
+            echo "Skipping Marketplace — VSCE_PAT not set (VSIX on GitHub Release)"
+            exit 0
+          fi
+          if [[ ! -d extensions/vscode-orchestrator ]]; then
+            exit 0
+          fi
+          cd extensions/vscode-orchestrator
+          vsce publish -p "$VSCE_PAT" || echo "vsce publish failed"
+
+      - name: Summary
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          {
+            echo "## Product Release (no factory gate)"
+            echo
+            echo "- Repo: \`${{ github.repository }}\`"
+            echo "- Tag: \`$tag\`"
+            echo "- Artifacts: wheel + sdist + VSIX (+ checksums)"
+            echo "- Factory suite: **skipped** (by design)"
+            echo "- Install: see release notes"
+          } >> "$GITHUB_STEP_SUMMARY"

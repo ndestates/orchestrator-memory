@@ -60,12 +60,54 @@ def find_manifest_path(root: Path) -> Path | None:
     return None
 
 
+# Directory / GitHub repo names that are first-party orchestrator (not customer apps).
+# - orchestrator: private factory (full template)
+# - orchestrator-memory: public product snapshot (wheel + VSIX + host CLI)
+ORCHESTRATOR_FIRST_PARTY_SLUGS = frozenset(
+    {
+        "orchestrator",
+        "orchestrator-memory",
+    }
+)
+
+
+def _repo_slug(root: Path) -> str:
+    """Best-effort repo slug from path, then GITHUB_REPOSITORY env."""
+    import os
+
+    slug = root.name.lower().strip()
+    if slug in ORCHESTRATOR_FIRST_PARTY_SLUGS:
+        return slug
+    gr = (os.environ.get("GITHUB_REPOSITORY") or "").strip()
+    if "/" in gr:
+        return gr.split("/")[-1].lower()
+    return slug
+
+
 def is_orchestrator_source_repo(root: Path) -> bool:
-    """True when this tree is the orchestrator template source (not a deployed app)."""
-    slug = root.name.lower()
-    if slug != "orchestrator":
+    """True when this tree is first-party orchestrator (factory or public product).
+
+    Not a deployed customer app. Used so stock manifest names are allowed and
+    uninstall refuses the template/product tree.
+    """
+    slug = _repo_slug(root)
+    if slug not in ORCHESTRATOR_FIRST_PARTY_SLUGS:
         return False
-    return (root / "scripts" / "deploy_grok_to_project.py").is_file()
+    # Full factory
+    if (root / "scripts" / "deploy_grok_to_project.py").is_file():
+        return True
+    # Public product snapshot: host package + extension (may lack some factory paths)
+    if (root / "VERSION").is_file() and (root / "pyproject.toml").is_file():
+        if (root / "src" / "orchestrator_cli").is_dir():
+            return True
+        if (root / "extensions" / "vscode-orchestrator").is_dir():
+            return True
+    return False
+
+
+def is_orchestrator_product_repo(root: Path) -> bool:
+    """True for the public product repo (orchestrator-memory), not private factory."""
+    return _repo_slug(root) == "orchestrator-memory" and is_orchestrator_source_repo(root)
 
 
 def detect_stack_signals(root: Path) -> list[str]:
