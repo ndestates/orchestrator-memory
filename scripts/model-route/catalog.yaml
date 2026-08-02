@@ -1,0 +1,100 @@
+# Open-source first free-model catalog for model-route-suggest.py
+# license: open_weights = true required for OSS entries (tests enforce ≥1)
+
+version: 1
+
+# Local open-source models (Ollama tags). Order = preference for low-tier tasks.
+oss_models:
+  - id: llama3.2:3b
+    tags: ["llama3.2:3b", "llama3.2"]
+    fits: [low]
+    license: open_weights
+    note: Fast small Llama — default free OSS pick
+  - id: llama3.2
+    tags: ["llama3.2", "llama3.2:latest"]
+    fits: [low, medium]
+    license: open_weights
+    note: General Llama 3.2
+  - id: qwen2.5-coder:7b
+    tags: ["qwen2.5-coder:7b", "qwen2.5-coder"]
+    fits: [low, medium]
+    license: open_weights
+    note: Code-lean open weights
+  - id: mistral
+    tags: ["mistral", "mistral:latest", "mistral-nemo"]
+    fits: [low, medium]
+    license: open_weights
+    note: General Mistral OSS
+  - id: codellama
+    tags: ["codellama", "codellama:7b", "deepseek-coder-v2"]
+    fits: [low, medium]
+    license: open_weights
+    note: Optional code OSS if VRAM allows
+
+# Cloud free / freemium — NOT open weights; secondary fallback only.
+free_cloud:
+  - id: gemini-flash
+    surface: gemini
+    label: Gemini Flash (free tier if available)
+  - id: claude-haiku
+    surface: claude
+    label: Claude Haiku / free tier if available
+  - id: grok-light
+    surface: grok
+    label: Grok light/free tier if product offers it
+  - id: cursor-auto
+    surface: cursor
+    label: Cursor Auto / cheaper model picker
+  - id: copilot-light
+    surface: copilot
+    label: Copilot free/lighter model if UI allows
+
+# Chains that never free-route (always stay on strong model)
+never_free_chain_ids:
+  - security-audit
+  - cyber-essentials-review
+  - cyber-essentials-self-assess
+  - orchestrator
+  - multi-faceted
+
+# Task keywords → force stay (high demand)
+high_keywords:
+  - security
+  - production
+  - deploy
+  - secrets
+  - license
+  - paypal
+  - schema
+  - migration
+  - architecture
+  - threat
+  - malware
+  - unhold
+
+# Task keywords → low demand (prefer OSS)
+low_keywords:
+  - status
+  - list
+  - todo
+  - standup
+  - session-start
+  - graph example
+  - brief
+  - wording
+  - docs only
+  - threat-scan
+  - changelog
+  - cache
+  - memory
+  - ingest
+  - consolidate
+  - always-on-memory
+
+platform_how:
+  grok: "Model picker → lighter/free tier, or open a session on Ollama (docs/guides/local-ollama.md)."
+  claude: "`/model` → Haiku/free tier, or run this turn against Ollama."
+  cursor: "Model dropdown → Auto/cheaper, or Ollama if configured."
+  gemini: "Switch to Flash (free tier)."
+  copilot: "Pick a lighter Copilot model if available, or Ollama host session."
+  default: "Switch host model picker to free/light tier, or use Ollama OSS (docs/guides/local-ollama.md)."

@@ -1,0 +1,8 @@
+# Host stdio MCP for orchestrator template (no DDEV). Copy to .grok/config.toml or merge.
+# Grok cwd must be the project root (default). scripts/mcp-host-stdio.sh resolves
+# PROJECT_ROOT from its own path and runs ensure-mcp-host before exec.
+
+[mcp_servers.orchestrator-host]
+command = "bash"
+args = ["scripts/mcp-host-stdio.sh"]
+enabled = true

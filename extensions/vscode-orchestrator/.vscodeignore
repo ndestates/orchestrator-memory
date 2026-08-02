@@ -1,0 +1,10 @@
+.vscode/**
+.vscode-test/**
+.gitignore
+**/*.vsix
+node_modules/**
+media/ndestates-logomark.svg
+reports/**
+**/*.db
+SESSION_READY.md
+MEMORY.md

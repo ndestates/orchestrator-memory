@@ -1,0 +1,13 @@
+# Interdependent apps that share the Chrome-style security flywheel lifecycle.
+# Paths are relative to the orchestrator repo root (../ = sibling under ~/projects).
+# Used by: bash scripts/security-flywheel-status.sh --peers
+#
+# Same idea as ndestates ↔ lightstone: one lifecycle, separate codebases.
+
+peers:
+  - path: ../ndestates
+    role: product
+    note: "ND Estates main app — SECURITY.md + security-flywheel"
+  - path: ../lightstone
+    role: product
+    note: "Lightstone — interdependent security controls with ndestates"

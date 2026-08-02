@@ -1,0 +1,39 @@
+name: Run Chain (dispatch)
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  workflow_dispatch:
+    inputs:
+      chain_id:
+        description: Chain id from chains/registry.yaml
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: run-chain-${{ github.workflow }}-${{ github.event.inputs.chain_id }}
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Python deps
+        run: pip install pyyaml
+      - name: Chain host prep and dispatch note
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash scripts/run-chain-host.sh "${{ github.event.inputs.chain_id }}"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: chain-dispatch-${{ github.event.inputs.chain_id }}-${{ github.run_id }}
+          path: |
+            reports/chains/*-dispatch.md
+            reports/loops/*-host.md
+          if-no-files-found: warn

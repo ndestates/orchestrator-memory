@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "orchestrator-mcp"
+version = "0.1.0"
+description = "Enterprise MCP server for manifest-first orchestrator template"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.28.0,<2",  # pin v1: mcp 2.0 renamed FastMCP→MCPServer (CI broke 2026-07-30)
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+
+[project.scripts]
+orchestrator-mcp = "orchestrator_mcp.server:main"
+orchestrator-mcp-smoke = "orchestrator_mcp.smoke:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/orchestrator_mcp"]

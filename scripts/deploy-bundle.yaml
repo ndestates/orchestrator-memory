@@ -1,0 +1,306 @@
+# Files and trees deployed from orchestrator template to target projects.
+# Used by scripts/deploy_grok_to_project.py
+
+version: 2
+
+source_label: ndestates/orchestrator
+
+# Default when --selections is omitted
+default_selections:
+  - grok
+  - chains
+  - loops
+  - scripts
+
+# Named selections — pass --selections grok,claude,copilot or --selections all
+selections:
+  grok:
+    description: Grok skills, prompts, agents, and registry
+    directories:
+      - .grok/skills
+      - .grok/prompts
+      - .grok/agents
+      - .grok/references
+    files:
+      - .grok/memories/INDEX.md
+      - .grok/memories/README.md
+
+  chains:
+    description: Root chain registry (split template + compose) and CHAIN.md
+    files:
+      - CHAIN.md
+      - chains/registry.template.yaml
+      - chains/registry.yaml
+    # registry.app.yaml is app-owned — never deploy from template (see never_deploy)
+
+  loops:
+    description: Loop engineering spine (LOOP.md, patterns, budget)
+    directories:
+      - patterns
+    files:
+      - LOOP.md
+      - loop-budget.md
+
+  cache-spine:
+    description: >-
+      Lean docs/codebase spine (README, SECTIONS, CONCERNS, freshness) + cache-efficiency
+      scripts. Use with grok on wave apps; full cache via /chain cache-rebuild on demand.
+    remap_files:
+      - source: docs/codebase/README.md
+        dest: docs/codebase/README.md
+      - source: docs/codebase/SECTIONS.md
+        dest: docs/codebase/SECTIONS.md
+      - source: docs/codebase/CONCERNS.md
+        dest: docs/codebase/CONCERNS.md
+      - source: docs/codebase/.codebase-freshness.txt
+        dest: docs/codebase/.codebase-freshness.txt
+    files:
+      - scripts/generate-cache-sections.py
+      - scripts/cache_efficiency_lint.py
+      - scripts/reconcile-cache-caps.py
+
+  # Opt-in LLM Wiki (Karpathy) — scaffold + skill; not in default_selections
+  wiki:
+    description: >
+      Karpathy-style LLM wiki: skill + schema, session/lint scripts, optional seed
+      wiki/raw trees. Target apps enable wiki_policy.mode lean after deploy. Never fleet-default.
+    directories:
+      - .grok/skills/llm-wiki
+    files:
+      - .grok/prompts/llm-wiki.md
+      - wiki/index.md
+      - wiki/log.md
+      - wiki/contradictions.md
+      - wiki/open-questions.md
+      - raw/README.md
+      - scripts/session-wiki-brief.py
+      - scripts/wiki_lint_check.py
+      - scripts/loop-wiki-lint-host.sh
+      - patterns/wiki-lint-watch.md
+    # App-owned content under wiki/sources etc. is not force-overwritten when customized
+
+  loops-starter:
+    description: >-
+      Minimal loop automation delta for wave apps — chain host prep, completion
+      audit, compound learning spine, and run-chain dispatch workflow. Use without
+      full chains registry when app already has LOOP.md and loop-weekly-watch.yml.
+    directories:
+      - .grok/skills/loop-compound
+      - .grok/skills/app-compound-gate
+      - starters/loop-state
+    files:
+      - VISION.md
+      - patterns/compound-learning.md
+      - patterns/app-compound-gate.md
+      - reports/loops/lessons-state.json
+      - scripts/run-chain-host.sh
+      - scripts/chain-completion-write.sh
+      - scripts/loop-repo-health-host.sh
+      - scripts/loop-compound.sh
+      - scripts/loop_compound.py
+      - scripts/app_compound_gate.py
+      - scripts/_engine/app_compound.py
+      - scripts/scaffold-loop-state.sh
+      - .github/workflows/run-chain.yml
+
+  scripts:
+    description: Per-app sync, audit, and installer tooling
+    directories:
+      - scripts/stack-profiles
+      - scripts/_engine
+      - .githooks
+    files:
+      - scripts/sync_grok_to_github_claude.py
+      - scripts/check_name_alignment.py
+      - scripts/chain-audit.sh
+      - scripts/loop-audit.sh
+      - scripts/deploy_grok_to_project.py
+      - scripts/deploy-bundle.yaml
+      - scripts/orchestrator-app-update.sh
+      - scripts/detect-project-runtime.sh
+      - scripts/check-project-manifest.py
+      - scripts/session-context-envelope.py
+      - scripts/_engine/manifest_identity.py
+      - scripts/_engine/mcp_runtime_policy.py
+      - scripts/_engine/session_envelope.py
+      - scripts/_engine/platform_surface.py
+      - scripts/loop-daily-triage-host.sh
+      - scripts/loop-cache-freshness-host.sh
+      - scripts/loop-chain-health-host.sh
+      - scripts/loop-github-ci-host.sh
+      - scripts/loop-repo-health-host.sh
+      - scripts/run-chain-host.sh
+      - scripts/chain-completion-write.sh
+      - scripts/mcp-threat-scan.sh
+      - scripts/mcp-ddev-stdio.sh
+      - scripts/verify_github_actions_node24.py
+      - scripts/upgrade_github_actions_node24.py
+      - scripts/register-project-skills.py
+      - scripts/compose-registry.py
+      - scripts/split-registry.py
+      - scripts/migrate-app-registry-split.py
+      - scripts/_engine/registry_compose.py
+      - scripts/detect-project-skills.py
+      - scripts/customize-skills-for-project.py
+      - scripts/rename-skills-project.py
+      - scripts/scan-template-contamination.sh
+      - scripts/resume-branch.sh
+      - scripts/session-security-sweep.sh
+      - scripts/session-guardrails-check.py
+      - scripts/session-spinup-bundle.py
+      - scripts/session-situation-brief.py
+      - scripts/session-orchestrator-check.py
+      - scripts/check-version-alignment.py
+      - scripts/orchestrator-branch-sync.py
+      - scripts/detect-ollama.sh
+      - scripts/install-ollama.sh
+      - scripts/install-ollama-ddev.sh
+      - scripts/install-ollama-compose.sh
+      - scripts/install-ollama.ps1
+      - scripts/ollama_detect.py
+      - scripts/_engine/ollama_detect.py
+      - scripts/ollama/docker-compose.ollama.yaml
+      - scripts/ollama/ddev-compose.ollama-gpu.yaml.example
+      - scripts/sync-all-projects.sh
+      # Vault brain (session-start lessons + branch pointer + EOD emit)
+      - scripts/session-vault-brief.py
+      - scripts/session-wiki-brief.py
+      - scripts/wiki_lint_check.py
+      - scripts/loop-wiki-lint-host.sh
+      - scripts/session-orchestrator-check.py
+      - scripts/vault-emit-ci-failure.py
+      - scripts/session-vault-todo-query.py
+      - scripts/session-end-checkpoint.py
+      - scripts/session-resume-brief.py
+      - scripts/patch-agent-guardrails.py
+      - scripts/_engine/untrusted_text.py
+      - scripts/orchestrator-template-version
+      - scripts/vault-workspace-pointer.py
+      - scripts/eod-vault-emit.py
+      - scripts/vault-learning-watch.py
+      - scripts/backfill-vault-from-reports.py
+      - reports/vault/.gitkeep
+      - reports/sessions/workstreams.example.yaml
+      - scripts/backfill-allowed-tools.py
+      - scripts/reconcile-cache-caps.py
+      - scripts/generate-cache-sections.py
+      - scripts/cache_efficiency_lint.py
+      - scripts/mcp-host-stdio.sh
+      - scripts/git-push-secrets-guard.py
+      - scripts/setup-git-hooks.sh
+      - scripts/ensure-git-secrets-hooks.sh
+      - scripts/patch_ci_push_secrets_guard.py
+      - .gitguardian.yaml
+      # Multi-workstream session v2 runtime (slash /multi-workstream → these CLIs)
+      - scripts/workstream.py
+      - scripts/workstream_worktree.py
+      - scripts/workstream_guard.py
+      - scripts/workstream_prompts.py
+      - scripts/workstream_recommend.py
+      - scripts/workstream_graph_example.py
+      - scripts/sync-multi-workstream-surfaces.py
+
+  mcp:
+    description: Enterprise MCP server + multi-platform client examples (Grok/Cursor/Claude/Copilot/Gemini/ChatGPT)
+    directories:
+      - mcp-server
+    files:
+      - reports/mcp/.gitkeep
+      - .cursor/mcp.json
+      - .grok/config.toml
+      - .claude/mcp.claude.example.json
+      - .gemini/mcp.gemini.example.json
+      - .chatgpt/mcp.chatgpt.example.json
+      - .chatgpt/mcp.chatgpt.ddev.example.json
+      - scripts/ensure-mcp-host.sh
+      - scripts/mcp-host-stdio.sh
+      - scripts/mcp-ddev-stdio.sh
+      - scripts/mcp-smoke.sh
+
+  claude:
+    description: Claude Code commands and agents (run sync on source first)
+    directories:
+      - .claude/commands
+      - .claude/agents
+    files:
+      - CLAUDE.md
+      - .claude/README.md
+      - .claude/mcp.claude.example.json
+
+  copilot:
+    description: GitHub Copilot skills mirror (.copilot/skills)
+    directories:
+      - .copilot/skills
+    files:
+      - mcp-server/config/mcp.copilot.vscode.example.json
+
+  github:
+    description: GitHub Copilot agents, prompts, and skills (.github/)
+    directories:
+      - .github/skills
+      - .github/agents
+      - .github/prompts
+    files:
+      - .github/copilot-instructions.md
+      - .github/skills/README.md
+      - .github/prompts/README.md
+      - .github/AGENTS.md
+
+  gemini:
+    description: Gemini Gems, instructions, prompts and agents (tool use + best practices rollout)
+    directories:
+      - .gemini
+
+  chatgpt:
+    description: ChatGPT / OpenAI Codex surface (instructions, prompts, MCP examples)
+    directories:
+      - .chatgpt
+
+
+selection_overrides:
+  cache-spine:
+    allow_deploy_prefixes:
+      - docs/codebase/
+
+# Per-app deploy only: orchestrator init|upgrade (fleet wave tooling permanently removed).
+# Split registry (Option B): deploy registry.template.yaml only; app overlay stays on target.
+# compose-registry.py merges template + registry.app.yaml -> registry.yaml after deploy.
+# register-project-skills.py writes tier:app rows to registry.app.yaml. Never blind-copy
+# chains/registry.yaml or registry.app.yaml.
+
+# Never auto-copy (project-local state)
+never_deploy:
+  - chains/registry.app.yaml
+  - STATE.md
+  - loop-run-log.md
+  - TODO
+  - docs/codebase
+  # Manifests: HARD project-owned — deploy never overwrites (also enforced in
+  # is_never_deploy via is_protected_manifest_rel). New apps get a stack-aware
+  # seed/amend from manifest_bootstrap.ensure_project_manifest after profile resolve.
+  - .github/project-manifest.yaml
+  - .claude/project-manifest.yaml
+  - .grok/project-manifest.yaml
+  - .gemini/project-manifest.yaml
+  - .copilot/project-manifest.yaml
+  - .cursor/project-manifest.yaml
+  - .chatgpt/project-manifest.yaml
+  - .grok/deploy-state.json
+  - .grok/deploy-reports
+  - .grok/deploy-backups
+  - .copilot/memories
+
+# Reserved: paths that must never copy to app targets (empty after fleet wave removal).
+# is_orchestrator_only() still honors this list if repopulated for operator-only files.
+orchestrator_only: []
+
+# Scaffold only when missing (never conflict-prompt)
+scaffold_if_missing:
+  - reports/loops/.gitkeep
+  - reports/chains/.gitkeep
+  - reports/tokens/.gitkeep
+  - reports/bugs/.gitkeep
+  - reports/bugs/backups/.gitkeep
+  - reports/research/.gitkeep
+  - reports/sessions/.gitkeep
+  - reports/examples/agent-graphs/.gitkeep

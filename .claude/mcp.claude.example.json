@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "orchestrator-host": {
+      "command": "bash",
+      "args": ["scripts/mcp-host-stdio.sh"],
+      "cwd": "${workspaceFolder}"
+    }
+  }
+}

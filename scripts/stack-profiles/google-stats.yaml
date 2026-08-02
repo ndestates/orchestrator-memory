@@ -1,0 +1,38 @@
+# Stack profile: Google Stats sibling (Meta/Google ads Python automation)
+id: google-stats
+project_slug: google-stats
+project_title: Google Stats
+
+manifest_stack:
+  framework: generic
+  language: python
+  uses_database: false
+  database_engine: none
+
+name_replacements:
+  - - project
+    - google-stats
+  - - ndestates_io
+    - google_stats
+  - - facebook-stats
+    - google-stats
+  - - Facebook Stats
+    - Google Stats
+  - - NDestates IO
+    - Google Stats
+  - - ND Estates IO
+    - Google Stats
+
+stack_replacements:
+  - - "Laravel 12 + Filament 5 + Livewire"
+    - "Python automation + Flask/PHP web layer (Google/Meta ads scripts)"
+  - - "Laravel e-sign platform"
+    - "Google/Meta ads analytics and automation platform"
+  - - "Pest preferred"
+    - "pytest preferred"
+  - - "./vendor/bin/pest"
+    - "python run_tests.py"
+  - - "ddev exec php artisan test"
+    - "ddev exec python run_tests.py"
+
+file_overrides: []

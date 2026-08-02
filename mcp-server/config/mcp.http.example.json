@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "orchestrator-remote": {
+      "url": "http://127.0.0.1:8090/mcp",
+      "headers": {
+        "Authorization": "Bearer ${ORCHESTRATOR_MCP_API_KEY}"
+      }
+    }
+  }
+}

@@ -1,0 +1,3242 @@
+version: 2
+skills:
+- id: web-cache-expert
+  slash: /web-cache-expert
+  path: .grok/skills/web-cache-expert/SKILL.md
+  tier: shared
+  description: Website image/document/HTTP/CDN cache architecture and refresh (not AI token cache)
+- id: model-route
+  slash: /model-route
+  path: .grok/skills/model-route/SKILL.md
+  tier: shared
+  description: Suggest free open-source (Ollama) LLMs for low-tier tasks; offer stay|oss|install-oss|free-cloud
+- id: always-on-memory
+  slash: /always-on-memory
+  path: .grok/skills/always-on-memory/SKILL.md
+  description: Always-on memory ingest/consolidate/query using full model catalog + agent roster
+- id: multi-workstream
+  slash: /multi-workstream
+  path: .grok/skills/multi-workstream/SKILL.md
+  tier: shared
+  description: Multi-workstream tracks + agent graph diamond demo (slash-first UX)
+- id: webmcp-beta
+  slash: /webmcp-beta
+  path: .grok/skills/webmcp-beta/SKILL.md
+  tier: shared
+  description: Beta WebMCP browser page tools (navigator.modelContext) — not host MCP;
+    experimental Chrome OT/flag
+- id: script-not-shell
+  slash: /script-not-shell
+  path: .grok/skills/script-not-shell/SKILL.md
+  tier: orchestrator
+  description: Write script files instead of inline shell; avoids heredoc/escaping
+    failures
+- id: chain
+  slash: /chain
+  path: .grok/skills/chain/SKILL.md
+  tier: orchestrator
+  description: On-demand skill/prompt chains from this registry
+- id: cache-efficient
+  slash: /cache-efficient
+  path: .grok/skills/cache-efficient/SKILL.md
+  tier: orchestrator
+  description: Lean cache-first responses; default token mode
+- id: session-resume
+  slash: /session-resume
+  path: .grok/skills/session-resume/SKILL.md
+  tier: orchestrator
+  description: Resume-first gate — trust fresh resume card; skip redundant TODO/STATE reads
+- id: ai-content-guardrails
+  slash: /ai-content-guardrails
+  path: .grok/skills/ai-content-guardrails/SKILL.md
+  tier: orchestrator
+  description: Defense in depth — prompt injection, PII leakage, toxic content (all agents)
+- id: token-usage-meter
+  slash: /token-usage-meter
+  path: .grok/skills/token-usage-meter/SKILL.md
+  tier: orchestrator
+  description: Always-on token monitor with USD cost analysis, session log, and cache
+    miss warnings
+- id: load-project-cache-first
+  slash: /load-project-cache-first
+  path: .grok/skills/load-project-cache-first/SKILL.md
+  tier: orchestrator
+  description: Master cache loader (docs/codebase + TODO + memories)
+- id: cache-freshness-check
+  slash: /cache-freshness-check
+  path: .grok/skills/cache-freshness-check/SKILL.md
+  tier: orchestrator
+  description: Check docs/codebase cache age and branch drift; advise refresh
+- id: changelog-specialist
+  slash: /changelog-specialist
+  path: .grok/skills/changelog-specialist/SKILL.md
+  tier: orchestrator
+  description: Session changelog log, CHANGELOG.md consolidate, EOD PR body
+- id: code-review
+  slash: /code-review
+  path: .grok/skills/code-review/SKILL.md
+  tier: shared
+  description: Diff-scoped review wiring process + stack lens + existing strict
+    code-review skill (code judo); local-orchestrator aware
+- id: daily-standup-with-cache
+  slash: /daily-standup-with-cache
+  path: .grok/skills/daily-standup-with-cache/SKILL.md
+  tier: orchestrator
+  description: Daily session briefing from cache + TODO
+- id: daily-standup
+  slash: /daily-standup
+  path: .grok/skills/daily-standup/SKILL.md
+  tier: orchestrator
+  description: Alias for daily-standup-with-cache; fetch + latest remote branch before
+    cache + TODO briefing
+- id: loop-triage
+  slash: /loop-triage
+  path: .grok/skills/loop-triage/SKILL.md
+  tier: orchestrator
+  description: L1 loop triage (cache-first, report-only)
+- id: loop-verifier
+  slash: /loop-verifier
+  path: .grok/skills/loop-verifier/SKILL.md
+  tier: orchestrator
+  description: Independent loop artifact verifier
+- id: loop-engineering
+  slash: /loop-engineering
+  path: .grok/skills/loop-engineering/SKILL.md
+  tier: orchestrator
+  description: Loop maturity, patterns, loop-audit.sh
+- id: app-compound-gate
+  slash: /app-compound-gate
+  path: .grok/skills/app-compound-gate/SKILL.md
+  tier: orchestrator
+  description: Per-app compound gate at session-start (STATE/VISION load, close SCAFFOLD)
+- id: llm-wiki
+  slash: /llm-wiki
+  path: .grok/skills/llm-wiki/SKILL.md
+  tier: orchestrator
+  description: Karpathy LLM wiki — ingest, query, lint (wiki_policy)
+- id: loop-compound
+  slash: /loop-compound
+  path: .grok/skills/loop-compound/SKILL.md
+  tier: orchestrator
+  description: Compound learning closure (steps 10–14); lessons to STATE + gates
+- id: ddev-cleanup
+  slash: /ddev-cleanup
+  path: .grok/skills/ddev-cleanup/SKILL.md
+  tier: orchestrator
+  description: End-of-day cleanup, TODO, commit, branch reposition
+- id: git-workflow-guardrails
+  slash: /git-workflow-guardrails
+  path: .grok/skills/git-workflow-guardrails/SKILL.md
+  tier: shared
+  description: Safe commit, push, PR, tag with guardrails
+- id: acquire-codebase-knowledge
+  slash: /acquire-codebase-knowledge
+  path: .grok/skills/acquire-codebase-knowledge/SKILL.md
+  tier: shared
+  description: Full codebase map + stack detection + seven docs/codebase/ cache files
+    (canonical)
+- id: read-codebase
+  slash: /read-codebase
+  path: .grok/skills/read-codebase/SKILL.md
+  tier: shared
+  description: Alias for acquire-codebase-knowledge (backward-compatible cache refresh)
+- id: ai-engineering-maturity
+  slash: /ai-engineering-maturity
+  path: .grok/skills/ai-engineering-maturity/SKILL.md
+  tier: shared
+  description: 8 stages AI engineering maturity framework
+- id: github-expert
+  slash: /github-expert
+  path: .grok/skills/github-expert/SKILL.md
+  tier: shared
+  description: GitHub Actions, workflows, PRs
+- id: github-workflow-expert
+  slash: /github-workflow-expert
+  path: .grok/skills/github-workflow-expert/SKILL.md
+  tier: shared
+  description: Programmatic workflow CRUD and secrets via gh CLI
+- id: github-ci-readiness-expert
+  slash: /github-ci-readiness-expert
+  path: .grok/skills/github-ci-readiness-expert/SKILL.md
+  tier: shared
+  description: Branch CI/CD readiness — workflow triggers, secrets, Node 24, per-wave
+    project gates; READY/CONDITIONAL/BLOCKED before push
+- id: branch-context-agent
+  slash: /branch-context-agent
+  path: .grok/skills/branch-context-agent/SKILL.md
+  tier: shared
+  description: Branch scope vs TODO alignment
+- id: todo-specialist-agent
+  slash: /todo-specialist-agent
+  path: .grok/skills/todo-specialist-agent/SKILL.md
+  tier: shared
+  description: TODO file maintenance
+- id: readme-specialist
+  slash: /readme-specialist
+  path: .grok/skills/readme-specialist/SKILL.md
+  tier: shared
+  description: README and docs polish
+- id: documentation-specialist
+  slash: /documentation-specialist
+  path: .grok/skills/documentation-specialist/SKILL.md
+  tier: orchestrator
+  description: GitHub Docs-style doc site + cache; chains; no secrets/trade secrets/coding
+    tips
+- id: docx
+  slash: /docx
+  path: .grok/skills/docx/SKILL.md
+  tier: shared
+  description: Create, read, edit, manipulate .docx Word documents (docx-js creation,
+    unpack/edit/pack XML, pandoc, LibreOffice conversion, tracked changes, TOC, etc.)
+- id: research-deep-dive
+  slash: /research-deep-dive
+  path: .grok/skills/research-deep-dive/SKILL.md
+  tier: orchestrator
+  description: External-topic research memo (perspective Q&A, no default web, no STORM)
+- id: orchestrator-deploy
+  slash: /orchestrator-deploy
+  path: .grok/skills/orchestrator-deploy/SKILL.md
+  tier: orchestrator
+  description: Deploy .grok + root chains to target; overwrite/skip/merge on conflict
+- id: template-decontaminate
+  slash: /template-decontaminate
+  path: .grok/skills/template-decontaminate/SKILL.md
+  tier: orchestrator
+  description: Post-deploy pre-commit gate; rename to project + hard-gate scan for
+    template residue
+- id: bug-hunter-agent
+  slash: /bug-hunter-agent
+  path: .grok/skills/bug-hunter-agent/SKILL.md
+  tier: shared
+  description: Comprehensive bug and weakness hunter; fix or suggest patches with
+    tests
+- id: cyber-security-essentials
+  slash: /cyber-security-essentials
+  path: .grok/skills/cyber-security-essentials/SKILL.md
+  tier: shared
+  description: UK NCSC Cyber Essentials assessor for code, config, and CI
+- id: qa-agent
+  slash: /qa-agent
+  path: .grok/skills/qa-agent/SKILL.md
+  tier: shared
+  description: Full QA agent - reusable general structure + project specializations
+    (example facebook-stats). Functional correctness, test adequacy, maintainability,
+    domain risks, safety gates, sign-off reports (READY/CONDITIONAL/BLOCKED).
+chains:
+- id: wiki-lint-watch
+  name: Wiki Lint Watch
+  description: >
+    L1 wiki health (wiki_lint_check + host snapshot) then loop-verifier.
+    Report-only; manual until scheduled.
+  intents:
+  - wiki lint watch
+  - wiki-lint-watch
+  - weekly wiki lint
+  token_tier: low
+  max_steps: 3
+  cache_files_required:
+  - wiki/index.md
+  - wiki/log.md
+  - STATE.md
+  - LOOP.md
+  max_cache_files: 2
+  steps:
+  - id: host
+    type: skill
+    invoke: llm-wiki
+    skill_args: >
+      lint host — bash scripts/loop-wiki-lint-host.sh; python3 scripts/wiki_lint_check.py
+      --json; write reports/loops/YYYY-MM-DD-wiki-lint.md with findings; L1 no auto-fix
+    required: true
+    handoff: report_path
+  - id: verify
+    type: skill
+    invoke: loop-verifier
+    required: true
+    handoff: verifier_result
+- id: wiki-ingest
+  name: Wiki Ingest
+  description: >
+    Ingest one raw source into the LLM wiki (propose multi-page updates,
+    index + log). L1 approval for writes; dual-write vault when accepted.
+  intents:
+  - wiki ingest
+  - ingest wiki
+  - llm wiki ingest
+  - karpathy ingest
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - wiki/index.md
+  - docs/codebase/README.md
+  max_cache_files: 2
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: spine + wiki_policy; if mode off stop; load wiki/index.md headings only
+    required: true
+    handoff: cache_loaded
+  - id: ingest
+    type: skill
+    invoke: llm-wiki
+    skill_args: >
+      ingest — path from user args or latest raw drop; compress-or-skip;
+      propose ≤15 files; require_approval_for_writes; update index+log;
+      dual_write_vault when accepted; never edit committed raw sources
+    required: true
+    handoff: ingest_result
+- id: wiki-query
+  name: Wiki Query
+  description: >
+    Answer a question from the wiki (index-first, capped pages). Optional file-back.
+  intents:
+  - wiki query
+  - ask wiki
+  - llm wiki query
+  - query knowledge wiki
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - wiki/index.md
+  max_cache_files: 2
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: wiki_policy + wiki/index.md only when mode lean|full
+    required: true
+    handoff: cache_loaded
+  - id: query
+    type: skill
+    invoke: llm-wiki
+    skill_args: >
+      query — index first; max_wiki_pages_per_session; cite paths;
+      confidence strong|moderate|weak; offer file-answer
+    required: true
+    handoff: query_result
+- id: wiki-lint
+  name: Wiki Lint
+  description: >
+    L1 health check of the LLM wiki (contradictions, orphans, stale sources).
+    Report-only; no auto-fix.
+  intents:
+  - wiki lint
+  - lint wiki
+  - wiki health
+  - llm wiki lint
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - wiki/index.md
+  - wiki/log.md
+  max_cache_files: 2
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: wiki index + log tail + open-questions; mode must not be off
+    required: true
+    handoff: cache_loaded
+  - id: lint
+    type: skill
+    invoke: llm-wiki
+    skill_args: >
+      lint — report-only; broken links, orphans, missing concepts, stale raw
+      paths; update contradictions/open-questions only with approval
+    required: true
+    handoff: lint_result
+- id: always-on-memory
+  name: Always-On Memory
+  description: |
+    Ingest/consolidate/query persistent memory using full model-route catalog
+    and project agent roster (Google always-on pattern).
+  intents:
+  - always-on memory
+  - always-on-memory
+  - memory agent
+  - memory query
+  - consolidate memories
+  - memory ingest
+  token_tier: low
+  max_steps: 6
+  cache_files_required:
+  - docs/guides/always-on-memory.md
+  - TODO/
+  - STATE.md
+  max_cache_files: 2
+  steps:
+  - id: status
+    type: skill
+    invoke: always-on-memory
+    skill_args: |
+      python3 scripts/memory_agent.py status; python3 scripts/memory_agent.py models | head;
+      python3 scripts/memory_agent.py agents | head — cite catalog totals and agent count.
+    required: true
+    handoff: memory_status
+  - id: seed
+    type: skill
+    invoke: always-on-memory
+    skill_args: |
+      If store empty or user wants truth snapshot: python3 scripts/memory_agent.py seed-situation.
+    required: false
+    handoff: seeded
+  - id: action
+    type: skill
+    invoke: always-on-memory
+    skill_args: |
+      Run user verb: ingest|query|consolidate|serve. Default query "what is open next?".
+      Use full model catalog picks; route agents via memory_agents.
+    required: true
+    handoff: memory_result
+  - id: brief
+    type: skill
+    invoke: always-on-memory
+    skill_args: python3 scripts/session-memory-brief.py — print situation + picks.
+    required: false
+    handoff: memory_brief
+
+- id: session-start
+  name: Session Start
+  description: 'Auto-switch remote_last (clean tree) → check+resume-card always → envelope
+    → security sweep → lean cache (0 when card fresh) → compound gate → working mode
+
+    '
+  intents:
+  - session start
+  - session-start
+  - start session
+  - daily
+  - standup
+  - morning
+  - what should I work on
+  token_tier: low
+  max_steps: 13
+  cache_files_required:
+  - docs/codebase/README.md
+  - docs/codebase/SECTIONS.md
+  - docs/codebase/CONCERNS.md
+  - TODO/
+  - .grok/memories/INDEX.md
+  - STATE.md
+  - VISION.md
+  - wiki/index.md
+  - reports/memory/
+  max_cache_files: 2
+  steps:
+  - id: resume-first
+    type: skill
+    invoke: session-resume
+    skill_args: 'REQUIRED FIRST — python3 scripts/session-context-envelope.py --write
+      (auto-switches to remote_last when clean via resume-branch --apply). ALWAYS run
+      session-resume-brief.py check --json and print card when present (even if stale).
+      When resume_first=yes: lean path (card authoritative). When no: full session-start
+      but still surface check+card. Dirty tree blocks switch — commit/stash first.
+      Cite docs/reference/session-context-token-budget.md.
+
+      '
+    required: true
+    handoff: resume_context
+  - id: envelope
+    type: skill
+    invoke: session-context-envelope
+    skill_args: 'Mint fixed-size context: python3 scripts/session-context-envelope.py --write.
+      Default applies remote_last switch. Print compact + always surface check/card ask.
+      ALWAYS surface orch kind/offer (automatic upgrade check — offer only, never auto-apply).
+      expand on red, blocked_dirty, or orch_upgrade. All platforms: .grok .claude .copilot .gemini .cursor.
+
+      '
+    required: true
+    handoff: session_envelope
+  - id: standup
+    type: skill
+    invoke: daily-standup-with-cache
+    skill_args: 'Honor session_envelope — do NOT re-run detect/identity/vault dumps if envelope
+      present. Always surface check+card from resume. When resume_first=yes: envelope is
+      the briefing. When resume_first=no: full depth if needed. Auto-switch already done
+      by envelope (remote_last when clean). MCP get_project_manifest only when mcp=yes;
+      session-wiki-brief index-only; Do NOT sync-all-projects.sh; warn when local_llm_ready=no
+
+      '
+    required: true
+    handoff: priorities
+  - id: security-hygiene
+    type: skill
+    invoke: cyber-security-essentials
+    skill_args: 'LEAN session standard — bash scripts/session-security-sweep.sh (default:
+      **this app only** — secrets guard + CSE; does NOT scan ~/projects; opt-in fleet
+      with --all-repos); writes reports/security/session-sweep-YYYY-MM-DD.md; MUST
+      cite report_path + overall=PASS|WARN|FAIL and findings summary in the user briefing
+      (security sweep report is mandatory); CSE is gap-only/static not full certification;
+      offer /chain cyber-essentials-review when cse_warns>0; report-only — no auto-fix;
+      skip deep source reads
+
+      '
+    required: true
+    handoff: security_status
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: When resume_context.resume_first=yes use max_cache_files from check
+      (0 or 1 if cache caveat); skip TODO/STATE/VISION spine reads. Otherwise MCP-first;
+      max 2 cache files; grep SECTIONS.md; .codebase-freshness.txt only — never .codebase-scan.txt
+    required: true
+    handoff: cache_loaded
+  - id: wiki-brief
+    type: skill
+    invoke: llm-wiki
+    skill_args: session-brief — python3 scripts/session-wiki-brief.py; surface mode +
+      log tail + open questions only when mode lean|full; skip silently when off
+    required: false
+    when: wiki_mode_lean_or_full
+    handoff: wiki_status
+  - id: memory-brief
+    type: skill
+    invoke: always-on-memory
+    skill_args: |
+      REQUIRED lean situation — python3 scripts/session-memory-brief.py --seed when store
+      empty else without --seed. Surface stats + model/agent picks + situation answer.
+      Memory is SSOT for where-we-are when seeded; do not brief solely from stale
+      feature-branch TODO. Cite docs/guides/always-on-memory.md. Host: orchestrator memory brief.
+    required: true
+    handoff: memory_status
+  - id: compound-gate
+    type: skill
+    invoke: app-compound-gate
+    skill_args: Skip when resume_first=yes unless user asks. Else python3 scripts/app_compound_gate.py
+      --json; if action close_compound run --close; GAP/partial offer scaffold only
+    required: false
+    when: loop_enabled_app
+    handoff: compound_status
+  - id: changelog-init
+    type: skill
+    invoke: changelog-specialist
+    skill_args: init — changelog_update.py init; skip when token meter WARNING/CRITICAL
+      unless unreleased_total > 0
+    required: false
+    when: token_context_ok_or_unreleased
+    handoff: changelog_ready
+  - id: meter
+    type: skill
+    invoke: token-usage-meter
+    skill_args: session-start sync — token_monitor.py --sync; one-line meter in briefing;
+      if WARNING/CRITICAL apply auto-lean rules from cache-efficient
+    required: false
+    handoff: token_summary
+  - id: model-route-offer
+    type: skill
+    invoke: model-route
+    skill_args: >
+      OPTIONAL once per session — python3 scripts/model-route-suggest.py
+      --task "session-start lean work" --chain-id session-start --platform grok.
+      If demand=low and offer=yes: print compact model_route lines and ask
+      stay|oss|install-oss|free-cloud. Open-source first (Ollama). Never silent-switch.
+      Skip when demand=high or ORCHESTRATOR_MODEL_ROUTE_OFFER=0.
+      Cite docs/guides/model-route-free-oss.md.
+    required: false
+    when: low_tier_or_lean_session
+    handoff: model_offer
+  - id: tone
+    type: skill
+    invoke: cache-efficient
+    skill_args: default working mode; if meter WARNING skip optional cache loads this
+      session
+    required: false
+    handoff: working_mode
+- id: token-monitor
+  name: Token Monitor
+  description: Sync Grok session context size, log trends, warn on bloat and cache
+    misses
+  intents:
+  - token usage
+  - token meter
+  - token monitor
+  - cache efficiency
+  - monitor tokens
+  - how many tokens
+  token_tier: low
+  max_steps: 1
+  cache_files_required:
+  - reports/tokens/latest-summary.json
+  max_cache_files: 2
+  steps:
+  - id: meter
+    type: skill
+    invoke: token-usage-meter
+    skill_args: full sync + report — token_monitor.py --sync and --report; surface
+      warnings
+    required: true
+    handoff: token_report
+- id: loop-daily
+  name: Loop Daily Triage
+  description: L1 triage report then verifier gate
+  intents:
+  - loop triage
+  - daily triage
+  - loop report
+  - STATE.md
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - LOOP.md
+  - STATE.md
+  - loop-budget.md
+  - docs/codebase/CONCERNS.md
+  - TODO/
+  max_cache_files: 2
+  steps:
+  - id: triage
+    type: skill
+    invoke: loop-triage
+    required: true
+    handoff: report_path
+  - id: verify
+    type: skill
+    invoke: loop-verifier
+    required: true
+    handoff: verifier_result
+- id: cache-freshness-watch
+  name: Cache Freshness Watch
+  description: L1 cache staleness report then verifier gate
+  intents:
+  - cache freshness
+  - cache stale
+  - cache watch
+  - refresh cache
+  - codebase scan stale
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/.codebase-freshness.txt
+  - docs/codebase/README.md
+  - STATE.md
+  - loop-budget.md
+  max_cache_files: 2
+  steps:
+  - id: check
+    type: skill
+    invoke: cache-freshness-check
+    skill_args: run checker per patterns/cache-freshness-watch.md; write reports/loops/YYYY-MM-DD-cache-freshness.md
+    required: true
+    handoff: freshness_report
+  - id: verify
+    type: skill
+    invoke: loop-verifier
+    required: true
+    handoff: verifier_result
+- id: chain-health-watch
+  name: Chain Health Watch
+  description: L1 chain registry audit report then verifier gate
+  intents:
+  - chain health
+  - chain audit
+  - registry audit
+  - broken chain
+  - chains registry
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - chains/registry.yaml
+  - CHAIN.md
+  - STATE.md
+  - loop-budget.md
+  max_cache_files: 2
+  steps:
+  - id: audit
+    type: skill
+    invoke: loop-engineering
+    skill_args: chain/registry scope only — chain-audit.sh + report per patterns/chain-health-watch.md
+    required: true
+    handoff: chain_report
+  - id: verify
+    type: skill
+    invoke: loop-verifier
+    required: true
+    handoff: verifier_result
+- id: github-ci-watch
+  name: GitHub CI Watch
+  description: L1 GitHub Actions health report then verifier gate
+  intents:
+  - github ci watch
+  - workflow health
+  - failed workflow runs
+  - actions audit
+  - ci watch
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - STATE.md
+  - LOOP.md
+  max_cache_files: 2
+  steps:
+  - id: ci
+    type: skill
+    invoke: github-workflow-expert
+    skill_args: L1 report only per patterns/github-ci-watch.md; names not values for
+      secrets
+    required: true
+    handoff: ci_report
+  - id: verify
+    type: skill
+    invoke: loop-verifier
+    required: true
+    handoff: verifier_result
+- id: repo-health-watch
+  name: Repo Health Watch
+  description: L1 branch/PR hygiene report then verifier gate
+  intents:
+  - repo health watch
+  - branch hygiene watch
+  - weekly repo health
+  - stale branches
+  - branch divergence
+  token_tier: low
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/INTEGRATIONS.md
+  - STATE.md
+  - loop-budget.md
+  max_cache_files: 2
+  steps:
+  - id: github
+    type: skill
+    invoke: github-expert
+    skill_args: L1 report only per patterns/repo-health-watch.md; branch/PR/working-tree
+      hygiene
+    required: true
+    handoff: repo_report
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: L1 branch gates only per patterns/repo-health-watch.md; no commit
+      or push
+    required: true
+    handoff: branch_gate
+  - id: verify
+    type: skill
+    invoke: loop-verifier
+    required: true
+    handoff: verifier_result
+- id: delivery
+  name: Safe Delivery
+  description: Branch alignment → diff-scoped code review → git guardrails → tests
+    when code changed
+  intents:
+  - commit
+  - push
+  - PR
+  - deliver
+  - merge
+  - release
+  token_tier: medium
+  max_steps: 5
+  cache_files_required:
+  - TODO/
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  max_cache_files: 3
+  steps:
+  - id: branch
+    type: skill
+    invoke: branch-context-agent
+    required: true
+    handoff: branch_scope
+  - id: review
+    type: skill
+    invoke: code-review
+    skill_args: standard; DIFF ONLY; code-health bar; stack lens; ALWAYS apply
+      references/strict-maintainability.md (existing code-review skill); report-only;
+      no fixes in delivery
+    required: false
+    when: code_changed
+    handoff: review_findings
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    required: true
+    handoff: delivery_gate
+  - id: test-safety
+    type: skill
+    invoke: test-safety-agent
+    required: false
+    when: code_changed
+    handoff: test_db_ok
+  - id: tests
+    type: skill
+    invoke: test-specialist-agent
+    required: false
+    when: code_changed
+    handoff: test_plan
+- id: code-review
+  name: Code Review (diff-scoped)
+  description: Code-health quality gate on the working diff — process + stack lens
+    + existing strict code-review skill (code judo); security when auth/secrets change.
+    Report-only.
+  origin: custom
+  registered: 2026-06-24
+  intents:
+  - code review
+  - review code
+  - review the diff
+  - review my changes
+  - review changes
+  - pre-commit review
+  - review before commit
+  token_tier: low
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/CONVENTIONS.md
+  - docs/reference/code_review_article.md
+  max_cache_files: 2
+  steps:
+  - id: review
+    type: skill
+    invoke: code-review
+    skill_args: 'standard; DIFF ONLY vs origin/develop or origin/master or HEAD; process
+      from docs/reference/code_review_article.md; stack lens from manifest; ALWAYS apply
+      existing strict code-review skill via references/strict-maintainability.md; local-orchestrator
+      checks when template/CLI paths change; write reports/reviews/; report-only; handoff
+      strict_skill=applied; verdict APPROVE|REQUEST_CHANGES|COMMENT
+
+      '
+    required: true
+    handoff: review_findings
+  - id: defects
+    type: skill
+    invoke: bug-hunter-agent
+    skill_args: scan; scope=DIFF ONLY — only if review handoff has blocking/high or
+      user asked deep; report-only, no fixes
+    required: false
+    when: deep_or_blocking_findings
+    handoff: defect_findings
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    skill_args: spot-check the diff only — auth, secrets, permissions, injection;
+      names not values
+    required: false
+    when: auth_or_secrets_or_permissions_touched
+    handoff: security_findings
+- id: push-secrets-guard
+  name: Push Secrets Guard
+  description: GitHub posture review → git guardrails with mandatory secrets/env pre-push
+    hooks (GitGuardian-safe)
+  origin: custom
+  registered: 2026-06-20
+  intents:
+  - push secrets
+  - gitguardian
+  - pre-push guard
+  - env files push
+  - secrets guard
+  - no secrets push
+  - github expert guardrails
+  token_tier: medium
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/CONVENTIONS.md
+  - .gitguardian.yaml
+  max_cache_files: 3
+  steps:
+  - id: github
+    type: skill
+    invoke: github-expert
+    skill_args: verify hooks, GitGuardian posture, and pre-push secrets/env guard
+      before any push
+    required: true
+    handoff: github_posture
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: install hooks, run secrets guard on staged/outgoing commits, then
+      commit/push only when green
+    required: true
+    handoff: delivery_gate
+- id: promote-master
+  name: Promote Master
+  description: Audit develop → sync master conflicts → merge develop to master via
+    PR
+  origin: custom
+  registered: 2026-06-17
+  intents:
+  - promote master
+  - develop to master
+  - merge develop into master
+  - master promotion
+  - promote to production
+  - merge develop
+  token_tier: medium
+  max_steps: 4
+  cache_files_required:
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - TODO/
+  max_cache_files: 3
+  promotion_policy:
+    source_branch: develop
+    target_branch: master
+    require_pr: true
+    pre_merge_sync: merge_master_into_develop
+    conflict_resolution: prefer_source
+    restore_branch: true
+    audit_scripts:
+    - bash scripts/chain-audit.sh
+    - python3 scripts/check_name_alignment.py
+    - bash scripts/loop-audit.sh
+  steps:
+  - id: branch
+    type: skill
+    invoke: branch-context-agent
+    required: true
+    handoff: develop_scope
+  - id: gates
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: run audit gates on develop before promotion
+    required: true
+    handoff: gates_pass
+  - id: github
+    type: skill
+    invoke: github-expert
+    skill_args: sync master into develop if PR blocked; open or update promotion PR
+    required: true
+    handoff: pr_ready
+  - id: promote
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: merge develop into master via PR; restore workspace branch
+    required: true
+    handoff: master_merged
+- id: migration-safe
+  name: Migration Safe
+  description: Schema check → audit → test safety → engine → Laravel models (when
+    laravel)
+  intents:
+  - migration
+  - schema
+  - database change
+  - alter table
+  - model drift
+  token_tier: medium
+  max_steps: 7
+  cache_files_required:
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  max_cache_files: 3
+  steps:
+  - id: check
+    type: prompt
+    invoke: model-schema-check
+    required: true
+    handoff: drift_summary
+  - id: audit
+    type: skill
+    invoke: schema-audit-agent
+    required: true
+    handoff: audit_findings
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: true
+    handoff: test_db_ok
+  - id: mysql
+    type: skill
+    invoke: mysql-database-expert
+    required: false
+    when: mysql_engine
+    handoff: migration_plan
+  - id: mariadb
+    type: skill
+    invoke: mariadb-database-expert
+    required: false
+    when: mariadb_engine
+    handoff: migration_plan
+  - id: sqlite
+    type: skill
+    invoke: sqlite-database-expert
+    required: false
+    when: sqlite_engine
+    handoff: migration_plan
+  - id: laravel
+    type: skill
+    invoke: laravel-expert-agent
+    required: false
+    when: laravel_project
+    skill_args: migrations, Eloquent models, factories, relationships per engine plan
+    handoff: model_migration_plan
+  - id: filament
+    type: skill
+    invoke: filament-panel-review
+    required: false
+    when: filament_project
+    handoff: panel_schema_notes
+- id: database-design
+  name: Database Design
+  description: Data architect ER design → schema audit → engine expert (manifest-driven).
+    Cache-first.
+  origin: custom
+  registered: 2026-06-21
+  intents:
+  - database design
+  - schema design
+  - ER diagram
+  - data model
+  - mermaid er
+  - normalise schema
+  - improve database
+  - greenfield database
+  - laravel schema
+  - eloquent model
+  token_tier: medium
+  max_steps: 8
+  cache_files_required:
+  - docs/codebase/ARCHITECTURE.md
+  - docs/codebase/CONVENTIONS.md
+  max_cache_files: 3
+  steps:
+  - id: architect
+    type: skill
+    invoke: data-architect-expert
+    required: true
+    handoff: design_package
+  - id: model_check
+    type: prompt
+    invoke: model-schema-check
+    required: false
+    when: laravel_project
+    handoff: drift_summary
+  - id: audit
+    type: skill
+    invoke: schema-audit-agent
+    required: false
+    when: existing_schema
+    handoff: audit_findings
+  - id: laravel
+    type: skill
+    invoke: laravel-expert-agent
+    required: false
+    when: laravel_project
+    skill_args: migrations, models, factories from design_package
+    handoff: laravel_schema_plan
+  - id: mysql_impl
+    type: skill
+    invoke: mysql-database-expert
+    required: false
+    when: mysql_engine
+    handoff: implementation_plan
+  - id: mariadb_impl
+    type: skill
+    invoke: mariadb-database-expert
+    required: false
+    when: mariadb_engine
+    handoff: implementation_plan
+  - id: sqlite_impl
+    type: skill
+    invoke: sqlite-database-expert
+    required: false
+    when: sqlite_engine
+    handoff: implementation_plan
+  - id: filament
+    type: skill
+    invoke: filament-panel-review
+    required: false
+    when: filament_project
+    handoff: panel_findings
+- id: laravel-database-design
+  name: Laravel Database Design
+  description: Full stack DB design — architect → model check → Laravel → engine →
+    Filament. Cache-first.
+  origin: custom
+  registered: 2026-06-21
+  intents:
+  - laravel database
+  - filament schema
+  - eloquent design
+  - model migration
+  - database with filament
+  - laravel ER diagram
+  token_tier: high
+  max_steps: 8
+  cache_files_required:
+  - docs/codebase/ARCHITECTURE.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  max_cache_files: 4
+  steps:
+  - id: architect
+    type: skill
+    invoke: data-architect-expert
+    required: true
+    handoff: design_package
+  - id: model_check
+    type: prompt
+    invoke: model-schema-check
+    required: true
+    handoff: drift_summary
+  - id: audit
+    type: skill
+    invoke: schema-audit-agent
+    required: false
+    when: existing_schema
+    handoff: audit_findings
+  - id: laravel
+    type: skill
+    invoke: laravel-expert-agent
+    required: true
+    handoff: migrations_models_plan
+  - id: mysql_impl
+    type: skill
+    invoke: mysql-database-expert
+    required: false
+    when: mysql_engine
+    handoff: ddl_plan
+  - id: mariadb_impl
+    type: skill
+    invoke: mariadb-database-expert
+    required: false
+    when: mariadb_engine
+    handoff: ddl_plan
+  - id: sqlite_impl
+    type: skill
+    invoke: sqlite-database-expert
+    required: false
+    when: sqlite_engine
+    handoff: ddl_plan
+  - id: filament
+    type: skill
+    invoke: filament-panel-review
+    required: false
+    when: filament_project
+    handoff: resource_alignment
+- id: vector-db-assess
+  name: Vector DB Fit Assessment
+  description: Assess whether project benefits from vector DB — report-only recommendation.
+    Cache-first.
+  origin: custom
+  registered: 2026-06-21
+  intents:
+  - need vector database
+  - vector db assessment
+  - should we use embeddings
+  - rag feasibility
+  - semantic search fit
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/ARCHITECTURE.md
+  max_cache_files: 2
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: assess
+    type: skill
+    invoke: vector-database-expert
+    skill_args: phase=fit-assessment only; no store selection until adopt
+    required: true
+    handoff: vector_recommended
+- id: vector-db-setup
+  name: Vector DB Setup
+  description: Vector store selection, RAG schema, hybrid search — cache-first; optional
+    ER via data-architect
+  origin: custom
+  registered: 2026-06-21
+  intents:
+  - vector database
+  - embeddings
+  - rag schema
+  - pgvector
+  - qdrant
+  - pinecone
+  - semantic search
+  - hybrid search
+  token_tier: medium
+  max_steps: 6
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/CONCERNS.md
+  max_cache_files: 3
+  steps:
+  - id: assess
+    type: skill
+    invoke: vector-database-expert
+    skill_args: phase=fit-assessment first
+    required: true
+    handoff: vector_recommended
+  - id: architect
+    type: skill
+    invoke: data-architect-expert
+    required: false
+    when: vector_recommended
+    handoff: rag_er_diagram
+  - id: vector
+    type: skill
+    invoke: vector-database-expert
+    required: false
+    when: vector_recommended
+    skill_args: phase=design and implementation
+    handoff: vector_store_plan
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: false
+    when: pii_in_embeddings
+    handoff: security_findings
+  - id: laravel
+    type: skill
+    invoke: laravel-expert-agent
+    required: false
+    when: laravel_project
+    handoff: rag_integration_plan
+  - id: engine
+    type: skill
+    invoke: mysql-database-expert
+    required: false
+    when: mysql_engine
+    handoff: relational_schema
+- id: security-flywheel
+  name: Security Flywheel
+  description: |
+    Chrome-style find→triage→fix→ship→prevent status (template + apps).
+    Same lifecycle as ndestates/lightstone interdependent flywheel. Report-first.
+  intents:
+  - security flywheel
+  - chrome security style
+  - find triage fix ship
+  - security lifecycle
+  - flywheel status
+  - stronger with every update
+  - flywheel peers
+  token_tier: medium
+  max_steps: 5
+  cache_files_required:
+  - SECURITY.md
+  - docs/guides/security-flywheel.md
+  - docs/reference/stronger-with-every-update.md
+  - TODO/
+  max_cache_files: 4
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: spine + SECURITY.md + security-flywheel + stronger-with-every-update; no source until confirmed
+    required: true
+    handoff: cache_loaded
+  - id: status
+    type: skill
+    invoke: script-not-shell
+    skill_args: |
+      run bash scripts/security-flywheel-status.sh (add --peers when ndestates/lightstone
+      interdependence matters); cite report_path; map FAIL→S0/S1 WARN→S2. Optional:
+      orchestrator memory ingest --text "flywheel RESULT=..." --source flywheel
+    required: true
+    handoff: flywheel_status
+  - id: ce
+    type: skill
+    invoke: cyber-security-essentials
+    skill_args: lean CE map; do not auto-fix; cite five controls
+    required: true
+    handoff: ce_report
+  - id: audit
+    type: skill
+    invoke: security-audit-agent
+    skill_args: auth MCP secrets upgrade surfaces; report-only unless user asked fix
+    required: true
+    handoff: audit_findings
+  - id: prevent
+    type: skill
+    invoke: cache-efficient
+    skill_args: |
+      Summarise prevent controls (MCP off, secrets guard, bundle-hash, memory+vault lessons)
+      + next ship bar; cite SECURITY.md and stronger-with-every-update. Peer apps if relevant.
+    required: false
+    handoff: prevent_summary
+
+- id: security-review
+  name: Security Review
+  description: Security audit with test DB safety gate
+  intents:
+  - security
+  - auth
+  - permissions
+  - consent
+  - secrets
+  - CDD
+  token_tier: medium
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  max_cache_files: 3
+  steps:
+  - id: audit
+    type: skill
+    invoke: security-audit-agent
+    required: true
+    handoff: findings
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: false
+    when: tests_requested
+    handoff: test_db_ok
+- id: cyber-essentials-review
+  name: Cyber Essentials Review
+  description: UK NCSC Cyber Essentials code/config assess → deep security audit
+  intents:
+  - cyber essentials
+  - cyber essentials review
+  - UK CE
+  - NCSC compliance
+  - certification readiness
+  - supplier cyber assurance
+  token_tier: medium
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  max_cache_files: 3
+  steps:
+  - id: ce
+    type: skill
+    invoke: cyber-security-essentials
+    required: true
+    handoff: ce_report
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: true
+    handoff: security_findings
+- id: cyber-essentials-hunt
+  name: Cyber Essentials Bug Hunt
+  description: CE assess → bug hunt → security audit for code compliance gaps
+  intents:
+  - cyber essentials bugs
+  - CE bug hunt
+  - compliance bugs
+  - CE weaknesses
+  - hunt CE gaps
+  token_tier: high
+  max_steps: 4
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - TODO/
+  max_cache_files: 4
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: ce
+    type: skill
+    invoke: cyber-security-essentials
+    required: true
+    handoff: ce_report
+  - id: hunt
+    type: skill
+    invoke: bug-hunter-agent
+    skill_args: scan
+    required: true
+    handoff: bug_report
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: true
+    handoff: security_findings
+- id: cyber-essentials-pre-deploy
+  name: Cyber Essentials Pre-Deploy
+  description: Drift gate → CE assess → pre-deploy bug hunt → security audit
+  intents:
+  - CE pre-deploy
+  - cyber essentials deploy
+  - CE ship check
+  - certification before release
+  token_tier: high
+  max_steps: 5
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - STATE.md
+  - TODO/
+  max_cache_files: 4
+  steps:
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: ce
+    type: skill
+    invoke: cyber-security-essentials
+    skill_args: pre-deploy
+    required: true
+    handoff: ce_report
+  - id: hunt
+    type: skill
+    invoke: bug-hunter-agent
+    skill_args: pre-deploy
+    required: true
+    handoff: bug_report
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: true
+    handoff: security_findings
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: true
+    handoff: test_db_ok
+- id: cyber-essentials-maturity
+  name: Cyber Essentials Maturity
+  description: CE assess → AI engineering maturity → security audit for SDLC posture
+  intents:
+  - cyber maturity
+  - CE and AI maturity
+  - engineering cyber compliance
+  - SDLC cyber essentials
+  token_tier: medium
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  max_cache_files: 3
+  steps:
+  - id: ce
+    type: skill
+    invoke: cyber-security-essentials
+    required: true
+    handoff: ce_report
+  - id: maturity
+    type: skill
+    invoke: ai-engineering-maturity
+    required: true
+    handoff: maturity_summary
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: true
+    handoff: security_findings
+- id: deploy-check
+  name: Deploy Check
+  description: Drift → hardened Docker → GitHub workflows → git guardrails → DO deploy
+    → eval
+  intents:
+  - deploy
+  - production
+  - digitalocean
+  - CI
+  - release to prod
+  token_tier: high
+  max_steps: 7
+  cache_files_required:
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/INTEGRATIONS.md
+  - STATE.md
+  max_cache_files: 4
+  steps:
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: docker
+    type: skill
+    invoke: docker-expert
+    skill_args: validate hardened multi-stage Dockerfile and .dockerignore; thin prod
+      image only
+    required: true
+    handoff: image_spec
+  - id: workflows
+    type: skill
+    invoke: github-workflow-expert
+    skill_args: verify or create build-push deploy workflows and production secrets
+    required: true
+    handoff: workflow_ready
+  - id: github
+    type: skill
+    invoke: github-expert
+    skill_args: review workflow permissions, environments, branch protection for deploy
+    required: false
+    handoff: github_posture
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: commit Dockerfile, dockerignore, workflow changes after gates pass
+    required: true
+    handoff: delivery_ok
+  - id: deploy
+    type: skill
+    invoke: digitalocean-app-platform-docr-deploy
+    required: true
+    handoff: deploy_plan
+  - id: eval
+    type: skill
+    invoke: eval/maintenance-task
+    required: false
+    handoff: eval_report
+- id: docker-deploy
+  name: Docker Deploy Setup
+  description: Hardened image → CI workflow → GitHub policy → git guardrails → DO
+    registry
+  origin: custom
+  registered: 2026-06-21
+  intents:
+  - docker deploy
+  - hardened dockerfile
+  - thin production image
+  - dockerignore
+  - DOCR build
+  - container CI
+  token_tier: high
+  max_steps: 6
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/ARCHITECTURE.md
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: docker
+    type: skill
+    invoke: docker-expert
+    required: true
+    handoff: image_spec
+  - id: workflows
+    type: skill
+    invoke: github-workflow-expert
+    required: true
+    handoff: workflow_ready
+  - id: github
+    type: skill
+    invoke: github-expert
+    required: true
+    handoff: github_posture
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    required: true
+    handoff: delivery_ok
+  - id: deploy
+    type: skill
+    invoke: digitalocean-app-platform-docr-deploy
+    required: false
+    when: deploy_requested
+    handoff: registry_plan
+- id: deploy-dns-infra
+  name: Deploy DNS and Perimeter
+  description: Route 53 app + email DNS (DKIM) → DO firewall → SES verify → git commit
+    DNS JSON
+  origin: custom
+  registered: 2026-06-21
+  intents:
+  - deploy dns
+  - production dns
+  - dkim deploy
+  - firewall setup
+  - route53 deploy
+  - app subdomain
+  - email dns go live
+  token_tier: high
+  max_steps: 6
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/CONCERNS.md
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: dns
+    type: skill
+    invoke: aws-route53-dns
+    skill_args: production deploy package — app CNAME + SES DKIM SPF DMARC MX change
+      batches
+    required: true
+    handoff: dns_batches
+  - id: firewall
+    type: skill
+    invoke: digitalocean-app-platform-docr-deploy
+    skill_args: provision Cloud Firewall per handoff firewall_spec; deny DB ports
+      from internet
+    required: true
+    handoff: firewall_ok
+  - id: ses
+    type: skill
+    invoke: amazon-ses-email
+    required: true
+    handoff: ses_verified
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: commit infra/dns JSON and firewall notes
+    required: true
+    handoff: delivery_ok
+  - id: eval
+    type: skill
+    invoke: eval/maintenance-task
+    required: false
+    handoff: eval_report
+- id: github-workflow-setup
+  name: GitHub Workflow Setup
+  description: Cache → CI policy review → workflow/secrets CRUD → security audit →
+    git delivery
+  origin: custom
+  registered: 2026-06-20
+  intents:
+  - github workflow
+  - create workflow
+  - add workflow
+  - amend workflow
+  - delete workflow
+  - set secrets
+  - gh secret
+  - github actions setup
+  - CI workflow
+  - deploy workflow
+  - workflow automation
+  - github-workflow-expert
+  token_tier: medium
+  max_steps: 5
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/CONVENTIONS.md
+  - .github/workflows/
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: load INTEGRATIONS + existing workflows; grep-before-read
+    required: true
+    handoff: cache_loaded
+  - id: policy
+    type: skill
+    invoke: github-expert
+    skill_args: review branch protection, environment rules, and CI posture before
+      changes
+    required: true
+    handoff: ci_findings
+  - id: workflows
+    type: skill
+    invoke: github-workflow-expert
+    required: true
+    handoff: workflow_changes
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    skill_args: spot-check workflow permissions and secret references (names only)
+    required: true
+    handoff: security_ok
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: commit and push workflow file changes after validation
+    required: true
+    handoff: delivery_gate
+- id: workflow-debug
+  name: Workflow Debug / Failure Diagnosis
+  description: Cache load → github-workflow-expert (diagnose-failure.sh + log analysis) → github-expert (policy) → git-workflow-guardrails (apply fix + commit). Stops continual CI failures with root-cause + exact remediation.
+  origin: custom
+  registered: 2026-07-04
+  intents:
+  - workflow debug
+  - debug workflow
+  - why ci failing
+  - diagnose failure
+  - fix workflow failure
+  - workflow error
+  - github action debug
+  - ci failure
+  - debug github workflow
+  - workflow not working
+  token_tier: medium
+  max_steps: 4
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/CONVENTIONS.md
+  - .github/workflows/
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: INTEGRATIONS workflow table + grep .github/workflows/; max 3 cache files
+    required: true
+    handoff: cache_loaded
+  - id: diagnose
+    type: skill
+    invoke: github-workflow-expert
+    skill_args: run diagnose-failure.sh --workflow or --run; analyze gh logs for root cause (secrets, perms, node, triggers, concurrency); output exact fixes and edit suggestions
+    required: true
+    handoff: failure_analysis
+  - id: policy
+    type: skill
+    invoke: github-expert
+    skill_args: cross-check branch protection, environment rules, and CI policy context for the failing workflow
+    required: true
+    handoff: policy_context
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: apply the diagnosed fix via guardrails (validate, secrets guard, commit/push the remediation)
+    required: true
+    handoff: delivery_gate
+- id: ci-branch-readiness
+  name: CI Branch Readiness
+  description: Cache → branch CI/CD analysis (per-wave) → GitHub policy → git guardrails;
+    block push on BLOCKED
+  origin: custom
+  registered: 2026-07-02
+  intents:
+  - ci readiness
+  - will ci pass
+  - check workflows before push
+  - branch ci
+  - actions readiness
+  - pre-push ci
+  - github ci cd
+  - ci branch readiness
+  token_tier: medium
+  max_steps: 4
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/CONVENTIONS.md
+  - .github/workflows/
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: INTEGRATIONS workflow table + grep workflows dir; max 3 cache files
+    required: true
+    handoff: cache_loaded
+  - id: readiness
+    type: skill
+    invoke: github-ci-readiness-expert
+    skill_args: run ci-branch-readiness.py --write-report; load references/<slug>-ci.md;
+      verdict READY|CONDITIONAL|BLOCKED; do not push on BLOCKED
+    required: true
+    handoff: ci_verdict
+  - id: github
+    type: skill
+    invoke: github-expert
+    skill_args: cross-check branch protection, PR target, and CI posture for current branch
+    required: true
+    handoff: github_posture
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: proceed only if ci_verdict READY or user-accepted CONDITIONAL; hooks
+      and secrets guard before push
+    required: true
+    handoff: delivery_gate
+- id: ses-email-setup
+  name: SES Email Setup
+  description: Route 53 email DNS (DKIM/SPF/DMARC) then Amazon SES — use deploy-dns-infra
+    for go-live
+  intents:
+  - ses
+  - email setup
+  - DKIM
+  - SPF
+  - DMARC
+  - inbound email
+  token_tier: medium
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  max_cache_files: 2
+  steps:
+  - id: dns
+    type: skill
+    invoke: aws-route53-dns
+    required: true
+    handoff: dns_records
+  - id: ses
+    type: skill
+    invoke: amazon-ses-email
+    required: true
+    handoff: ses_status
+- id: repo-health
+  name: Repo Health Check
+  description: GitHub audit → git workflow verification → drift and sync gates
+  origin: custom
+  registered: 2026-06-16
+  intents:
+  - repo health
+  - all in order
+  - pull branches
+  - sync branches
+  - fetch all branches
+  - github audit
+  - drift check
+  - make sure all in order
+  - branch hygiene
+  token_tier: medium
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - STATE.md
+  max_cache_files: 3
+  steps:
+  - id: github
+    type: skill
+    invoke: github-expert
+    required: true
+    handoff: repo_findings
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    required: true
+    handoff: branch_gate
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+- id: session-end
+  name: Session End (mid-day pause)
+  description: >-
+    Pause work to leave and return later the same day. Captures WIP checkpoint,
+    optional TODO resume note, workspace pointer + light vault pause lesson.
+    Does NOT require clean git, does NOT stop ddev, does NOT run full eod-shutdown.
+  intents:
+  - session end
+  - session-end
+  - end session
+  - pause session
+  - pause work
+  - break
+  - back later
+  - mid day
+  - midday
+  - leave for now
+  - step away
+  token_tier: low
+  max_steps: 4
+  cache_files_required:
+  - TODO/
+  - STATE.md
+  max_cache_files: 1
+  steps:
+  - id: checkpoint
+    type: skill
+    invoke: cache-efficient
+    skill_args: >-
+      REQUIRED run python3 scripts/session-end-checkpoint.py (optional --summary
+      from user). Dirty git is OK. Writes reports/sessions/pause-*.md +
+      rich resume-YYYY-MM-DD.md via session-resume-brief write --rich --source
+      session-end (HEAD, remote-last, ver, open/next/done). Appends TODO resume
+      block, vault pause lesson + workspace pointer. Print resume card verbatim.
+      Do NOT claim EOD complete. Do NOT ddev stop. Do NOT force commit.
+    required: true
+    handoff: checkpoint_written
+  - id: changelog
+    type: skill
+    invoke: changelog-specialist
+    skill_args: >-
+      optional append only — changelog_update.py append category changed summary
+      "Session pause (mid-day); resume via session-start". Skip if no changelog
+      tooling or meter WARNING.
+    required: false
+    handoff: changelog_note
+  - id: meter
+    type: skill
+    invoke: token-usage-meter
+    skill_args: optional --sync one-line meter in pause summary
+    required: false
+    handoff: token_note
+  - id: handoff
+    type: skill
+    invoke: cache-efficient
+    skill_args: >-
+      Print resume card from reports/sessions/resume-*.md (or checkpoint path).
+      Include branch, dirty detail, done/open/cache caveat; /chain session-start
+      to return; /chain eod-shutdown only when finished for the day.
+    required: true
+    handoff: session_paused
+- id: eod-shutdown
+  name: End of Day Shutdown
+  description: Close TODO → README → token report → ddev-cleanup (mandatory clean
+    git) → vault emit + rich resume card for next session-start. All changes committed,
+    porcelain empty, brain + resume-YYYY-MM-DD.md updated.
+  origin: custom
+  registered: 2026-06-16
+  intents:
+  - end of day
+  - shutdown
+  - ddev cleanup
+  - stop work
+  - daily cleanup
+  - mark work done
+  - close todo
+  - eod
+  - eod session
+  - eod-session
+  - eod shutdown
+  - clean git
+  token_tier: low
+  max_steps: 7
+  cache_files_required:
+  - TODO/
+  - STATE.md
+  - docs/codebase/README.md
+  max_cache_files: 2
+  steps:
+  - id: todo
+    type: skill
+    invoke: todo-specialist-agent
+    required: true
+    handoff: todo_closed
+  - id: changelog
+    type: skill
+    invoke: changelog-specialist
+    skill_args: consolidate then pr-body — changelog_update.py consolidate and pr-body
+    required: false
+    handoff: changelog_closed
+  - id: readme
+    type: skill
+    invoke: readme-specialist
+    required: true
+    handoff: readme_updated
+  - id: tokens
+    type: skill
+    invoke: token-usage-meter
+    skill_args: eod sync + report — token_monitor.py --sync and --report; note in
+      shutdown summary
+    required: false
+    handoff: token_report
+  - id: cleanup
+    type: skill
+    invoke: ddev-cleanup
+    required: true
+    skill_args: Mandatory clean git — commit all session changes; git status --porcelain
+      must be empty before EOD complete. Before vault emit — offer optional wiki file-back
+      (0–2 insights) when wiki_policy.mode lean|full; never auto-write wiki. Final step
+      - run python3 scripts/eod-vault-emit.py (vault + rich resume card).
+    handoff: pushed_clean
+  - id: wiki-fileback
+    type: skill
+    invoke: llm-wiki
+    skill_args: optional EOD file-back offer only — session-wiki-brief then ask user for
+      0–2 file-answer pages; skip when mode off or user declines; no auto-write
+    required: false
+    when: wiki_mode_lean_or_full
+    handoff: wiki_fileback_note
+  - id: vault-emit
+    type: skill
+    invoke: ddev-cleanup
+    skill_args: >-
+      REQUIRED final brain + handoff — run scripts/eod-vault-emit.py (guaranteed vault
+      write + workspace pointer + rich session-resume-brief write --source eod-shutdown).
+      Print resume card. If porcelain is dirty after emit (vault/resume paths), commit
+      those artifacts and re-check clean git — EOD incomplete while dirty. Next
+      session-start always check+card.
+    required: true
+    handoff: vault_emitted
+- id: documentation-full
+  name: Full Documentation
+  description: Cache load → codebase scan (optional) → README → GitHub Docs-style
+    site + cache
+  intents:
+  - full documentation
+  - document project
+  - write docs
+  - onboarding docs
+  - documentation specialist
+  - api docs
+  - architecture docs
+  token_tier: high
+  max_steps: 4
+  cache_files_required:
+  - docs/codebase/README.md
+  - docs/codebase/.codebase-freshness.txt
+  - TODO/
+  - chains/registry.yaml
+  max_cache_files: 4
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: scan
+    type: skill
+    invoke: acquire-codebase-knowledge
+    required: false
+    handoff: cache_refreshed
+  - id: readme
+    type: skill
+    invoke: readme-specialist
+    required: true
+    handoff: readme_updated
+  - id: docs
+    type: skill
+    invoke: documentation-specialist
+    required: true
+    handoff: documentation_complete
+- id: documentation-refresh
+  name: Documentation Refresh
+  description: Cache load → README polish → doc set update (no full scan)
+  intents:
+  - refresh docs
+  - update documentation
+  - doc refresh
+  - sync docs to cache
+  token_tier: medium
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/README.md
+  - TODO/
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: readme
+    type: skill
+    invoke: readme-specialist
+    required: true
+    handoff: readme_updated
+  - id: docs
+    type: skill
+    invoke: documentation-specialist
+    required: true
+    handoff: documentation_complete
+- id: research-deep-dive
+  name: Research Deep Dive (external)
+  description: Cache load → perspective frame → gather (user-approved sources) → research
+    memo
+  intents:
+  - research before implement
+  - deep dive
+  - domain research
+  - integration research
+  - compliance research
+  - architecture options
+  - unfamiliar domain
+  token_tier: medium
+  max_steps: 4
+  cache_files_required:
+  - docs/codebase/README.md
+  - TODO/
+  - chains/registry.yaml
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: frame
+    type: skill
+    invoke: research-deep-dive
+    required: true
+    skill_args: phase=frame — topic from user; perspective questions; constraints
+      from TODO/manifest
+    handoff: research_framed
+  - id: gather
+    type: skill
+    invoke: research-deep-dive
+    required: true
+    skill_args: phase=gather — user-approved sources only; mark gaps [ASK USER]
+    handoff: evidence_collected
+  - id: memo
+    type: skill
+    invoke: research-deep-dive
+    required: true
+    skill_args: phase=memo — write reports/research/<slug>-YYYY-MM-DD.md; when wiki
+      mode lean|full offer snapshot to raw/research + /chain wiki-ingest (no auto-ingest)
+    handoff: research_memo_ready
+- id: template-deploy
+  name: Template Deploy
+  description: Cache load then deploy .grok + root chains to target project
+  intents:
+  - deploy template
+  - deploy grok
+  - deploy to project
+  - push orchestrator to
+  - template deploy
+  - update fork from orchestrator
+  token_tier: medium
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/README.md
+  - scripts/deploy-bundle.yaml
+  - CHAIN.md
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: deploy
+    type: skill
+    invoke: orchestrator-deploy
+    required: true
+    handoff: deploy_report
+  - id: decontaminate
+    type: skill
+    invoke: template-decontaminate
+    required: true
+    handoff: contamination_gate
+- id: complex-task
+  name: Complex Task Orchestration
+  description: Cache load then orchestrator decomposition for multi-domain work
+  intents:
+  - orchestrate
+  - multi-step
+  - complex
+  - several agents
+  - implement feature
+  token_tier: high
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/README.md
+  - TODO/
+  - .grok/memories/INDEX.md
+  max_cache_files: 4
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: plan
+    type: prompt
+    invoke: orchestrator-v2
+    required: true
+    handoff: execution_plan
+- id: loop-engineering-audit
+  name: Loop Engineering Audit
+  description: Cache load → loop maturity and readiness assessment
+  intents:
+  - loop engineering
+  - loop maturity
+  - loop audit
+  - loop readiness
+  - loop patterns
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - LOOP.md
+  - STATE.md
+  - loop-budget.md
+  - patterns/registry.yaml
+  max_cache_files: 2
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: audit
+    type: skill
+    invoke: loop-engineering
+    required: true
+    handoff: loop_maturity
+- id: pre-flight
+  name: Pre-Flight Check
+  description: Branch scope → drift scan → test DB safety before starting work
+  intents:
+  - pre flight
+  - before starting
+  - start feature
+  - scope check
+  - am I on track
+  token_tier: medium
+  max_steps: 3
+  cache_files_required:
+  - TODO/
+  - STATE.md
+  - docs/codebase/CONCERNS.md
+  max_cache_files: 3
+  steps:
+  - id: branch
+    type: skill
+    invoke: branch-context-agent
+    required: true
+    handoff: branch_scope
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: false
+    when: tests_planned
+    handoff: test_db_ok
+- id: laravel-feature
+  name: Laravel Feature
+  description: Branch alignment → Laravel expert → test safety and tests when code
+    changes
+  intents:
+  - laravel
+  - filament
+  - eloquent
+  - livewire
+  - artisan
+  - implement laravel
+  token_tier: medium
+  max_steps: 5
+  cache_files_required:
+  - TODO/
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: branch
+    type: skill
+    invoke: branch-context-agent
+    required: true
+    handoff: branch_scope
+  - id: laravel
+    type: skill
+    invoke: laravel-expert-agent
+    required: true
+    handoff: implementation_plan
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: false
+    when: code_changed
+    handoff: test_db_ok
+  - id: tests
+    type: skill
+    invoke: test-specialist-agent
+    required: false
+    when: code_changed
+    handoff: test_plan
+- id: filament-review
+  name: Filament Panel Review
+  description: Cache load → panel audit → security follow-up
+  intents:
+  - filament review
+  - panel review
+  - filament panel
+  - admin panel audit
+  - resource review
+  token_tier: medium
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/README.md
+  - docs/codebase/CONVENTIONS.md
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: panels
+    type: skill
+    invoke: filament-panel-review
+    required: true
+    handoff: panel_findings
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: false
+    when: auth_or_permissions_touched
+    handoff: security_findings
+- id: paypal-setup
+  name: PayPal Billing Setup
+  description: Drift gate → PayPal integration configuration
+  intents:
+  - paypal
+  - billing setup
+  - checkout
+  - webhook
+  - invoice
+  - subscription billing
+  token_tier: medium
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/CONCERNS.md
+  max_cache_files: 3
+  steps:
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: paypal
+    type: skill
+    invoke: paypal-billing-integration
+    required: true
+    handoff: billing_status
+- id: didit-identity-setup
+  name: Didit Identity Setup
+  description: Drift gate → Didit KYC/KYB integration
+  intents:
+  - didit
+  - kyc
+  - kyb
+  - aml
+  - identity verification
+  - biometric verification
+  token_tier: medium
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - docs/codebase/CONCERNS.md
+  max_cache_files: 3
+  steps:
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: didit
+    type: skill
+    invoke: didit-identity-integration
+    required: true
+    handoff: didit_status
+- id: loqate-address-setup
+  name: Loqate Address Setup
+  description: Drift gate → Loqate Address Capture integration
+  intents:
+  - loqate
+  - address capture
+  - address validation
+  - postcode lookup
+  - type-ahead address
+  token_tier: medium
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  max_cache_files: 2
+  steps:
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: loqate
+    type: skill
+    invoke: loqate-address-integration
+    required: true
+    handoff: loqate_status
+- id: prod-db-ops
+  name: Production DB Operations
+  description: Drift gate → prod DB maintenance → post-maintenance eval
+  intents:
+  - production database
+  - prod db
+  - db import
+  - database maintenance
+  - clean prod
+  - listings refresh
+  token_tier: high
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/INTEGRATIONS.md
+  - STATE.md
+  max_cache_files: 3
+  steps:
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: maintain
+    type: skill
+    invoke: prod-db-maintenance
+    required: true
+    handoff: maintenance_result
+  - id: eval
+    type: skill
+    invoke: eval/maintenance-task
+    required: true
+    handoff: eval_report
+- id: cache-rebuild
+  name: Cache Rebuild
+  description: Cache load → full codebase scan and cache write
+  intents:
+  - refresh cache
+  - rebuild cache
+  - stale cache
+  - read codebase
+  - codebase scan
+  - update cache
+  token_tier: high
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/README.md
+  - .grok/memories/INDEX.md
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: scan
+    type: skill
+    invoke: acquire-codebase-knowledge
+    required: true
+    handoff: cache_refreshed
+- id: ai-maturity
+  name: AI Engineering Maturity
+  description: Cache load → 8-stage maturity assessment
+  intents:
+  - ai maturity
+  - engineering maturity
+  - adoption stage
+  - ai engineering
+  - maturity assessment
+  token_tier: low
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/README.md
+  - CHAIN.md
+  - LOOP.md
+  max_cache_files: 2
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: assess
+    type: skill
+    invoke: ai-engineering-maturity
+    required: true
+    handoff: maturity_report
+- id: web-design
+  name: Web Build and Design
+  description: Design lead → frontend UI spec → stack expert (Laravel/Go default; SPA when manifest matches) → README
+  intents:
+  - marketing page
+  - landing page
+  - pricing page
+  - web design
+  - saas landing
+  - public site
+  - blade marketing
+  - laravel landing
+  - static site
+  token_tier: medium
+  max_steps: 8
+  cache_files_required:
+  - docs/codebase/README.md
+  - TODO/
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: design
+    type: skill
+    invoke: web-build-design
+    required: true
+    handoff: design_plan
+  - id: frontend
+    type: skill
+    invoke: frontend-web-design-expert
+    required: true
+    handoff: ui_spec
+  - id: laravel
+    type: skill
+    invoke: laravel-expert-agent
+    required: false
+    when: laravel_project
+    handoff: implementation_plan
+  - id: go
+    type: skill
+    invoke: go-expert
+    required: false
+    when: go_framework
+    handoff: implementation_plan
+  - id: nextjs
+    type: skill
+    invoke: nextjs-expert
+    required: false
+    when: nextjs_framework
+    handoff: implementation_plan
+  - id: astro
+    type: skill
+    invoke: astro-expert
+    required: false
+    when: astro_framework
+    handoff: implementation_plan
+  - id: nuxt
+    type: skill
+    invoke: nuxt-expert
+    required: false
+    when: nuxt_framework
+    handoff: implementation_plan
+  - id: readme
+    type: skill
+    invoke: readme-specialist
+    required: false
+    handoff: readme_updated
+- id: frontend-ui
+  name: Frontend UI and Components
+  description: HTML/Tailwind ui_spec → stack expert (Laravel/Livewire/HTMX/Go default; SPA only when manifest matches)
+  intents:
+  - frontend ui
+  - dashboard ui
+  - form design
+  - blade ui
+  - livewire ui
+  - htmx ui
+  - filament ui
+  - tailwind components
+  - server rendered ui
+  - design tokens
+  - ui spec
+  - accessibility ui
+  token_tier: medium
+  max_steps: 7
+  cache_files_required:
+  - docs/codebase/README.md
+  - TODO/
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: frontend
+    type: skill
+    invoke: frontend-web-design-expert
+    required: true
+    handoff: ui_spec
+  - id: laravel
+    type: skill
+    invoke: laravel-expert-agent
+    required: false
+    when: laravel_project
+    handoff: implementation_plan
+  - id: go
+    type: skill
+    invoke: go-expert
+    required: false
+    when: go_framework
+    handoff: implementation_plan
+  - id: nextjs
+    type: skill
+    invoke: nextjs-expert
+    required: false
+    when: nextjs_framework
+    handoff: implementation_plan
+  - id: astro
+    type: skill
+    invoke: astro-expert
+    required: false
+    when: astro_framework
+    handoff: implementation_plan
+  - id: nuxt
+    type: skill
+    invoke: nuxt-expert
+    required: false
+    when: nuxt_framework
+    handoff: implementation_plan
+- id: beta-ready
+  name: Beta Ready Checklist
+  description: Cache load → beta checklist → drift gate
+  intents:
+  - beta ready
+  - beta checklist
+  - ready for beta
+  - pre-beta
+  - launch readiness
+  token_tier: medium
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/README.md
+  - docs/codebase/CONCERNS.md
+  - STATE.md
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: checklist
+    type: prompt
+    invoke: beta-ready-checklist
+    required: true
+    handoff: checklist_result
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+- id: bug-hunt
+  name: Bug Hunt
+  description: Cache load → bug scan (report-only). For fixes use bug-hunt-fix or
+    pass "fix" in args
+  default_mode: scan
+  intents:
+  - find bugs
+  - hunt bugs
+  - bug hunt
+  - what could break
+  - code review bugs
+  - weakness scan
+  - defect hunt
+  token_tier: medium
+  max_steps: 2
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - TODO/
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: hunt
+    type: skill
+    invoke: bug-hunter-agent
+    skill_args: scan
+    required: true
+    handoff: bug_report
+- id: bug-hunt-fix
+  name: Bug Hunt and Fix
+  description: Cache load → hunt → apply safe fixes → test safety → verify tests
+  default_mode: fix
+  intents:
+  - fix bugs
+  - bug hunt fix
+  - hunt and fix
+  - repair bugs
+  - patch defects
+  - fix issues found
+  token_tier: high
+  max_steps: 4
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - TODO/
+  max_cache_files: 4
+  fix_policy:
+    auto_fix: low,medium
+    suggest_only: critical,high
+    require_approval_for: auth,payment,crypto,permissions
+    rollback:
+      required: true
+      script: .grok/skills/bug-hunter-agent/scripts/bug-hunt-backup.py
+      backup_dir: reports/bugs/backups
+      exempt: critical_security
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: hunt
+    type: skill
+    invoke: bug-hunter-agent
+    skill_args: fix
+    required: true
+    handoff: bug_report
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: true
+    when: fixes_applied
+    handoff: test_db_ok
+  - id: tests
+    type: skill
+    invoke: test-specialist-agent
+    required: false
+    when: fixes_applied
+    handoff: test_plan
+- id: bug-hunt-deep
+  name: Bug Hunt Deep
+  description: Bug hunt (report) → security → schema → test safety → test gaps. Fix
+    variant bug-hunt-fix-deep
+  default_mode: deep
+  intents:
+  - deep bug hunt
+  - comprehensive bug review
+  - full defect scan
+  - bugs and security
+  - hunt all issues
+  token_tier: high
+  max_steps: 6
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - docs/codebase/ARCHITECTURE.md
+  - TODO/
+  max_cache_files: 4
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: hunt
+    type: skill
+    invoke: bug-hunter-agent
+    skill_args: deep
+    required: true
+    handoff: bug_report
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: true
+    handoff: security_findings
+  - id: schema
+    type: skill
+    invoke: schema-audit-agent
+    required: false
+    when: database_project
+    handoff: schema_findings
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: false
+    when: tests_requested
+    handoff: test_db_ok
+  - id: tests
+    type: skill
+    invoke: test-specialist-agent
+    required: false
+    when: test_gaps_found
+    handoff: test_plan
+- id: bug-hunt-fix-deep
+  name: Bug Hunt Fix Deep
+  description: Deep hunt with fixes → security suggest → test safety → tests for regressions
+  default_mode: fix
+  intents:
+  - deep fix bugs
+  - fix all bugs
+  - comprehensive fix
+  - hunt fix and test
+  token_tier: high
+  max_steps: 6
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - docs/codebase/ARCHITECTURE.md
+  - TODO/
+  max_cache_files: 4
+  fix_policy:
+    auto_fix: low,medium
+    suggest_only: critical,high
+    require_approval_for: auth,payment,crypto,permissions
+    rollback:
+      required: true
+      script: .grok/skills/bug-hunter-agent/scripts/bug-hunt-backup.py
+      backup_dir: reports/bugs/backups
+      exempt: critical_security
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: hunt
+    type: skill
+    invoke: bug-hunter-agent
+    skill_args: deep fix
+    required: true
+    handoff: bug_report
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: true
+    handoff: security_findings
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: true
+    when: fixes_applied
+    handoff: test_db_ok
+  - id: tests
+    type: skill
+    invoke: test-specialist-agent
+    required: true
+    when: fixes_applied
+    handoff: test_plan
+  - id: schema
+    type: skill
+    invoke: schema-audit-agent
+    required: false
+    when: database_project
+    handoff: schema_findings
+- id: bug-hunt-pre-deploy
+  name: Bug Hunt Pre-Deploy
+  description: Drift gate → bug hunt (report) → security → test safety. Fix variant
+    append "fix" to args
+  default_mode: pre-deploy
+  intents:
+  - pre-deploy bugs
+  - release bug check
+  - ship readiness bugs
+  - deploy bug scan
+  - bugs before deploy
+  token_tier: high
+  max_steps: 5
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - STATE.md
+  - TODO/
+  max_cache_files: 4
+  steps:
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: hunt
+    type: skill
+    invoke: bug-hunter-agent
+    skill_args: pre-deploy
+    required: true
+    handoff: bug_report
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: true
+    handoff: security_findings
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: true
+    handoff: test_db_ok
+  - id: schema
+    type: prompt
+    invoke: model-schema-check
+    required: false
+    when: database_project
+    handoff: drift_summary
+- id: bug-hunt-pre-deploy-fix
+  name: Bug Hunt Pre-Deploy Fix
+  description: Drift → hunt with safe fixes → security → test safety → schema check
+  default_mode: pre-deploy
+  intents:
+  - pre-deploy fix
+  - fix before deploy
+  - ship with fixes
+  - release bug fixes
+  token_tier: high
+  max_steps: 6
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - STATE.md
+  - TODO/
+  max_cache_files: 4
+  fix_policy:
+    auto_fix: low,medium
+    suggest_only: critical,high
+    require_approval_for: auth,payment,crypto,permissions
+    rollback:
+      required: true
+      script: .grok/skills/bug-hunter-agent/scripts/bug-hunt-backup.py
+      backup_dir: reports/bugs/backups
+      exempt: critical_security
+  steps:
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: hunt
+    type: skill
+    invoke: bug-hunter-agent
+    skill_args: pre-deploy fix
+    required: true
+    handoff: bug_report
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    required: true
+    handoff: security_findings
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: true
+    when: fixes_applied
+    handoff: test_db_ok
+  - id: tests
+    type: skill
+    invoke: test-specialist-agent
+    required: false
+    when: fixes_applied
+    handoff: test_plan
+  - id: schema
+    type: prompt
+    invoke: model-schema-check
+    required: false
+    when: database_project
+    handoff: drift_summary
+- id: qa-scan
+  name: QA Scan
+  description: Cache load → qa-agent scan (report + checklist). Lightweight health
+    check.
+  default_mode: scan
+  intents:
+  - qa scan
+  - quality check
+  - run qa
+  - qa review
+  token_tier: medium
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - TODO/
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: qa
+    type: skill
+    invoke: qa-agent
+    skill_args: scan
+    required: true
+    handoff: qa_report
+- id: qa-pre-pr
+  name: QA Pre-PR Gate
+  description: Cache → qa-agent pre-pr (diff focus, safety, domain risks, tests).
+    Pass specialization (e.g. facebook-stats, e-ndsign) via skill_args or invocation.
+  default_mode: pre-pr
+  intents:
+  - pre pr qa
+  - qa before pr
+  - quality gate pre merge
+  token_tier: medium
+  max_steps: 4
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - TODO/
+  - STATE.md
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: branch
+    type: skill
+    invoke: branch-context-agent
+    required: false
+    handoff: branch_ok
+  - id: qa
+    type: skill
+    invoke: qa-agent
+    skill_args: pre-pr
+    required: true
+    handoff: qa_report
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: false
+    handoff: test_db_ok
+- id: qa-gate
+  name: QA Gate (after complex work)
+  description: After bug-hunt / rotation / analysis → qa-agent gate for sign-off
+  default_mode: gate
+  intents:
+  - qa gate
+  - quality signoff
+  - qa after task
+  token_tier: medium
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - TODO/
+  max_cache_files: 3
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: qa
+    type: skill
+    invoke: qa-agent
+    skill_args: gate
+    required: true
+    handoff: qa_report
+- id: qa-pre-deploy
+  name: QA Pre-Deploy
+  description: Full qa-agent pre-deploy (risks, tests, domain, readiness)
+  default_mode: pre-deploy
+  intents:
+  - pre deploy qa
+  - qa before release
+  - ship readiness qa
+  token_tier: high
+  max_steps: 5
+  cache_files_required:
+  - docs/codebase/CONCERNS.md
+  - docs/codebase/CONVENTIONS.md
+  - docs/codebase/TESTING.md
+  - STATE.md
+  - TODO/
+  max_cache_files: 4
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    required: true
+    handoff: cache_loaded
+  - id: drift
+    type: skill
+    invoke: project-drift-guardian
+    required: true
+    handoff: drift_ok
+  - id: qa
+    type: skill
+    invoke: qa-agent
+    skill_args: pre-deploy
+    required: true
+    handoff: qa_report
+  - id: safety
+    type: skill
+    invoke: test-safety-agent
+    required: true
+    handoff: test_db_ok
+  - id: tests
+    type: skill
+    invoke: test-specialist-agent
+    required: false
+    handoff: test_plan
+
+- id: multi-workstream
+  name: Multi-workstream
+  description: >
+    Slash-friendly multi-workstream brief — list, brief, graph (no diamond unless demo chain).
+  intents:
+  - multi-workstream
+  - workstreams
+  - workstream list
+  - multi stream
+  - multi-stream
+  token_tier: low
+  max_steps: 2
+  cache_files_required: []
+  max_cache_files: 0
+  steps:
+  - id: workstream
+    type: skill
+    invoke: multi-workstream
+    skill_args: >
+      Default args list. Run workstream.py list then brief then graph.
+      Present results as if operator used /multi-workstream list|brief|graph.
+      Do not ask operator to type python3 scripts.
+    required: true
+    handoff: workstream_status
+- id: multi-workstream-diamond
+  name: Multi-workstream diamond (Shape B recommend)
+  description: >
+    After session-start: recommend safe multi-lane work from workstreams+TODO.
+    Preserve primary focus; never auto-exec; never unhold. Report-only Shape B plan.
+  intents:
+  - multi-workstream diamond
+  - diamond recommend
+  - shape b recommend
+  - safe multi lane
+  - what can run in parallel
+  token_tier: low
+  max_steps: 1
+  cache_files_required: []
+  max_cache_files: 0
+  steps:
+  - id: diamond
+    type: skill
+    invoke: multi-workstream
+    skill_args: >
+      Args diamond (or recommend). Run workstream_recommend.py.
+      Print compact DIAMOND recommend stdout + point to
+      reports/examples/agent-graphs/recommend-latest.md.
+      Do not execute parallel lanes; wait for operator approve parallel.
+      Do not unhold held tracks. Preserve primary focus L0.
+    required: true
+    handoff: diamond_recommend
+- id: multi-workstream-demo
+  name: Multi-workstream diamond demo
+  description: >
+    Run the diamond agent-graph demo (fan-out workstreams → code reduce → mermaid/JSON).
+  intents:
+  - diamond graph
+  - workstream graph demo
+  - multi-workstream demo
+  - agent graph demo
+  token_tier: low
+  max_steps: 2
+  cache_files_required: []
+  max_cache_files: 0
+  steps:
+  - id: diamond
+    type: skill
+    invoke: multi-workstream
+    skill_args: >
+      Args example (or diamond). Run workstream_graph_example.py.
+      Summarize reports/examples/agent-graphs/latest.md topology + reduce JSON.
+      Operator-facing name is /multi-workstream example or /chain multi-workstream-demo.
+    required: true
+    handoff: graph_report
+- id: workstream-graph-demo
+  name: Workstream graph example
+  description: >
+    Plan name for inventory diamond (workstreams + vault only). Same steps as
+    multi-workstream-demo. Operator: /multi-workstream example.
+  intents:
+  - workstream-graph-demo
+  - workstream graph example
+  - inventory diamond
+  token_tier: low
+  max_steps: 1
+  cache_files_required: []
+  max_cache_files: 0
+  steps:
+  - id: example
+    type: skill
+    invoke: multi-workstream
+    skill_args: >
+      Args example. Run workstream_graph_example.py.
+      Summarize reports/examples/agent-graphs/latest.md topology + reduce JSON.
+      Operator-facing: /multi-workstream example · /chain workstream-graph-demo ·
+      /chain multi-workstream-demo.
+    required: true
+    handoff: graph_report
+- id: webmcp-setup
+  name: WebMCP Beta Setup
+  description: 'Opt-in beta — explain/local-setup/scaffold browser WebMCP page tools. Not host MCP. load-cache
+    → webmcp-beta → optional security spot → git guardrails if committing.
+
+    '
+  intents:
+  - webmcp
+  - web mcp
+  - browser mcp
+  - page tools for agents
+  - navigator.modelContext
+  - webmcp setup
+  - webmcp-beta
+  - model context tool inspector
+  token_tier: low
+  max_steps: 4
+  cache_files_required:
+  - docs/guides/webmcp-beta.md
+  max_cache_files: 2
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: spine only; cite webmcp-beta guide if present; no app source until user confirms scaffold
+    required: true
+    handoff: cache_loaded
+  - id: webmcp
+    type: skill
+    invoke: webmcp-beta
+    skill_args: Default explain or local-setup. Scaffold only after user confirms app path. Always beta
+      label; distinguish host MCP.
+    required: true
+    handoff: webmcp_brief
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    skill_args: Spot-check only if scaffold wrote tools — secrets in schemas, confirm for write tools,
+      progressive enhancement. Skip if explain-only.
+    required: false
+    when: scaffold_wrote_files
+    handoff: security_spot
+  - id: git
+    type: skill
+    invoke: git-workflow-guardrails
+    skill_args: Only if user wants commit of scaffold; secrets guard; clear commit message WebMCP beta.
+    required: false
+    when: user_wants_commit
+    handoff: git_ok
+
+- id: web-cache-review
+  name: Web Cache Review
+  description: >
+    Cache-first review of HTTP/CDN/image/document caching and refresh plan for
+    performant websites (Laravel and multi-stack).
+  intents:
+  - web cache
+  - website cache
+  - image cache
+  - document cache
+  - CDN cache
+  - cache architecture
+  - cache refresh
+  - slow website performance cache
+  - cache-expert
+  token_tier: low
+  max_steps: 3
+  cache_files_required:
+  - docs/codebase/ARCHITECTURE.md
+  - docs/codebase/INTEGRATIONS.md
+  max_cache_files: 2
+  steps:
+  - id: load
+    type: prompt
+    invoke: load-project-cache-first
+    skill_args: spine + architecture/integrations; no source until cache plan confirmed
+    required: true
+    handoff: cache_loaded
+  - id: architecture
+    type: skill
+    invoke: web-cache-expert
+    skill_args: >
+      Produce cache_architecture deliverable — layers, route matrix, image/doc policy,
+      refresh map, deploy checklist. Distinguish from /cache-efficient (tokens).
+    required: true
+    handoff: cache_architecture
+  - id: security
+    type: skill
+    invoke: security-audit-agent
+    skill_args: Spot-check private docs/CDN shared-cache risks only if architecture touches auth/downloads
+    required: false
+    when: private_or_auth_cache
+    handoff: security_spot

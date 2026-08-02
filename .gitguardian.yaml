@@ -1,0 +1,12 @@
+# GitGuardian configuration (orchestrator template)
+# Local enforcement: scripts/git-push-secrets-guard.py + .githooks/pre-commit + pre-push
+# Never commit dated backup/20*.sql.gz, live .env files, or flare-incidents logs.
+
+version: 2
+
+ignore:
+  - path: reports/flare-incidents/*.log
+    reason: "Legacy monitoring logs (gitignored + blocked by pre-push guard). Test/dev data only."
+
+  - path: reports/flare-incidents/
+    reason: "Flare incident logs are local debugging artifacts; blocked from push by git-push-secrets-guard."

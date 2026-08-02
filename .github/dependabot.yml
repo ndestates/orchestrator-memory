@@ -1,0 +1,62 @@
+version: 2
+# Dependabot PRs target `develop` (NOT the default branch `master`) so dependency
+# updates flow through the normal develop -> master (production) promotion
+# pipeline instead of bypassing it.
+updates:
+  - package-ecosystem: "composer"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "php"
+    groups:
+      laravel-and-filament:
+        patterns:
+          - "laravel/*"
+          - "filament/*"
+      symfony-stack:
+        patterns:
+          - "symfony/*"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:30"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "frontend"
+    groups:
+      vite-toolchain:
+        patterns:
+          - "vite"
+          - "laravel-vite-plugin"
+          - "tailwindcss"
+          - "postcss"
+          - "autoprefixer"
+      runtime-and-http:
+        patterns:
+          - "axios"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"

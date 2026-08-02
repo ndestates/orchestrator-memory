@@ -1,0 +1,209 @@
+# Efficiency pattern hits
+
+## full_file_read_loop (92) — I/O: full file reads
+- scripts/_engine/app_compound.py:65: data = json.loads(path.read_text(encoding="utf-8"))
+- scripts/_engine/app_compound.py:115: lessons = extract_report_lessons(report.read_text(encoding="utf-8", errors="replace"))
+- scripts/_engine/app_compound.py:127: text = state.read_text(encoding="utf-8")
+- scripts/_engine/app_compound.py:214: text = state.read_text(encoding="utf-8")
+- scripts/_engine/app_compound.py:255: text = log.read_text(encoding="utf-8")
+- scripts/_engine/deploy.py:30: with path.open("rb") as f:
+- scripts/_engine/deploy.py:43: return yaml.safe_load(bundle_path().read_text(encoding="utf-8"))
+- scripts/_engine/deploy.py:152: return json.loads(state_path.read_text(encoding="utf-8"))
+- scripts/_engine/deploy.py:348: manifest = json.loads((d / MANIFEST_NAME).read_text(encoding="utf-8"))
+- scripts/_engine/deploy.py:388: manifest = json.loads((backup_dir / MANIFEST_NAME).read_text(encoding="utf-8"))
+- scripts/_engine/deploy.py:418: save_state(target, json.loads(state_backup.read_text(encoding="utf-8")))
+- scripts/_engine/deploy.py:441: template_text = src.read_text(encoding="utf-8")
+- scripts/_engine/deploy.py:469: local_text = tgt_file.read_text(encoding="utf-8")
+- scripts/_engine/sync_grok.py:136: return path.read_text(encoding="utf-8")
+- scripts/_engine/vault.py:221: for line in ledger_path.read_text(encoding="utf-8").splitlines():
+- scripts/_engine/vault.py:233: with ledger_path.open("a", encoding="utf-8") as f:
+- scripts/_engine/vault.py:241: for line in ledger_path.read_text(encoding="utf-8").splitlines():
+- src/orchestrator_cli/flow.py:247: stamp_data = json.loads(stamp.read_text(encoding="utf-8"))
+- scripts/deploy-session-start-wave.sh:71: data = yaml.safe_load(path.read_text(encoding='utf-8')) or {}
+- scripts/eod-vault-emit.py:46: text = log.read_text(encoding="utf-8")
+- scripts/loop_compound.py:60: text = state_path.read_text(encoding="utf-8")
+- scripts/loop_compound.py:81: text = state_path.read_text(encoding="utf-8")
+- scripts/loop_compound.py:84: text = template.read_text(encoding="utf-8") if template.exists() else "# Loop State\n\n## Lessons → skills\n\n"
+- scripts/loop_compound.py:98: return json.loads(path.read_text(encoding="utf-8"))
+- scripts/loop_compound.py:163: text = state_path.read_text(encoding="utf-8")
+- scripts/loop_compound.py:209: lessons = extract_lessons(report_path.read_text(encoding="utf-8"))
+- scripts/orchestrator-bundle-hash.py:35: for line in paths_file.read_text(encoding="utf-8").splitlines():
+- scripts/orchestrator-bundle-hash.py:59: with path.open("rb") as f:
+- scripts/orchestrator-bundle-hash.py:88: ver = vpath.read_text(encoding="utf-8").strip() if vpath.is_file() else "0.0.0"
+- scripts/orchestrator-bundle-hash.py:117: stamp = json.loads(stamp_path.read_text(encoding="utf-8"))
+- scripts/orchestrator-malware-lint.py:124: for line in path.read_text(encoding="utf-8").splitlines():
+- scripts/orchestrator-malware-lint.py:158: text = path.read_text(encoding="utf-8", errors="replace")
+- scripts/session-vault-todo-query.py:57: text = todo_path.read_text(encoding="utf-8")
+- scripts/vault-emit-ci-failure.py:241: log_snippet = args.log_file.read_text(encoding="utf-8", errors="replace")[-2000:]
+- scripts/vault-learning-watch.py:95: data = json.loads(BASELINE_FILE.read_text(encoding="utf-8"))
+- scripts/_engine/check_alignment.py:120: text = path.read_text(encoding="utf-8")
+- scripts/_engine/customize.py:48: return yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+- scripts/_engine/customize.py:228: original = path.read_text(encoding="utf-8")
+- scripts/_engine/customize.py:258: content = source.read_text(encoding="utf-8")
+- scripts/_engine/customize.py:290: original = path.read_text(encoding="utf-8")
+- … +52 more
+
+## rglob_walk (13) — Walk: recursive glob
+- scripts/_engine/deploy.py:83: for f in sorted(base.rglob("*")):
+- scripts/_engine/sync_grok.py:535: for skill_dir in sorted((GROK / "skills").rglob("SKILL.md")):
+- scripts/_engine/sync_grok.py:558: for path in src_sub.rglob("*"):
+- scripts/_engine/check_alignment.py:82: for skill in GROK_SKILLS.rglob("SKILL.md"):
+- scripts/_engine/check_alignment.py:90: for skill in GITHUB_SKILLS.rglob("SKILL.md"):
+- scripts/_engine/check_alignment.py:100: for skill in COPILOT_SKILLS.rglob("SKILL.md"):
+- scripts/_engine/customize.py:191: for candidate in sorted(path.rglob("*")):
+- scripts/_engine/customize.py:217: for path in sorted(skills_dir.rglob("*")):
+- scripts/backfill-allowed-tools.py:131: for skill_md in sorted(SKILLS_DIR.rglob("SKILL.md")):
+- scripts/cache_efficiency_lint.py:39: for path in directory.rglob(glob):
+- scripts/detect-project-skills.py:26: for skill in base.rglob("SKILL.md"):
+- scripts/docs-link-audit.py:36: md_files = list(docs_root.rglob("*.md"))
+- scripts/register-project-skills.py:41: for skill in GROK_SKILLS.rglob("SKILL.md"):
+
+## nested_for_file (31) — Nested loops
+- scripts/_engine/deploy.py:75:     for rel in spec.get("files", []):
+- scripts/_engine/deploy.py:115:     for name in selections:
+- scripts/_engine/deploy.py:221:     for name in selections:
+- scripts/_engine/sync_grok.py:554:         for sub in ("scripts", "references", "assets"):
+- scripts/_engine/sync_grok.py:660:         for rel in _manifest_sync.sync_manifests(ROOT):
+- scripts/_engine/vault.py:275:         for p in ev.get("parents", []):
+- scripts/_engine/vault.py:315:         for p in ev.get("parents", []):
+- scripts/_engine/vault.py:413:     for ev in events:
+- scripts/_engine/vault.py:488:     for m in sims:
+- scripts/_engine/vault_synthesis.py:95:             for m in similar[:3]:
+- scripts/_engine/vault_synthesis.py:102:                 for rel in ev.get("relations", []) or []:
+- scripts/_engine/vault_synthesis.py:149:         for p in result.get("proposals", []):
+- scripts/backfill-vault-from-reports.py:124:         for ev in added:
+- scripts/loop_compound.py:266:         for g in gate_results:
+- scripts/orchestrator-bundle-hash.py:45:     for spec in specs:
+- scripts/orchestrator-bundle-hash.py:74:     for spec in specs:
+- scripts/orchestrator-malware-lint.py:139:     for pattern in SCAN_GLOBS:
+- scripts/_engine/check_alignment.py:131:     for entry in skill_reg.get("skills", []):
+- scripts/_engine/check_alignment.py:150:     for chain in reg["chains"]:
+- scripts/_engine/check_alignment.py:198:     for p in GITHUB_AGENTS.glob("*.md"):
+- scripts/_engine/customize.py:287:     for path in collect_skill_files(skills_dir):
+- mcp-server/src/orchestrator_mcp/helpers.py:69:     for chain in registry.get("chains") or []:
+- scripts/chain-audit.sh:74: for c in data.get("chains", []):
+- scripts/chain-audit.sh:111: for c in yaml.safe_load(open(__import__("sys").argv[1])).get("chains", []):
+- scripts/detect-project-skills.py:83:             for s in result["project_only"]:
+- scripts/docs-link-audit.py:46:     for md in md_files:
+- scripts/fix-node24-wave.sh:14: for app in data.get("apps", []):
+- scripts/migrate-app-registry-split.py:99:         for s in app_doc["skills"]:
+- scripts/orchestrator-skill-governance.py:66:     for pattern in SKILL_GLOBS:
+- scripts/orchestrator-skill-governance.py:127:         for f in critical:
+- scripts/register-project-skills.py:272:         for r in repairs:
+
+## json_load_all (48) — Parse whole document
+- scripts/_engine/app_compound.py:55: return json.loads(proc.stdout)
+- scripts/_engine/app_compound.py:65: data = json.loads(path.read_text(encoding="utf-8"))
+- scripts/_engine/deploy.py:43: return yaml.safe_load(bundle_path().read_text(encoding="utf-8"))
+- scripts/_engine/deploy.py:152: return json.loads(state_path.read_text(encoding="utf-8"))
+- scripts/_engine/deploy.py:348: manifest = json.loads((d / MANIFEST_NAME).read_text(encoding="utf-8"))
+- scripts/_engine/deploy.py:388: manifest = json.loads((backup_dir / MANIFEST_NAME).read_text(encoding="utf-8"))
+- scripts/_engine/deploy.py:418: save_state(target, json.loads(state_backup.read_text(encoding="utf-8")))
+- scripts/_engine/vault.py:225: existing = json.loads(line)
+- scripts/_engine/vault.py:244: events.append(json.loads(line))
+- src/orchestrator_cli/flow.py:247: stamp_data = json.loads(stamp.read_text(encoding="utf-8"))
+- scripts/backfill-wave-vault.sh:25: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/deploy-loops-starter-wave.sh:15: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/deploy-session-start-wave.sh:71: data = yaml.safe_load(path.read_text(encoding='utf-8')) or {}
+- scripts/deploy-skills-customize-wave.sh:15: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/deploy-template-wave-skip.sh:18: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/deploy-template-wave.sh:15: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/loop_compound.py:98: return json.loads(path.read_text(encoding="utf-8"))
+- scripts/orchestrator-bundle-hash.py:117: stamp = json.loads(stamp_path.read_text(encoding="utf-8"))
+- scripts/vault-learning-watch.py:95: data = json.loads(BASELINE_FILE.read_text(encoding="utf-8"))
+- scripts/_engine/customize.py:48: return yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+- scripts/_engine/registry_compose.py:30: data = yaml.safe_load(path.read_text(encoding="utf-8"))
+- src/orchestrator_cli/commands/status.py:26: state = json.loads(state_path.read_text(encoding="utf-8"))
+- src/orchestrator_cli/license.py:98: payload = json.loads(resp.read().decode("utf-8"))
+- src/orchestrator_cli/license_server.py:132: payload = json.loads(body.decode("utf-8"))
+- src/orchestrator_cli/lock.py:24: return json.loads(p.read_text(encoding="utf-8"))
+- mcp-server/src/orchestrator_mcp/config.py:85: data = yaml.safe_load(handle) or {}
+- mcp-server/src/orchestrator_mcp/helpers.py:60: data = yaml.safe_load(handle) or {}
+- mcp-server/src/orchestrator_mcp/license.py:94: payload = json.loads(response.read().decode("utf-8"))
+- scripts/chain-audit.sh:34: yaml.safe_load(open(sys.argv[1]))
+- scripts/chain-audit.sh:73: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/chain-audit.sh:94: for c in yaml.safe_load(open(__import__("sys").argv[1])).get("chains", []):
+- scripts/chain-audit.sh:111: for c in yaml.safe_load(open(__import__("sys").argv[1])).get("chains", []):
+- scripts/chain-completion-write.sh:96: last_ev = json.loads(last_line)
+- scripts/commit-template-wave-skip.sh:16: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/commit-template-wave.sh:14: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/fix-node24-wave.sh:13: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/fleet-compound-audit.sh:16: data = yaml.safe_load(open(sys.argv[1]))
+- scripts/fleet-compound-audit.sh:99: data = json.loads(ls_path.read_text(encoding="utf-8"))
+- scripts/fleet_compound_ritual.py:53: return json.loads(proc.stdout)
+- scripts/loop-chain-health-host.sh:24: data = yaml.safe_load(Path("chains/registry.yaml").read_text())
+- … +8 more
+
+## subprocess_per_item (0) — Subprocess in loop
+
+## list_comprehension_all (41) — List materialization
+- scripts/_engine/app_compound.py:164: missing = [p for p in REQUIRED_SPINE if not (root / p).exists()]
+- scripts/_engine/deploy.py:60: names = [s.strip() for s in selections_arg.split(",") if s.strip()]
+- scripts/_engine/deploy.py:66: unknown = [n for n in names if n not in available]
+- scripts/_engine/deploy.py:686: rels = [rel_from_root(src) for src in collect_source_files(bundle, selections)]
+- scripts/_engine/vault.py:378: return [{"similarity": round(r, 2), "event": ev} for r, ev in matches[:limit]]
+- scripts/_engine/vault.py:468: "root_reached": bool(steps) and len([s for s in steps if s.get("type") in ("lesson", "synthesis")]) > 0,
+- scripts/_engine/vault_query.py:125: hint["chain_steps"] = [s.get("type") for s in ch.get("steps", [])]
+- scripts/_engine/vault_query.py:178: print(f"    chain depth={ch.get('depth')}: {[s.get('type') for s in ch.get('steps',[])[:4]]}")
+- scripts/_engine/vault_synthesis.py:45: lesson_events = [e for e in events if e.get("type") == "lesson"]
+- scripts/_engine/vault_synthesis.py:157: print(f"    chain: depth={ch.get('depth')} steps={[s.get('type') for s in ch.get('steps', [])[:3]]}")
+- scripts/deploy-session-start-wave.sh:74: chains = [c for c in chains if not (isinstance(c, dict) and c.get('id') == 'session-start')]
+- scripts/deploy-template-wave.sh:46: 2) read -p "Apps: " -a sel; for s in "${sel[@]}"; do for a in "${APPS[@]}"; do [[ "$a" == "$s" ]] && SELECTED+=("$a"); done; done ;;
+- scripts/eod-vault-emit.py:47: lines = [l.strip() for l in text.splitlines() if l.strip()][-8:]
+- scripts/eod-vault-emit.py:62: return [l for l in res.stdout.strip().splitlines() if l.strip()]
+- scripts/loop_compound.py:76: to_add = [l for l in new_lessons if normalize_lesson(l) not in existing]
+- scripts/loop_compound.py:160: pending = [s for s in suggestions if s["target"] != "STATE" and s["status"] == "pending"]
+- scripts/loop_compound.py:260: "promotions_pending": len([s for s in suggestions if s.get("status") == "pending"]),
+- scripts/orchestrator-malware-lint.py:200: critical = [f for f in findings if f["severity"] == "critical"]
+- scripts/orchestrator-malware-lint.py:201: high = [f for f in findings if f["severity"] == "high"]
+- scripts/session-vault-todo-query.py:49: dated = [p for p in files if re.search(r"\d{4}-\d{2}-\d{2}", p.name)]
+- scripts/_engine/manifest_sync.py:85: return [root / rel for rel, _ in MANIFEST_TARGETS]
+- scripts/_engine/registry_compose.py:166: template_skill_ids = {s["id"] for s in template_registry.get("skills", []) if s.get("id")}
+- src/orchestrator_cli/license.py:116: allowed = [str(x) for x in allowed_raw if x]
+- src/orchestrator_cli/version.py:16: nums = [int(p) for p in parts if p.isdigit()]
+- mcp-server/src/orchestrator_mcp/helpers.py:84: return [chain for _, chain in scored[:5]]
+- scripts/commit-template-wave.sh:41: 2) read -p "Apps: " -a sel; for s in "${sel[@]}"; do for a in "${APPS[@]}"; do [[ "$a" == "$s" ]] && SELECTED+=("$a"); done; done ;;
+- scripts/fleet-compound-audit.sh:87: missing = [p for p in required if not (root / p).exists()]
+- scripts/fleet_compound_ritual.py:216: results = [ritual_app(a) for a in apps]
+- scripts/git-push-secrets-guard.py:133: return [line.strip() for line in output.splitlines() if line.strip()]
+- scripts/git-push-secrets-guard.py:138: return [line.strip() for line in output.splitlines() if line.strip()]
+- scripts/migrate-app-registry-split.py:80: template_chains = {c["id"]: c for c in template_registry.get("chains", []) if c.get("id")}
+- scripts/migrate-app-registry-split.py:88: t_steps = [s.get("invoke") for s in tpl.get("steps", [])]
+- scripts/migrate-app-registry-split.py:89: c_steps = [s.get("invoke") for s in chain.get("steps", [])]
+- scripts/orchestrator-skill-governance.py:120: critical = [f for f in findings if f["severity"] == "critical"]
+- scripts/orchestrator-skill-governance.py:121: info = [f for f in findings if f["severity"] == "info"]
+- scripts/roll-apps-upgrade-1-6-1.py:55: return [ln for ln in (p.stdout or "").splitlines() if ln.strip()]
+- scripts/roll-apps-upgrade-1-6-1.py:270: fails = [r for r in results if r.get("apply_exit") not in (None, 0)]
+- scripts/run-chain-host.sh:25: chains = {c["id"]: c for c in data.get("chains", [])}
+- scripts/run-chain-host.sh:59: steps = [f"{s.get('invoke')} ({s.get('type','skill')})" for s in c.get("steps", [])]
+- scripts/session-end-checkpoint.py:67: dated = [p for p in files if any(c.isdigit() for c in p.name[:10])]
+- … +1 more
+
+## sleep (0) — Blocking sleep
+
+## no_limit_query (0) — Unbounded query-like
+
+## copy_tree (11) — Full tree copy
+- scripts/deploy-mcp-wave.sh:18: rsync -a --delete \
+- scripts/deploy-template-wave-skip.sh:68: rsync -a --delete --exclude '__pycache__' "$ORCH/.grok/prompts/" "$target/.grok/prompts/"
+- scripts/deploy-template-wave-skip.sh:69: rsync -a --delete "$ORCH/.grok/agents/" "$target/.grok/agents/" 2>/dev/null || true
+- scripts/deploy-template-wave-skip.sh:73: rsync -a --delete "$ORCH/.gemini/" "$target/.gemini/"
+- scripts/deploy-template-wave-skip.sh:147: rsync -a "$ORCH/patterns/" "$target/patterns/"
+- scripts/deploy-template-wave.sh:103: rsync -a --delete --exclude '__pycache__' "$ORCH/.grok/prompts/" "$target/.grok/prompts/"
+- scripts/deploy-template-wave.sh:104: rsync -a --delete "$ORCH/.grok/agents/" "$target/.grok/agents/" 2>/dev/null || true
+- scripts/deploy-template-wave.sh:108: rsync -a --delete "$ORCH/.gemini/" "$target/.gemini/"
+- scripts/deploy-template-wave.sh:148: rsync -a --delete --exclude '__pycache__' "$ORCH/scripts/_engine/" "$target/scripts/_engine/"
+- scripts/deploy-template-wave.sh:153: rsync -a "$ORCH/scripts/stack-profiles/" "$target/scripts/stack-profiles/"
+- scripts/deploy-template-wave.sh:195: rsync -a "$ORCH/patterns/" "$target/patterns/"
+
+## hash_whole_file (10) — Hashing
+- scripts/_engine/deploy.py:29: h = hashlib.sha256()
+- scripts/_engine/vault.py:92: return hashlib.sha256(canonical).hexdigest()
+- scripts/_engine/vault.py:162: content_hash = hashlib.sha256(content_to_hash.encode("utf-8")).hexdigest()
+- scripts/_engine/vault.py:263: expected = hashlib.sha256(content_to_hash.encode("utf-8")).hexdigest()
+- src/orchestrator_cli/flow.py:257: h = hashlib.sha256(tp.read_bytes()).hexdigest()
+- scripts/orchestrator-bundle-hash.py:57: def file_sha256(path: Path) -> str:
+- scripts/orchestrator-bundle-hash.py:58: h = hashlib.sha256()
+- scripts/orchestrator-bundle-hash.py:81: entries[rel] = file_sha256(path)
+- scripts/orchestrator-bundle-hash.py:84: bundle_hash = hashlib.sha256(material.encode("utf-8")).hexdigest()
+- src/orchestrator_cli/license_server.py:105: fingerprint = hashlib.sha256(key.encode("utf-8")).hexdigest()[:12]

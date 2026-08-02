@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "orchestrator-ddev": {
+      "type": "stdio",
+      "command": "bash",
+      "args": ["scripts/mcp-ddev-stdio.sh"],
+      "cwd": "${workspaceFolder}"
+    }
+  }
+}

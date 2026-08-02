@@ -1,0 +1,18 @@
+# High-risk paths — require review by repository maintainers (v1.6.0+).
+# Configure a GitHub team (recommended: @ndestates/maintainers) with write access
+# so branch protection can require CODEOWNERS review.
+#
+# Fallback: org owner @ndestates — replace with your maintainer team as needed.
+
+# Default
+* @ndestates
+
+# Critical surfaces (malware / supply-chain / deploy blast radius)
+/scripts/ @ndestates
+/.github/workflows/ @ndestates
+/.githooks/ @ndestates
+/mcp-server/ @ndestates
+/src/orchestrator_cli/ @ndestates
+/chains/ @ndestates
+/CODEOWNERS @ndestates
+/scripts/security/ @ndestates

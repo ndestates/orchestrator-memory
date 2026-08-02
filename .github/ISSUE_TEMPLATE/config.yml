@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability reporting
+    url: https://github.com/<OWNER>/<REPO>/security/advisories/new
+    about: Report security vulnerabilities privately.
+  - name: GitHub governance and workflow docs
+    url: https://github.com/<OWNER>/<REPO>/tree/master/docs/github
+    about: Review repository standards, audits, and workflow guidance before opening an issue.

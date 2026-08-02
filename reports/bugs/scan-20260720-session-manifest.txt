@@ -1,0 +1,27 @@
+bug-hunter-scan root=/home/nickd/projects/orchestrator
+timestamp=2026-07-20T141827Z
+
+=== Markers ===
+TODO/FIXME/HACK: 0
+dd/dump die: 0
+console debug: 0
+
+=== Security signals (triage only — use security-audit-agent for full review) ===
+raw SQL concat: 0
+eval/exec: 0
+hardcoded secret pattern: 0
+
+=== Error handling ===
+empty catch: 0
+suppress errors @: 0
+
+=== Laravel hints (if present) ===
+
+=== Tests ===
+test_files: 0
+skipped tests: 0
+
+=== Config ===
+.env.example: MISSING
+
+Scan complete. Deep review required — static grep produces false positives.

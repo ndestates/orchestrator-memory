@@ -1,0 +1,64 @@
+name: MCP Security
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - master
+    paths:
+      - 'mcp-server/**'
+      - 'scripts/mcp-threat-scan.sh'
+      - 'scripts/mcp-smoke.sh'
+      - 'scripts/mcp-host-stdio.sh'
+      - 'scripts/ensure-mcp-host.sh'
+      - '.github/workflows/mcp-security.yml'
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+    paths:
+      - 'mcp-server/**'
+      - 'scripts/mcp-threat-scan.sh'
+      - 'scripts/mcp-smoke.sh'
+      - 'scripts/mcp-host-stdio.sh'
+      - 'scripts/ensure-mcp-host.sh'
+      - '.github/workflows/mcp-security.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mcp-security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  mcp-security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Enforce Node 24 for GitHub Actions (no Node 20)
+        run: python3 scripts/verify_github_actions_node24.py
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install MCP server (with dev deps)
+        run: pip install -e "mcp-server/[dev]"
+
+      - name: Run MCP unit + security tests
+        run: pytest mcp-server/tests -q
+
+      - name: MCP smoke (stdio list_tools + health_check)
+        run: bash scripts/mcp-smoke.sh --no-ensure
+
+      - name: MCP / agent instruction threat scan
+        run: bash scripts/mcp-threat-scan.sh

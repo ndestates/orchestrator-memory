@@ -1,0 +1,17 @@
+{
+  "overall": "PASS",
+  "repos_scanned": 1,
+  "secrets_pass": 1,
+  "secrets_fail": 0,
+  "secrets_skip": 0,
+  "hooks_ok": 1,
+  "hooks_missing": 0,
+  "cse_status": "ran",
+  "cse_warns": 0,
+  "cse_findings": 0,
+  "cse_summary": "--- Control 2: Secure configuration (secrets/debug) --- (no matches) --- Control 1: Firewalls (CORS / wide bind) --- --- Control 3: User access control (auth hints) --- --- Control 4: Malware protection (lockfiles / uploads) --- --- Control 5: Security update management --- OK workflow signal: .github/workflows/chain-audit.yml OK workflow signal: .github/workflows/loop-daily-triage.yml OK workflow signal: .github/workflows/mcp-security.yml OK workflow signal: .github/workflows/release.yml OK workflow signal: .github/workflows/security-malware.yml OK workflow signal: .github/workflows/tooling-tests.yml ",
+  "report_path": "reports/security/session-sweep-2026-08-02.md",
+  "fingerprint": "a5eae2a5e19f91144fecdde257fc4b2881b2371569ec5f26eb07a2169a9cce1d",
+  "cache_reason": "force",
+  "cache_hit": false
+}

@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-07-25T07:51:57.302701+00:00",
+  "git_head": "a555310",
+  "topology": "diamond",
+  "primary_workstream": "multi-stream-graphs",
+  "reduce": {
+    "total_nodes": 6,
+    "ok": 6,
+    "failed": 0,
+    "workstreams": 5,
+    "by_status": {
+      "held": 1,
+      "active": 1,
+      "held_ready": 1,
+      "parked": 2
+    },
+    "failed_ids": []
+  },
+  "nodes": [
+    {
+      "node": "vault:tip",
+      "type": "vault",
+      "ok": true,
+      "events": 112,
+      "tip_id": "ec3d8b02b6cdc650",
+      "tip_type": "workspace_pointer",
+      "tip_area": "process",
+      "parents": [
+        "2179de8e99233b08ce1e67f666c8c3b06225d157cee0ae605d8898652860f71b"
+      ],
+      "ts": "2026-07-25T07:47:06.098216+00:00"
+    },
+    {
+      "node": "ws:freemium-paypal",
+      "type": "workstream",
+      "id": "freemium-paypal",
+      "status": "held",
+      "branch": "feature/freemium-license-publish-2026-07-18",
+      "next": "Explicit unhold only",
+      "open": "Live PayPal / license-api deploy",
+      "artifacts_present": [
+        "docs/internal/FREEMIUM-LICENSE-AND-SERVER-PLAN.md"
+      ],
+      "artifacts_missing": [],
+      "ok": true
+    },
+    {
+      "node": "ws:multi-stream-graphs",
+      "type": "workstream",
+      "id": "multi-stream-graphs",
+      "status": "active",
+      "branch": "feature/multi-workstream-session-v2-2026-07-22",
+      "next": "EOD clean; next: PR\u2192develop or app upgrades on pre.5",
+      "open": "Work on multiple held/active tracks via /multi-workstream",
+      "artifacts_present": [
+        "docs/internal/MULTI-WORKSTREAM-SESSION-V2-PLAN.md",
+        "docs/examples/agent-graphs/README.md",
+        "docs/guides/multi-workstream/IMPLEMENTATION.md",
+        "scripts/workstream.py",
+        "scripts/workstream_graph_example.py"
+      ],
+      "artifacts_missing": [],
+      "ok": true
+    },
+    {
+      "node": "ws:opensource-license",
+      "type": "workstream",
+      "id": "opensource-license",
+      "status": "held_ready",
+      "branch": "feature/opensource-apache-patreon-2026-07-22",
+      "next": "Unhold only \u2014 do not expand until asked",
+      "open": "Apache LICENSE swap; Patreon prep; counsel EULA (paused)",
+      "artifacts_present": [
+        "docs/internal/OPEN-SOURCE-AND-PRO-LICENSE-SPLIT.md"
+      ],
+      "artifacts_missing": [],
+      "ok": true
+    },
+    {
+      "node": "ws:product-graph",
+      "type": "workstream",
+      "id": "product-graph",
+      "status": "parked",
+      "branch": "",
+      "next": "Unpark only after thin-runtime decision; do not plan LangGraph",
+      "open": "PARKED DIY product_graph only \u2014 LangGraph DROPPED for now",
+      "artifacts_present": [],
+      "artifacts_missing": [],
+      "ok": true
+    },
+    {
+      "node": "ws:webmcp-beta",
+      "type": "workstream",
+      "id": "webmcp-beta",
+      "status": "parked",
+      "branch": "feature/webmcp-beta-setup-2026-07-21",
+      "next": "Only if explicitly unparked \u2014 independent of multi-stream",
+      "open": "Optional; not required for multi-workstream",
+      "artifacts_present": [
+        "docs/guides/webmcp-beta.md"
+      ],
+      "artifacts_missing": [],
+      "ok": true
+    }
+  ],
+  "source": "scripts/workstream_graph_example.py",
+  "principles": [
+    "nodes=jobs edges=data",
+    "fan-out parallel then barrier reduce",
+    "orchestration in code not conversation"
+  ]
+}

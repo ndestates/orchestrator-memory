@@ -1,0 +1,76 @@
+# Root project config for the orchestrator template + installable CLI.
+# Single source of truth for the template version is /VERSION (see [tool.hatch.version]).
+# Plan: /home/nickd/.claude/plans/linked-booping-kahan.md
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "orchestrator"
+description = "Open-source host CLI for manifest-first AI orchestration + always-on project memory"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+requires-python = ">=3.10"
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Build Tools",
+]
+keywords = ["orchestrator", "ai", "agents", "memory", "vscode"]
+dynamic = ["version"]
+dependencies = [
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pyyaml>=6.0"]
+
+[project.scripts]
+orchestrator = "orchestrator_cli.__main__:main"
+
+[tool.hatch.version]
+path = "VERSION"
+# Core X.Y.Z for wheels (PEP 440). Full pre-release identity stays in VERSION file
+# (e.g. 1.9.0-pre.2) for template stamp / orchestrator version / envelope.
+pattern = "^(?P<version>\\d+\\.\\d+\\.\\d+)"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/orchestrator_cli"]
+exclude = ["**/__pycache__", "**/*.pyc", "**/*.pyo"]
+
+# Bundle the deployable surfaces into the wheel at build time (single source of
+# truth = repo root; never committed into the package tree). Paths mirror
+# scripts/deploy-bundle.yaml selections — deliberately the deployable subdirs
+# only, NOT whole .grok/.claude/.copilot (which carry never_deploy memory
+# symlinks + deploy artifacts that must not ship).
+[tool.hatch.build.targets.wheel.force-include]
+"VERSION" = "orchestrator_cli/template/VERSION"
+".grok/skills" = "orchestrator_cli/template/.grok/skills"
+".grok/prompts" = "orchestrator_cli/template/.grok/prompts"
+".grok/agents" = "orchestrator_cli/template/.grok/agents"
+".grok/memories/INDEX.md" = "orchestrator_cli/template/.grok/memories/INDEX.md"
+".grok/memories/README.md" = "orchestrator_cli/template/.grok/memories/README.md"
+".github/skills" = "orchestrator_cli/template/.github/skills"
+".github/agents" = "orchestrator_cli/template/.github/agents"
+".github/prompts" = "orchestrator_cli/template/.github/prompts"
+".github/copilot-instructions.md" = "orchestrator_cli/template/.github/copilot-instructions.md"
+".claude/commands" = "orchestrator_cli/template/.claude/commands"
+".claude/agents" = "orchestrator_cli/template/.claude/agents"
+".claude/README.md" = "orchestrator_cli/template/.claude/README.md"
+".copilot/skills" = "orchestrator_cli/template/.copilot/skills"
+"chains" = "orchestrator_cli/template/chains"
+"patterns" = "orchestrator_cli/template/patterns"
+"scripts" = "orchestrator_cli/template/scripts"
+"CHAIN.md" = "orchestrator_cli/template/CHAIN.md"
+"LOOP.md" = "orchestrator_cli/template/LOOP.md"
+"loop-budget.md" = "orchestrator_cli/template/loop-budget.md"
+"CLAUDE.md" = "orchestrator_cli/template/CLAUDE.md"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-q"

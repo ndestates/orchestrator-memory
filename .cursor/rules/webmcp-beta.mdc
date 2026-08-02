@@ -1,0 +1,13 @@
+---
+description: Browser WebMCP beta — page tools; see docs/guides/webmcp-beta.md
+globs:
+alwaysApply: false
+---
+
+# WebMCP beta (Cursor)
+
+Guide: `docs/guides/webmcp-beta.md`  
+Plan: `docs/internal/WEBMCP-BETA-PLAN.md`  
+Examples: `docs/examples/webmcp/`
+
+Not the host MCP server (`mcp-server/`).

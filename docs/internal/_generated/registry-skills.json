@@ -1,0 +1,478 @@
+[
+  {
+    "id": "acquire-codebase-knowledge",
+    "slash": "/acquire-codebase-knowledge",
+    "path": ".grok/skills/acquire-codebase-knowledge/SKILL.md",
+    "tier": "shared",
+    "description": "Full codebase map + stack detection + seven docs/codebase/ cache files (canonical)"
+  },
+  {
+    "id": "ai-engineering-maturity",
+    "slash": "/ai-engineering-maturity",
+    "path": ".grok/skills/ai-engineering-maturity/SKILL.md",
+    "tier": "shared",
+    "description": "8 stages AI engineering maturity framework"
+  },
+  {
+    "id": "amazon-ses-email",
+    "slash": "/amazon-ses-email",
+    "path": ".grok/skills/amazon-ses-email/SKILL.md",
+    "tier": "app",
+    "description": "Amazon SES email setup"
+  },
+  {
+    "id": "app-compound-gate",
+    "slash": "/app-compound-gate",
+    "path": ".grok/skills/app-compound-gate/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Per-app compound gate at session-start (STATE/VISION load, close SCAFFOLD)"
+  },
+  {
+    "id": "astro-expert",
+    "slash": "/astro-expert",
+    "path": ".grok/skills/astro-expert/SKILL.md",
+    "tier": "app",
+    "description": "Astro content collections and islands expert"
+  },
+  {
+    "id": "aws-route53-dns",
+    "slash": "/aws-route53-dns",
+    "path": ".grok/skills/aws-route53-dns/SKILL.md",
+    "tier": "app",
+    "description": "Route 53 DNS deploy \u2014 app records, DKIM/SPF/DMARC, firewall handoff"
+  },
+  {
+    "id": "branch-context-agent",
+    "slash": "/branch-context-agent",
+    "path": ".grok/skills/branch-context-agent/SKILL.md",
+    "tier": "shared",
+    "description": "Branch scope vs TODO alignment"
+  },
+  {
+    "id": "bug-hunter-agent",
+    "slash": "/bug-hunter-agent",
+    "path": ".grok/skills/bug-hunter-agent/SKILL.md",
+    "tier": "shared",
+    "description": "Comprehensive bug and weakness hunter; fix or suggest patches with tests"
+  },
+  {
+    "id": "cache-efficient",
+    "slash": "/cache-efficient",
+    "path": ".grok/skills/cache-efficient/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Lean cache-first responses; default token mode"
+  },
+  {
+    "id": "cache-freshness-check",
+    "slash": "/cache-freshness-check",
+    "path": ".grok/skills/cache-freshness-check/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Check docs/codebase cache age and branch drift; advise refresh"
+  },
+  {
+    "id": "chain",
+    "slash": "/chain",
+    "path": ".grok/skills/chain/SKILL.md",
+    "tier": "orchestrator",
+    "description": "On-demand skill/prompt chains from this registry"
+  },
+  {
+    "id": "changelog-specialist",
+    "slash": "/changelog-specialist",
+    "path": ".grok/skills/changelog-specialist/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Session changelog log, CHANGELOG.md consolidate, EOD PR body"
+  },
+  {
+    "id": "cyber-security-essentials",
+    "slash": "/cyber-security-essentials",
+    "path": ".grok/skills/cyber-security-essentials/SKILL.md",
+    "tier": "shared",
+    "description": "UK NCSC Cyber Essentials assessor for code, config, and CI"
+  },
+  {
+    "id": "daily-standup",
+    "slash": "/daily-standup",
+    "path": ".grok/skills/daily-standup/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Alias for daily-standup-with-cache; fetch + latest remote branch before cache + TODO briefing"
+  },
+  {
+    "id": "daily-standup-with-cache",
+    "slash": "/daily-standup-with-cache",
+    "path": ".grok/skills/daily-standup-with-cache/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Daily session briefing from cache + TODO"
+  },
+  {
+    "id": "data-architect-expert",
+    "slash": "/data-architect-expert",
+    "path": ".grok/skills/data-architect-expert/SKILL.md",
+    "tier": "app",
+    "description": "Data architect \u2014 ER design, mermaid diagrams, schema improvement"
+  },
+  {
+    "id": "ddev-cleanup",
+    "slash": "/ddev-cleanup",
+    "path": ".grok/skills/ddev-cleanup/SKILL.md",
+    "tier": "orchestrator",
+    "description": "End-of-day cleanup, TODO, commit, branch reposition"
+  },
+  {
+    "id": "ddev-local-runtime",
+    "slash": "/ddev-local-runtime",
+    "path": ".grok/skills/ddev-local-runtime/SKILL.md",
+    "tier": "app",
+    "description": "Enforce DDEV for local commands"
+  },
+  {
+    "id": "didit-identity-integration",
+    "slash": "/didit-identity-integration",
+    "path": ".grok/skills/didit-identity-integration/SKILL.md",
+    "tier": "app",
+    "description": "Didit KYC/KYB/AML identity verification"
+  },
+  {
+    "id": "digitalocean-app-platform-docr-deploy",
+    "slash": "/digitalocean-app-platform-docr-deploy",
+    "path": ".grok/skills/digitalocean-app-platform-docr-deploy/SKILL.md",
+    "tier": "app",
+    "description": "DigitalOcean deploy skill"
+  },
+  {
+    "id": "docker-expert",
+    "slash": "/docker-expert",
+    "path": ".grok/skills/docker-expert/SKILL.md",
+    "tier": "app",
+    "description": "Hardened Docker images, thin prod deploy, local compose"
+  },
+  {
+    "id": "documentation-specialist",
+    "slash": "/documentation-specialist",
+    "path": ".grok/skills/documentation-specialist/SKILL.md",
+    "tier": "orchestrator",
+    "description": "GitHub Docs-style doc site + cache; chains; no secrets/trade secrets/coding tips"
+  },
+  {
+    "id": "docx",
+    "slash": "/docx",
+    "path": ".grok/skills/docx/SKILL.md",
+    "tier": "shared",
+    "description": "Create, read, edit, manipulate .docx Word documents (docx-js creation, unpack/edit/pack XML, pandoc, LibreOffice conversion, tracked changes, TOC, etc.)"
+  },
+  {
+    "id": "eval-maintenance-task",
+    "slash": "/eval-maintenance-task",
+    "path": ".grok/skills/eval/maintenance-task/SKILL.md",
+    "tier": "app",
+    "description": "Post-maintenance eval reports"
+  },
+  {
+    "id": "filament-panel-review",
+    "slash": "/filament-panel-review",
+    "path": ".grok/skills/filament-panel-review/SKILL.md",
+    "tier": "app",
+    "description": "Filament panel audit"
+  },
+  {
+    "id": "frontend-web-design-expert",
+    "slash": "/frontend-web-design-expert",
+    "path": ".grok/skills/frontend-web-design-expert/SKILL.md",
+    "tier": "app",
+    "description": "Framework-agnostic UI (HTML/Tailwind/server-rendered)"
+  },
+  {
+    "id": "git-workflow-guardrails",
+    "slash": "/git-workflow-guardrails",
+    "path": ".grok/skills/git-workflow-guardrails/SKILL.md",
+    "tier": "shared",
+    "description": "Safe commit, push, PR, tag with guardrails"
+  },
+  {
+    "id": "github-ci-readiness-expert",
+    "slash": "/github-ci-readiness-expert",
+    "path": ".grok/skills/github-ci-readiness-expert/SKILL.md",
+    "tier": "shared",
+    "description": "Branch CI/CD readiness \u2014 workflow triggers, secrets, Node 24, per-wave project gates; READY/CONDITIONAL/BLOCKED before push"
+  },
+  {
+    "id": "github-expert",
+    "slash": "/github-expert",
+    "path": ".grok/skills/github-expert/SKILL.md",
+    "tier": "shared",
+    "description": "GitHub Actions, workflows, PRs"
+  },
+  {
+    "id": "github-workflow-expert",
+    "slash": "/github-workflow-expert",
+    "path": ".grok/skills/github-workflow-expert/SKILL.md",
+    "tier": "shared",
+    "description": "Programmatic workflow CRUD and secrets via gh CLI"
+  },
+  {
+    "id": "go-expert",
+    "slash": "/go-expert",
+    "path": ".grok/skills/go-expert/SKILL.md",
+    "tier": "app",
+    "description": "Go API and static web backend expert"
+  },
+  {
+    "id": "laravel-expert-agent",
+    "slash": "/laravel-expert-agent",
+    "path": ".grok/skills/laravel-expert-agent/SKILL.md",
+    "tier": "app",
+    "description": "Laravel + Filament expert"
+  },
+  {
+    "id": "llm-wiki",
+    "slash": "/llm-wiki",
+    "path": ".grok/skills/llm-wiki/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Karpathy LLM wiki \u2014 ingest, query, lint (wiki_policy)"
+  },
+  {
+    "id": "load-project-cache-first",
+    "slash": "/load-project-cache-first",
+    "path": ".grok/skills/load-project-cache-first/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Master cache loader (docs/codebase + TODO + memories)"
+  },
+  {
+    "id": "loop-compound",
+    "slash": "/loop-compound",
+    "path": ".grok/skills/loop-compound/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Compound learning closure (steps 10\u201314); lessons to STATE + gates"
+  },
+  {
+    "id": "loop-engineering",
+    "slash": "/loop-engineering",
+    "path": ".grok/skills/loop-engineering/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Loop maturity, patterns, loop-audit.sh"
+  },
+  {
+    "id": "loop-triage",
+    "slash": "/loop-triage",
+    "path": ".grok/skills/loop-triage/SKILL.md",
+    "tier": "orchestrator",
+    "description": "L1 loop triage (cache-first, report-only)"
+  },
+  {
+    "id": "loop-verifier",
+    "slash": "/loop-verifier",
+    "path": ".grok/skills/loop-verifier/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Independent loop artifact verifier"
+  },
+  {
+    "id": "loqate-address-integration",
+    "slash": "/loqate-address-integration",
+    "path": ".grok/skills/loqate-address-integration/SKILL.md",
+    "tier": "app",
+    "description": "Loqate Address Capture find/retrieve"
+  },
+  {
+    "id": "mariadb-database-expert",
+    "slash": "/mariadb-database-expert",
+    "path": ".grok/skills/mariadb-database-expert/SKILL.md",
+    "tier": "app",
+    "description": "MariaDB 10/11 schema, Galera, and tuning expert"
+  },
+  {
+    "id": "model-schema-check",
+    "slash": "/model-schema-check",
+    "path": ".grok/skills/model-schema-check/SKILL.md",
+    "tier": "app",
+    "description": "Model vs DB schema drift check"
+  },
+  {
+    "id": "mysql-database-expert",
+    "slash": "/mysql-database-expert",
+    "path": ".grok/skills/mysql-database-expert/SKILL.md",
+    "tier": "app",
+    "description": "MySQL 8 schema, query, and migration expert"
+  },
+  {
+    "id": "nextjs-expert",
+    "slash": "/nextjs-expert",
+    "path": ".grok/skills/nextjs-expert/SKILL.md",
+    "tier": "app",
+    "description": "Next.js App Router and marketing site expert"
+  },
+  {
+    "id": "nuxt-expert",
+    "slash": "/nuxt-expert",
+    "path": ".grok/skills/nuxt-expert/SKILL.md",
+    "tier": "app",
+    "description": "Nuxt 3/4 Vue marketing and app expert"
+  },
+  {
+    "id": "orchestrator-deploy",
+    "slash": "/orchestrator-deploy",
+    "path": ".grok/skills/orchestrator-deploy/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Deploy .grok + root chains to target; overwrite/skip/merge on conflict"
+  },
+  {
+    "id": "paypal-billing-integration",
+    "slash": "/paypal-billing-integration",
+    "path": ".grok/skills/paypal-billing-integration/SKILL.md",
+    "tier": "app",
+    "description": "PayPal billing integration"
+  },
+  {
+    "id": "prod-db-maintenance",
+    "slash": "/prod-db-maintenance",
+    "path": ".grok/skills/prod-db-maintenance/SKILL.md",
+    "tier": "app",
+    "description": "Production DB maintenance slot"
+  },
+  {
+    "id": "project-drift-guardian",
+    "slash": "/project-drift-guardian",
+    "path": ".grok/skills/project-drift-guardian/SKILL.md",
+    "tier": "app",
+    "description": "Pre/post deploy drift guardian"
+  },
+  {
+    "id": "prompt-patterns",
+    "slash": "/prompt-patterns",
+    "path": ".grok/skills/prompt-patterns/SKILL.md",
+    "tier": "app",
+    "description": "High-signal prompt engineering patterns (grounded RAG with refusal, Socratic code review, strict formatting, complex structure). Invocable via /prompt-patter..."
+  },
+  {
+    "id": "qa-agent",
+    "slash": "/qa-agent",
+    "path": ".grok/skills/qa-agent/SKILL.md",
+    "tier": "shared",
+    "description": "Full QA agent - reusable general structure + project specializations (example facebook-stats). Functional correctness, test adequacy, maintainability, domain risks, safety gates, sign-off reports (READY/CONDITIONAL/BLOCKED)."
+  },
+  {
+    "id": "read-codebase",
+    "slash": "/read-codebase",
+    "path": ".grok/skills/read-codebase/SKILL.md",
+    "tier": "shared",
+    "description": "Alias for acquire-codebase-knowledge (backward-compatible cache refresh)"
+  },
+  {
+    "id": "readme-specialist",
+    "slash": "/readme-specialist",
+    "path": ".grok/skills/readme-specialist/SKILL.md",
+    "tier": "shared",
+    "description": "README and docs polish"
+  },
+  {
+    "id": "research-deep-dive",
+    "slash": "/research-deep-dive",
+    "path": ".grok/skills/research-deep-dive/SKILL.md",
+    "tier": "orchestrator",
+    "description": "External-topic research memo (perspective Q&A, no default web, no STORM)"
+  },
+  {
+    "id": "schema-audit-agent",
+    "slash": "/schema-audit-agent",
+    "path": ".grok/skills/schema-audit-agent/SKILL.md",
+    "tier": "app",
+    "description": "Read-only schema/migration audit"
+  },
+  {
+    "id": "script-not-shell",
+    "slash": "/script-not-shell",
+    "path": ".grok/skills/script-not-shell/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Write script files instead of inline shell; avoids heredoc/escaping failures"
+  },
+  {
+    "id": "session-resume",
+    "slash": "/session-resume",
+    "path": ".grok/skills/session-resume/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Resume-first gate \u2014 trust fresh resume card; skip redundant TODO/STATE reads"
+  },
+  {
+    "id": "ai-content-guardrails",
+    "slash": "/ai-content-guardrails",
+    "path": ".grok/skills/ai-content-guardrails/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Defense in depth \u2014 prompt injection, PII leakage, toxic content (all agents)"
+  },
+  {
+    "id": "security-audit-agent",
+    "slash": "/security-audit-agent",
+    "path": ".grok/skills/security-audit-agent/SKILL.md",
+    "tier": "app",
+    "description": "Security, auth, permissions audit"
+  },
+  {
+    "id": "skill-creator",
+    "slash": "/skill-creator",
+    "path": ".grok/skills/skill-creator/SKILL.md",
+    "tier": "app",
+    "description": "Create new skills, modify and improve existing skills, and measure skill performance with quantitative evals, parallel subagent runs (with/without or old/new..."
+  },
+  {
+    "id": "sqlite-database-expert",
+    "slash": "/sqlite-database-expert",
+    "path": ".grok/skills/sqlite-database-expert/SKILL.md",
+    "tier": "app",
+    "description": "SQLite embedded, WAL, and test DB expert"
+  },
+  {
+    "id": "template-decontaminate",
+    "slash": "/template-decontaminate",
+    "path": ".grok/skills/template-decontaminate/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Post-deploy pre-commit gate; rename to project + hard-gate scan for template residue"
+  },
+  {
+    "id": "test-safety-agent",
+    "slash": "/test-safety-agent",
+    "path": ".grok/skills/test-safety-agent/SKILL.md",
+    "tier": "app",
+    "description": "Test DB safety gate"
+  },
+  {
+    "id": "test-specialist-agent",
+    "slash": "/test-specialist-agent",
+    "path": ".grok/skills/test-specialist-agent/SKILL.md",
+    "tier": "app",
+    "description": "Write and improve tests"
+  },
+  {
+    "id": "todo-specialist-agent",
+    "slash": "/todo-specialist-agent",
+    "path": ".grok/skills/todo-specialist-agent/SKILL.md",
+    "tier": "shared",
+    "description": "TODO file maintenance"
+  },
+  {
+    "id": "token-usage-meter",
+    "slash": "/token-usage-meter",
+    "path": ".grok/skills/token-usage-meter/SKILL.md",
+    "tier": "orchestrator",
+    "description": "Always-on token monitor with USD cost analysis, session log, and cache miss warnings"
+  },
+  {
+    "id": "vector-database-expert",
+    "slash": "/vector-database-expert",
+    "path": ".grok/skills/vector-database-expert/SKILL.md",
+    "tier": "app",
+    "description": "Vector DB fit assessment, RAG, and embedding-store expert"
+  },
+  {
+    "id": "web-build-design",
+    "slash": "/web-build-design",
+    "path": ".grok/skills/web-build-design/SKILL.md",
+    "tier": "app",
+    "description": "SaaS marketing and design"
+  },
+  {
+    "id": "webapp-testing",
+    "slash": "/webapp-testing",
+    "path": ".grok/skills/webapp-testing/SKILL.md",
+    "tier": "app",
+    "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing..."
+  }
+]

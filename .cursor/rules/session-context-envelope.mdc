@@ -1,0 +1,32 @@
+---
+description: Session spin-up — fixed-size context envelope; use .cursor/ as primary surface
+globs:
+alwaysApply: true
+---
+
+# Session context envelope (Cursor)
+
+**THIS SURFACE IS CURSOR — use `.cursor/` only for rules/MCP config.**
+
+| You | Primary |
+|-----|---------|
+| **Cursor** | **`.cursor/`** · `.cursor/project-manifest.yaml` · `.cursor/rules/` · `.cursor/mcp.json` |
+| Not primary | `.grok/`, `.claude/`, `.github/skills/`, `.copilot/`, `.gemini/` |
+
+Shared OK: `TODO/`, `docs/`, `scripts/`, `reports/`. Map: `docs/reference/platform-surfaces.md`.
+
+At session start:
+
+```bash
+python3 scripts/session-context-envelope.py --write
+```
+
+- Print the compact CTX block (do not restate in long prose).
+- Honor `surface root=.cursor` for Cursor-specific rules; do not prefer other platform skill trees.
+- **Always surface `ask:` / pickup** so the user can continue last work if they wish. Never auto-checkout.
+- Surface **`ws primary=…`** when present (multi-workstream — `.cursor/rules/multi-workstream.mdc`).
+- Warn when `behind_develop>0` before release/version work.
+- MCP is develop-only (local DDEV / Docker / host stdio — never public hosts).
+- If `identity≠ok`, do not trust manifest stack/runtime until customized.
+
+See `docs/reference/session-context-token-budget.md`.

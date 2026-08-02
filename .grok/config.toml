@@ -1,0 +1,14 @@
+# Grok Build MCP — OPTIONAL. Product default: disabled (cache-first via files/CLI).
+# Opt-in: runtime.mcp: dev_only in project-manifest and/or ORCHESTRATOR_MCP=1,
+# then set enabled = true on a server below. Never enable on public hosts.
+# Template host: orchestrator-host. DDEV app repos: orchestrator-ddev.
+
+[mcp_servers.orchestrator-host]
+command = "bash"
+args = ["scripts/mcp-host-stdio.sh"]
+enabled = false
+
+[mcp_servers.orchestrator-ddev]
+command = "bash"
+args = ["scripts/mcp-ddev-stdio.sh"]
+enabled = false

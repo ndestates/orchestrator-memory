@@ -1,0 +1,142 @@
+{
+  "generated_at": "2026-07-22T06:17:13.760563+00:00",
+  "primary": "multi-stream-graphs",
+  "preserve_focus": true,
+  "auto_execute": false,
+  "shape": "B",
+  "summary": {
+    "candidates": 8,
+    "safe_parallel": 1,
+    "serial_focus": 3,
+    "blocked": 4,
+    "lanes_recommended": 2,
+    "max_parallel_cap": 4
+  },
+  "lanes": [
+    {
+      "lane": "L0-primary",
+      "depends_on": [],
+      "risk": "serial_focus",
+      "items": [
+        {
+          "id": "multi-stream-graphs",
+          "source": "workstream",
+          "title": "Multi-stream session + agent graphs",
+          "status": "active",
+          "next": "Use focus/hold/note to juggle day items (not product demos)",
+          "branch": "feature/multi-workstream-session-v2-2026-07-22",
+          "risk": "serial_focus",
+          "reason": "heuristic from open/next/title"
+        }
+      ],
+      "contract_outputs": [
+        "primary progress note",
+        "no held-track edits"
+      ]
+    },
+    {
+      "lane": "L1-safe",
+      "depends_on": [],
+      "risk": "safe_parallel",
+      "items": [
+        {
+          "id": "todo-3",
+          "source": "todo",
+          "title": "Concrete vault/workstream graph example runnable",
+          "status": "open",
+          "next": "Concrete vault/workstream graph example runnable",
+          "branch": "",
+          "risk": "safe_parallel",
+          "reason": "heuristic from TODO open item"
+        }
+      ],
+      "contract_outputs": [
+        "diff limited to declared paths",
+        "no secrets",
+        "no branch checkout unless clean+approved"
+      ]
+    }
+  ],
+  "blocked": [
+    {
+      "id": "opensource-license",
+      "source": "workstream",
+      "title": "Open-source Apache + Patreon + Pro license split",
+      "status": "held_ready",
+      "next": "Unhold only \u2014 do not expand until asked",
+      "branch": "feature/opensource-apache-patreon-2026-07-22",
+      "risk": "blocked",
+      "reason": "status=held_ready (do not expand without unhold/unpark)"
+    },
+    {
+      "id": "freemium-paypal",
+      "source": "workstream",
+      "title": "Freemium / PayPal production",
+      "status": "held",
+      "next": "Explicit unhold only",
+      "branch": "feature/freemium-license-publish-2026-07-18",
+      "risk": "blocked",
+      "reason": "status=held (do not expand without unhold/unpark)"
+    },
+    {
+      "id": "webmcp-beta",
+      "source": "workstream",
+      "title": "WebMCP beta (separate product \u2014 park unless working it)",
+      "status": "parked",
+      "next": "Only if explicitly unparked \u2014 independent of multi-stream",
+      "branch": "feature/webmcp-beta-setup-2026-07-21",
+      "risk": "blocked",
+      "reason": "status=parked (do not expand without unhold/unpark)"
+    },
+    {
+      "id": "todo-4",
+      "source": "todo",
+      "title": "License track remains HELD READY",
+      "status": "open",
+      "next": "License track remains HELD READY",
+      "branch": "",
+      "risk": "blocked",
+      "reason": "heuristic from TODO open item"
+    }
+  ],
+  "serial_remaining": [
+    {
+      "id": "todo-1",
+      "source": "todo",
+      "title": "Updated plan published (graph 14-step \u2192 orchestrator)",
+      "status": "open",
+      "next": "Updated plan published (graph 14-step \u2192 orchestrator)",
+      "branch": "",
+      "risk": "serial_focus",
+      "reason": "heuristic from TODO open item"
+    },
+    {
+      "id": "todo-2",
+      "source": "todo",
+      "title": "Workstream CLI + registry working",
+      "status": "open",
+      "next": "Workstream CLI + registry working",
+      "branch": "",
+      "risk": "serial_focus",
+      "reason": "heuristic from TODO open item"
+    }
+  ],
+  "deferred_safe": [],
+  "merge_gates": [
+    {
+      "id": "merge-primary-safe",
+      "checks": [
+        "Primary L0 still matches registry primary",
+        "Safe lanes did not touch held/parked workstream ids",
+        "No license/PayPal/prod files unless unhold",
+        "Git status reviewable; no force-push"
+      ]
+    }
+  ],
+  "operator_next": [
+    "Review this recommendation (do not assume auto-run)",
+    "Approve safe lanes by saying: approve parallel",
+    "Keep primary: multi-stream-graphs",
+    "Held/parked stay frozen until explicit unhold"
+  ]
+}

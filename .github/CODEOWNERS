@@ -1,0 +1,14 @@
+# Default owners
+* @ndestates
+
+# Security-sensitive and auth-critical areas
+app/Http/Middleware/ @ndestates
+app/Providers/Filament/ @ndestates
+app/Filament/**/Pages/Auth/ @ndestates
+scripts/guard-auth-stability.sh @ndestates
+scripts/ci_security_checklist.sh @ndestates
+.github/workflows/ @ndestates
+
+# Deployment and infrastructure
+docker/ @ndestates
+deploy/ @ndestates

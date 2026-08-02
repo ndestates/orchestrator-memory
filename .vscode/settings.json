@@ -1,0 +1,16 @@
+{
+  "yaml.schemas": {
+    "./schemas/skill.schema.json": [
+      "**/.grok/skills/**/SKILL.md",
+      "**/.github/skills/**/SKILL.md",
+      "**/.copilot/skills/**/SKILL.md",
+      "**/.claude/commands/*.md",
+      "**/*SKILL.md"
+    ]
+  },
+  "yaml.validate": true,
+  "files.associations": {
+    "**/SKILL.md": "yaml",
+    "**/.claude/commands/*.md": "yaml"
+  }
+}

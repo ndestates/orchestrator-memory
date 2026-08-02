@@ -1,0 +1,37 @@
+reports/bugs/backups/*/
+**/__pycache__/
+reports/changelog/session-*.md
+reports/changelog/state.json
+reports/changelog/pr-*.md
+reports/tokens/.sync-state.json
+reports/tokens/latest-summary.json
+reports/tokens/session-log.jsonl
+mcp-server/.venv/
+mcp-server/**/__pycache__/
+mcp-server/**/*.egg-info/
+mcp-server/reports/
+reports/security/mcp-threat-*.txt
+reports/security/contamination-*.txt
+reports/mcp/audit-*.jsonl
+src/orchestrator_cli/template/
+/dist/
+*.egg-info/
+/build/
+
+# npm package install
+node_modules/
+
+
+# Local tooling / agent scratch
+.local/
+bin/bin/
+bin/lib/
+
+# Always-on memory SQLite (local runtime)
+reports/memory/memory.db
+reports/memory/*.db-journal
+
+# Built packages (local)
+dist/
+*.vsix
+extensions/vscode-orchestrator/*.vsix

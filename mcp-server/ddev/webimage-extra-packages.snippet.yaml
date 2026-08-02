@@ -1,0 +1,14 @@
+# Snippet: add to your app's .ddev/config.yaml (or config.*.yaml)
+# so `rg` is available inside `ddev exec` / web container.
+#
+#   webimage_extra_packages: [ripgrep]
+#
+# Then:
+#   ddev restart
+#   ddev exec rg --version
+#
+# Prefer this over a custom Dockerfile when only package installs are needed.
+# For a Dockerfile layer (e.g. with MCP), see Dockerfile.tools and Dockerfile.mcp.
+
+webimage_extra_packages:
+  - ripgrep

@@ -1,0 +1,17 @@
+# Maps deploy targets to stack profiles for customize-skills-for-project.py
+# Used by deploy-skills-customize-wave.sh and --auto-profile
+
+version: 1
+
+by_dirname:
+  facebook-stats: facebook-stats
+  google-stats: google-stats
+  ndestates-io: laravel
+  e-ndsign: laravel
+  jerseyhouseprices: laravel
+  lightstone: laravel
+  mailchimp: python-flask
+  ndestates: laravel
+
+# Fallback when dirname not listed: read stack.profile from project manifest
+manifest_profile_key: stack.profile

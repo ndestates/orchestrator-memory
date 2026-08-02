@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "orchestrator-host": {
+      "type": "stdio",
+      "command": "bash",
+      "args": ["scripts/mcp-host-stdio.sh"],
+      "cwd": "${workspaceFolder}"
+    }
+  }
+}

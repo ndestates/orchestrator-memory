@@ -1,0 +1,87 @@
+name: Tooling Tests
+
+# Root test harness for the deploy/customize/scan/sync tooling (scripts/ + tests/).
+# Complements mcp-security.yml (which tests mcp-server/). Part of the release gate.
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - master
+    paths:
+      - 'scripts/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - 'chains/registry.yaml'
+      - '.github/workflows/tooling-tests.yml'
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+    paths:
+      - 'scripts/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - 'chains/registry.yaml'
+      - '.github/workflows/tooling-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tooling-tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  tooling-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Enforce Node 24 for GitHub Actions (no Node 20)
+        run: python3 scripts/verify_github_actions_node24.py
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install test deps
+        run: pip install pytest pyyaml
+
+      - name: Install host tools (ripgrep)
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ripgrep
+          rg --version
+          # Script path must stay green when rg is present
+          bash scripts/install-host-tools.sh --check
+
+      - name: Run tooling tests
+        run: PYTHONPATH=scripts pytest tests -q
+
+      - name: Malware / hostile-content lint
+        run: python3 scripts/orchestrator-malware-lint.py
+
+      - name: MCP / agent threat scan (fail closed)
+        run: bash scripts/mcp-threat-scan.sh
+
+      - name: Skill tool-governance lint
+        run: python3 scripts/orchestrator-skill-governance.py
+
+      - name: Skill description budget lint
+        run: python3 scripts/lint-skill-descriptions.py
+
+      - name: Bundle hash stamp verify
+        run: |
+          python3 scripts/orchestrator-bundle-hash.py generate
+          python3 scripts/orchestrator-bundle-hash.py verify
+
+      - name: Chain audit (must be 100/100)
+        run: bash scripts/chain-audit.sh

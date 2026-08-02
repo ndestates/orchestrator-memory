@@ -1,0 +1,47 @@
+# Stack profile: generic Python + Flask wave apps
+id: python-flask
+project_slug: ""
+project_title: Python Flask App
+
+# Written into project-manifest.yaml on init seed / residue amend (never overwrites customized apps)
+manifest_stack:
+  framework: flask
+  language: python
+  uses_database: true
+  database_engine: sqlite
+
+name_replacements:
+  # Template-identity scrub (HARD-GATE patterns in scan-template-contamination.sh).
+  # Must run before the lowercase "project" pair below so the literal placeholders
+  # are caught first.
+  - - Project Template
+    - "{title}"
+  - - ndestates/orchestrator
+    - "{slug}"
+  - - project
+    - "{slug}"
+  - - google-stats
+    - "{slug}"
+  - - facebook-stats
+    - "{slug}"
+  - - NDestates IO
+    - "{title}"
+  - - Google Stats
+    - "{title}"
+  - - Facebook Stats
+    - "{title}"
+  # Restore the fixed harness filename mangled by the broad "project" -> {slug}
+  # substring rule above. "project-manifest.yaml" is a literal path, not a
+  # project reference. Must be the LAST name pair so it runs after the mangle.
+  - - "{slug}-manifest"
+    - "project-manifest"
+
+stack_replacements:
+  - - "Laravel 12 + Filament 5 + Livewire"
+    - "Python + Flask"
+  - - "Laravel e-sign platform"
+    - "Python Flask application"
+  - - "Pest preferred"
+    - "pytest preferred"
+
+file_overrides: []

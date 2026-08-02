@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO_ROOT"
+
+if [[ "${GIT_PUSH_SECRETS_BYPASS:-}" != "1" ]]; then
+  if ! python3 scripts/git-push-secrets-guard.py --staged; then
+    exit 1
+  fi
+fi
+
+# Keep reports/security/bundle-hashes.json in sync when high-risk paths are staged
+# (or stamp is already stale). Prevents malware-lint / tooling-tests CI failures.
+# Bypass: ORCHESTRATOR_BUNDLE_HASH_SKIP=1
+if [[ "${ORCHESTRATOR_BUNDLE_HASH_SKIP:-}" != "1" ]]; then
+  if [[ -f scripts/orchestrator-bundle-hash.py ]]; then
+    python3 scripts/orchestrator-bundle-hash.py pre-commit
+  fi
+fi
+
+# App-specific extensions (Laravel backup policy, auth stability, etc.)
+if [[ -x "scripts/guard-auth-stability.sh" ]]; then
+  scripts/guard-auth-stability.sh
+fi

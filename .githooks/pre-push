@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO_ROOT"
+
+if [[ "${GIT_PUSH_SECRETS_BYPASS:-}" == "1" ]]; then
+  echo "pre-push: WARNING — secrets/env guard bypassed (GIT_PUSH_SECRETS_BYPASS=1)"
+  exit 0
+fi
+
+GUARD=(python3 scripts/git-push-secrets-guard.py)
+failed=0
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [[ "${local_sha}" == "0000000000000000000000000000000000000000" ]]; then
+    continue
+  fi
+
+  if [[ "${remote_sha}" == "0000000000000000000000000000000000000000" ]]; then
+    range="${local_sha}"
+  else
+    range="${remote_sha}..${local_sha}"
+  fi
+
+  if ! "${GUARD[@]}" --range "${range}"; then
+    failed=1
+  fi
+done
+
+exit "${failed}"

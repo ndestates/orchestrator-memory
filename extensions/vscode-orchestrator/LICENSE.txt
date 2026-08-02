@@ -1,0 +1,6 @@
+Apache License 2.0
+
+Copyright 2026 ND Estates Limited and contributors
+
+Licensed under the Apache License, Version 2.0. See the repository root LICENSE
+and NOTICE files for the full text and attribution.

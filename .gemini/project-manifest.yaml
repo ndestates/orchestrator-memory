@@ -1,0 +1,165 @@
+# Project Manifest v1
+# Purpose: make prompts/agents portable across repositories and reduce token cost.
+# Platform: Google Gemini
+# Canonical: .github/project-manifest.yaml — refresh via python3 scripts/sync_manifests.py
+project:
+  name: "Project Template"
+  description: "Reusable orchestrator template for fast start-to-beta delivery"
+  default_branch: "master"
+
+stack:
+  framework: "generic"        # laravel | nextjs | django | fastapi | go | generic
+  language: "generic"         # php | js | ts | python | go | rust | generic
+  uses_database: false
+  database_engine: "none"     # mysql | postgres | sqlite | none
+
+runtime:
+  environment_manager: "local" # ddev | docker-compose | local
+  local_llm: "none"            # none | ollama — optional BYOM; see docs/guides/local-ollama.md
+  ollama_runtime: "auto"       # auto | host | ddev | docker-compose
+  # MCP agent bridge — OFF by default (not required for CLI/chains/cache-first files).
+  # Opt-in: set "dev_only" or ORCHESTRATOR_MCP=1. Never on public hosts.
+  mcp: "off"                   # off | dev_only | enabled
+  start_command: ""
+  test_command: ""
+
+paths:
+  todo_dir: "TODO"
+  docs_index: "docs/codebase/README.md"
+  docs_dir: "docs/codebase"
+  implementation_summary: "IMPLEMENTATION_SUMMARY.md"
+  branch_analysis: "BRANCH_ANALYSIS.md"
+  audit_trail: "DOCUMENT_AUDIT_TRAIL.md"
+  loop_registry: "LOOP.md"
+  loop_state: "STATE.md"
+  loop_run_log: "loop-run-log.md"
+  loop_budget: "loop-budget.md"
+  loop_reports_dir: "reports/loops"
+  vault_events_dir: "reports/vault"
+  vault_ledger: "reports/vault/events.jsonl"
+  chain_registry: "CHAIN.md"
+  chains_dir: "chains"
+  chain_reports_dir: "reports/chains"
+  token_reports_dir: "reports/tokens"
+  # LLM Wiki (Karpathy pattern) — Phase 0 draft; mode off until Phase 1 scaffold
+  wiki_dir: "wiki"
+  wiki_raw_dir: "raw"
+  wiki_index: "wiki/index.md"
+  wiki_log: "wiki/log.md"
+  # Always-on memory (Google pattern — SQLite, no vectors)
+  memory_dir: "reports/memory"
+  memory_db: "reports/memory/memory.db"
+  memory_inbox: "reports/memory/inbox"
+
+token_policy:
+  mode: "lean"                # lean | standard | deep
+  # Cap on *additional* docs/codebase files after spine (see docs/reference/manifest.md)
+  max_cache_files_default: 2
+  allow_full_codebase_scan_by_default: false
+  include_large_file_summaries_only: true
+  grep_before_read: true      # Grep headings first; no full-file Read until needed
+  no_source_until_confirmed: true
+  report_tokens_estimate: true
+  cache_stale_days: 14
+  session_refresh_context_tokens: 100000
+  # Hard stop (agent MUST stop tools and offer /new) — not advisory
+  hard_stop_context_tokens: 128000
+  agent_stop_on_critical: true
+  # Grok injects name+description for every skill each turn; keep descriptions short
+  skill_description_max_chars: 220
+  resume_first_max_hours: 24   # fresh resume-*.md enables lean session-start
+
+loop_policy:
+  cache_first_mandatory: true
+  default_level: "L1"
+  allow_l2: false
+  allow_l3: false
+  require_verifier_for_l2_plus: true
+  max_cache_files_per_loop: 2
+  compound_learning: true
+  require_lessons_per_run: true
+  standing_spec: VISION.md
+  lessons_state: reports/loops/lessons-state.json
+  objective_gates:
+    - scripts/loop-audit.sh
+    - scripts/chain-audit.sh
+  security_gates:
+    - scripts/git-push-secrets-guard.py
+
+chain_policy:
+  cache_first_mandatory: true
+  shared_cache_across_steps: true
+  max_steps_default: 6
+  max_cache_files_per_chain: 5
+  handoff_mode: "minimal"
+  auto_match_from_intent: true
+  max_handoff_tokens: 80
+  allow_opt_out: true
+  require_confirm_before_run: true
+  # Skip confirm when user passes explicit chain id + "scheduled" (or CHAIN_SCHEDULED=1)
+  scheduled_allowlist:
+    - session-start
+    - chain-health-watch
+    - cache-freshness-watch
+    - github-ci-watch
+    - repo-health-watch
+    - eod-shutdown
+  register_custom_chains: true
+  custom_chain_requires_audit: true
+
+# LLM Wiki policy (Karpathy) — see reports/research/llm-wiki-karpathy-plan.md
+# Phase 1: mode lean on template (scaffold + skill + chains). Apps default via deploy.
+wiki_policy:
+  mode: "lean"                        # off | lean | full
+  l1_report_only: true                # lint/ingest propose; no auto-commit at L1
+  require_approval_for_writes: true   # human gate for multi-file wiki apply
+  compress_or_skip: true              # page only if ≥2 sources or non-greppable narrative
+  max_wiki_pages_per_session: 2       # after index/log; separate from max_cache_files_default
+  session_start_load: "index_log_only"  # index headings + log tail + open-questions only
+  dual_write_vault: true              # emit vault events on accepted ingest
+  deploy_selection: "wiki"            # future deploy-bundle selection name
+  auto_ingest: false                  # never batch-ingest without explicit ask
+
+# Always-on memory policy — see docs/guides/always-on-memory.md
+memory_policy:
+  mode: "lean"                        # off | lean | full
+  dual_write_vault: true
+  consolidate_every_minutes: 30
+  session_start_brief: true           # session-memory-brief.py after vault
+  seed_on_session_start: true         # seed-situation when store empty/stale
+  bind: "127.0.0.1"                   # HTTP serve localhost only
+  default_port: 8888
+  use_full_model_catalog: true        # all oss + free_cloud + host frontiers
+  use_full_agent_roster: true         # all registry/platform agents
+
+security_policy:
+  content_guardrails_mandatory: true
+  # Chrome-inspired lifecycle standard (2.0.0+) — docs/reference/stronger-with-every-update.md
+  stronger_with_every_update: true
+  security_md: "SECURITY.md"
+  stronger_with_every_update_doc: "docs/reference/stronger-with-every-update.md"
+  untrusted_paths:
+    - TODO/
+    - reports/
+    - STATE.md
+    - VISION.md
+  defense_layers:
+    - agent_policy
+    - untrusted_text_engine
+    - git_secrets_guard
+    - malware_mcp_scan
+    - stronger_with_every_update
+    - always_on_memory_lessons
+  reference: .grok/references/ai-content-guardrails.md
+  standards:
+    - docs/reference/stronger-with-every-update.md
+    - docs/internal/SECURITY-POSTURE.md
+    - SECURITY.md
+
+agent_policy:
+  require_manifest_first: true
+  require_cache_citation: true
+  default_execute_steps_after_plan: 2
+  require_approval_for_medium_risk: true
+  require_approval_for_high_risk: true
+  content_guardrails_required: true

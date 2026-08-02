@@ -1,0 +1,39 @@
+# DigitalOcean App Platform spec (reference).
+# Deploy:
+#   doctl apps create --spec services/license-api/app.yaml
+# Or paste into the DO console. Set secrets in the DO UI — never commit tokens.
+#
+# After deploy, point clients:
+#   export ORCHESTRATOR_LICENSE_URL=https://<app-host>/api/licenses/validate
+name: orchestrator-license-api
+region: lon
+services:
+  - name: license-api
+    dockerfile_path: services/license-api/Dockerfile
+    source_dir: /
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    health_check:
+      http_path: /healthz
+      initial_delay_seconds: 5
+      period_seconds: 10
+    envs:
+      - key: ORCHESTRATOR_LICENSE_SERVER_HOST
+        value: "0.0.0.0"
+      - key: ORCHESTRATOR_LICENSE_SERVER_PORT
+        value: "8080"
+      - key: ORCHESTRATOR_LICENSE_DB
+        value: "/data/licenses.sqlite3"
+      - key: ORCHESTRATOR_LICENSE_ADMIN_TOKEN
+        type: SECRET
+        scope: RUN_TIME
+      - key: ORCHESTRATOR_LICENSE_LEASE_TTL
+        value: "86400"
+      - key: ORCHESTRATOR_LICENSE_PRO_TTL
+        value: "2592000"
+    # Attach a volume for SQLite durability (create volume in DO console / doctl)
+    # volumes:
+    #   - name: license-data
+    #     mount_path: /data
+    #     size_gib: 1

@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ndestates/orchestrator/schemas/skill.schema.json",
+  "title": "Grok Skill Frontmatter",
+  "description": "YAML frontmatter schema for .grok/skills/*/SKILL.md (and synced copies). Follows the agentskills.io spec used by Grok Build.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the skill. Must match the directory name (kebab-case)."
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of what the skill does and when to use it. Shown in the system prompt."
+    },
+    "argument-hint": {
+      "type": "string",
+      "description": "Example arguments or usage hint shown to the user."
+    },
+    "user-invocable": {
+      "type": "boolean",
+      "description": "Whether the skill can be directly invoked by the user with /name."
+    },
+    "disable-model-invocation": {
+      "type": "boolean",
+      "description": "If true, the model cannot decide to call this skill on its own."
+    },
+    "allowed-tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "bash",
+          "read_file",
+          "edit_file",
+          "write_file",
+          "web_search",
+          "browse_page",
+          "image_gen",
+          "image_edit",
+          "image_to_video",
+          "reference_to_video"
+        ]
+      },
+      "description": "Explicit list of tools this skill is allowed to use. Principle of least privilege. See docs/reference/tools.md"
+    },
+    "license": {
+      "type": "string",
+      "description": "License for the skill (e.g. 'MIT', 'Proprietary')."
+    },
+    "compatibility": {
+      "type": "string",
+      "description": "Optional compatibility notes or version info."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Free-form additional metadata. Put custom fields here.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["name", "description"],
+  "additionalProperties": true
+}

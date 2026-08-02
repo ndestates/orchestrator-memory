@@ -1,0 +1,23 @@
+# Append to .ddev/config.yaml for HTTP MCP inside DDEV (optional).
+# stdio via scripts/mcp-ddev-stdio.sh is simpler for Cursor — use this for HTTP clients.
+#
+# After editing: ddev restart
+
+# Prerequisite: cp mcp-server/ddev/Dockerfile.mcp .ddev/web-build/Dockerfile.mcp && ddev restart
+
+web_environment:
+  - PYTHONPATH=/var/www/html/mcp-server/src
+  - PROJECT_ROOT=/var/www/html
+  # Optional auth for HTTP transport (generate: openssl rand -hex 32)
+  # - ORCHESTRATOR_MCP_API_KEY=your-local-dev-key
+
+web_extra_daemons:
+  - name: orchestrator-mcp
+    command: "python3 -m orchestrator_mcp.server --transport streamable-http --host 0.0.0.0 --port 8090 --project-root /var/www/html"
+    directory: /var/www/html
+
+web_extra_exposed_ports:
+  - name: mcp
+    container_port: 8090
+    http_port: 8090
+    https_port: 8091

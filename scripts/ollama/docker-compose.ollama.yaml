@@ -1,0 +1,28 @@
+# Optional Ollama service for pure Docker Compose local stacks (not DDEV).
+#
+# Usage (from project root):
+#   cp scripts/ollama/docker-compose.ollama.yaml docker-compose.ollama.yaml
+#   docker compose -f docker-compose.yml -f docker-compose.ollama.yaml up -d ollama
+#
+# Or: bash scripts/install-ollama-compose.sh
+#
+# In-app / sibling containers: OLLAMA_HOST=http://ollama:11434
+# Host agents (Grok, Cursor): OLLAMA_HOST=http://127.0.0.1:11434
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:11434/api/tags"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  ollama_data:

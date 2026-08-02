@@ -1,0 +1,112 @@
+name: Repository Sync & Maintenance
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repo-sync-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Fetch all branches
+        run: |
+          git fetch --all --prune
+          echo "Repository Status:"
+          git status --short --branch
+          echo
+          echo "Remote branches:"
+          git branch -r | head -20
+
+      - name: Check for outdated branches
+        run: |
+          mkdir -p reports/github
+          {
+            echo "# Remote Branch Divergence Report"
+            echo
+            echo "Generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo
+            printf "| Branch | Ahead of master | Behind master | Last Commit (UTC) |\n"
+            printf "|---|---:|---:|---|\n"
+
+            while read -r branch; do
+              [[ "$branch" == "HEAD" ]] && continue
+              ahead=$(git rev-list --count "origin/master..origin/$branch" 2>/dev/null || echo "0")
+              behind=$(git rev-list --count "origin/$branch..origin/master" 2>/dev/null || echo "0")
+              last_commit=$(git log -1 --format=%cI "origin/$branch" 2>/dev/null || echo "unknown")
+              printf "| %s | %s | %s | %s |\n" "$branch" "$ahead" "$behind" "$last_commit"
+            done < <(git branch -r | sed 's#^[ *]*origin/##' | grep -v '^$' | sort)
+          } > reports/github/branch-divergence.md
+
+          echo "Generated reports/github/branch-divergence.md"
+
+      - name: Detect stale remote branches (90+ days)
+        id: stale
+        run: |
+          mkdir -p reports/github
+          stale_count=0
+          now_epoch=$(date +%s)
+
+          {
+            echo "# Stale Remote Branches"
+            echo
+            echo "Branches with no commits in more than 90 days (excluding master/main)."
+            echo
+            printf "| Branch | Days Since Last Commit | Last Commit (UTC) |\n"
+            printf "|---|---:|---|\n"
+
+            while read -r branch; do
+              [[ "$branch" == "HEAD" || "$branch" == "master" || "$branch" == "main" ]] && continue
+
+              last_ts=$(git log -1 --format=%ct "origin/$branch" 2>/dev/null || echo "0")
+              [[ "$last_ts" == "0" ]] && continue
+
+              age_days=$(( (now_epoch - last_ts) / 86400 ))
+              if [[ "$age_days" -gt 90 ]]; then
+                stale_count=$(( stale_count + 1 ))
+                last_commit=$(git log -1 --format=%cI "origin/$branch")
+                printf "| %s | %s | %s |\n" "$branch" "$age_days" "$last_commit"
+              fi
+            done < <(git branch -r | sed 's#^[ *]*origin/##' | grep -v '^$' | sort)
+          } > reports/github/stale-branches.md
+
+          echo "stale_count=$stale_count" >> "$GITHUB_OUTPUT"
+          echo "Generated reports/github/stale-branches.md"
+
+      - name: Upload branch maintenance artifacts
+        uses: actions/upload-artifact@v7  # Node 24 native
+        with:
+          name: branch-maintenance-reports
+          path: reports/github/
+          if-no-files-found: error
+
+      - name: Publish branch summary
+        run: |
+          {
+            echo "## Repository Branch Maintenance"
+            echo
+            echo "- Divergence report: reports/github/branch-divergence.md"
+            echo "- Stale branch report: reports/github/stale-branches.md"
+            echo "- Stale branch count: ${{ steps.stale.outputs.stale_count }}"
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,51 @@
+name: Chain Registry Audit
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - master
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: chain-audit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chain-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Enforce Node 24 for GitHub Actions (no Node 20)
+        run: python3 scripts/verify_github_actions_node24.py
+
+      - name: Install Python dependencies
+        run: pip install pyyaml
+
+      - name: Run chain registry audit
+        run: bash scripts/chain-audit.sh
+
+      - name: Audit summary
+        if: always()
+        run: |
+          {
+            echo "## Chain Registry Audit"
+            echo
+            echo "- Script: \`scripts/chain-audit.sh\`"
+            echo "- Registry: \`chains/registry.yaml\`"
+            echo "- Validates YAML, invoke targets, and cache path references"
+            echo "- Pass criteria: score 100/100, zero issues"
+          } >> "$GITHUB_STEP_SUMMARY"

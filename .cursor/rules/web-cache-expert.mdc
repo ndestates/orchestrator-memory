@@ -1,0 +1,13 @@
+---
+description: Website HTTP/CDN/image/document cache architecture (not AI token cache)
+globs:
+alwaysApply: false
+---
+
+# Web Cache Expert (Cursor)
+
+Slash: `/web-cache-expert` · Chain: `/chain web-cache-review`
+
+Skill body: `.grok/skills/web-cache-expert/SKILL.md` (shared monorepo path OK for refs).
+
+Not `/cache-efficient` (AI tokens).

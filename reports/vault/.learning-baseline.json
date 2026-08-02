@@ -1,0 +1,7 @@
+{
+  "saved_at": "2026-07-07T10:41:58.619705+00:00",
+  "ledger": "reports/vault/events.jsonl",
+  "total_events": 35,
+  "learning_events": 12,
+  "last_content_hash": "bd659ae3b05627e1a3b53557010383a580f1ce736b69665daf322a11b4a70486"
+}

@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "updated": "2026-07-11T13:02:47.727518+00:00",
+  "lessons_learned": [
+    {
+      "text": "Full `.codebase-scan.txt` can lag README `[UPDATED]` markers; pair freshness check with targeted doc refresh after large merges.",
+      "source": "reports/loops/2026-06-29-cache-freshness.md",
+      "recorded_at": "2026-06-29T09:47:14.471616+00:00"
+    },
+    {
+      "text": "orchestrator: session-start compound gate (scaffold) \u2014 cache fresh on `develop` (scan 2026-06-23); durable lessons in STATE prevent loop context drift.",
+      "source": "reports/loops/2026-07-11-session-compound-gate.md",
+      "recorded_at": "2026-07-11T12:08:50.860444+00:00"
+    },
+    {
+      "text": "Vault integrity watch first run: ledger verifies clean at 52 events; host script + brief pair is enough for L1 (no source tree).",
+      "source": "reports/loops/2026-07-11-vault-integrity.md",
+      "recorded_at": "2026-07-11T13:02:47.727518+00:00"
+    },
+    {
+      "text": "MCP `get_chain_detail` may lag until chain is on the branch MCP serves \u2014 run chain from repo registry when scaffold is local-only.",
+      "source": "reports/loops/2026-07-11-vault-integrity.md",
+      "recorded_at": "2026-07-11T13:02:47.727518+00:00"
+    }
+  ],
+  "promotions": [
+    {
+      "target": "STATE",
+      "lesson": "Full `.codebase-scan.txt` can lag README `[UPDATED]` markers; pair freshness check with targeted doc refresh after large merges.",
+      "status": "recorded"
+    },
+    {
+      "target": "STATE",
+      "lesson": "Full `.codebase-scan.txt` can lag README `[UPDATED]` markers; pair freshness check with targeted doc refresh after large merges.",
+      "status": "recorded"
+    },
+    {
+      "target": "CONCERNS",
+      "lesson": "orchestrator: session-start compound gate (scaffold) \u2014 cache fresh on `develop` (scan 2026-06-23); durable lessons in STATE prevent loop context drift.",
+      "status": "pending"
+    },
+    {
+      "target": "STATE",
+      "lesson": "Vault integrity watch first run: ledger verifies clean at 52 events; host script + brief pair is enough for L1 (no source tree).",
+      "status": "recorded"
+    },
+    {
+      "target": "skill",
+      "lesson": "MCP `get_chain_detail` may lag until chain is on the branch MCP serves \u2014 run chain from repo registry when scaffold is local-only.",
+      "status": "pending"
+    }
+  ],
+  "gate_history": [
+    {
+      "at": "2026-06-29T09:47:14.470683+00:00",
+      "gates": [
+        {
+          "script": "loop-audit.sh",
+          "exit_code": 0,
+          "ok": true,
+          "summary": "Result: READY (\u226580) \u2014 safe to enable scheduled L1 triage"
+        },
+        {
+          "script": "chain-audit.sh",
+          "exit_code": 0,
+          "ok": true,
+          "summary": "Chain audit score: 100/100 (issues: 0)"
+        }
+      ]
+    },
+    {
+      "at": "2026-07-07T07:25:45.045911+00:00",
+      "gates": [
+        {
+          "script": "loop-audit.sh",
+          "exit_code": 0,
+          "ok": true,
+          "summary": "Result: READY (\u226580) \u2014 safe to enable scheduled L1 triage"
+        },
+        {
+          "script": "chain-audit.sh",
+          "exit_code": 0,
+          "ok": true,
+          "summary": "Chain audit score: 100/100 (issues: 0)"
+        }
+      ]
+    },
+    {
+      "at": "2026-07-11T12:08:50.859880+00:00",
+      "gates": [
+        {
+          "script": "loop-audit.sh",
+          "exit_code": 0,
+          "ok": true,
+          "summary": "Result: READY (\u226580) \u2014 safe to enable scheduled L1 triage"
+        },
+        {
+          "script": "chain-audit.sh",
+          "exit_code": 0,
+          "ok": true,
+          "summary": "Chain audit score: 100/100 (issues: 0)"
+        }
+      ]
+    },
+    {
+      "at": "2026-07-11T13:02:47.726939+00:00",
+      "gates": [
+        {
+          "script": "loop-audit.sh",
+          "exit_code": 0,
+          "ok": true,
+          "summary": "Result: READY (\u226580) \u2014 safe to enable scheduled L1 triage"
+        },
+        {
+          "script": "chain-audit.sh",
+          "exit_code": 0,
+          "ok": true,
+          "summary": "Chain audit score: 100/100 (issues: 0)"
+        }
+      ]
+    }
+  ]
+}

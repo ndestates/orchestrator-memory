@@ -1,0 +1,166 @@
+name: Branch Promotion PRs
+'on':
+  push:
+    branches:
+      - master
+      - develop
+      - staging
+  workflow_dispatch:
+    inputs:
+      source:
+        description: Source branch for promotion PR
+        required: false
+        type: string
+      target:
+        description: Target branch for promotion PR
+        required: false
+        type: string
+      draft:
+        description: Create promotion PR as draft
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: promotion-pr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  create-promotion-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Resolve source and target
+        id: resolve
+        run: |
+          set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            source="${{ github.event.inputs.source }}"
+            target="${{ github.event.inputs.target }}"
+          else
+            source="${GITHUB_REF_NAME}"
+            case "${GITHUB_REF_NAME}" in
+              master)
+                target="develop"
+                ;;
+              develop)
+                target="staging"
+                ;;
+              staging)
+                target="production"
+                ;;
+              *)
+                echo "Unsupported source branch: ${GITHUB_REF_NAME}"
+                exit 1
+                ;;
+            esac
+          fi
+
+          if [[ -z "$source" || -z "$target" ]]; then
+            echo "Source and target must both be set."
+            exit 1
+          fi
+
+          echo "source=$source" >> "$GITHUB_OUTPUT"
+          echo "target=$target" >> "$GITHUB_OUTPUT"
+
+      - name: Validate branch existence
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          source="${{ steps.resolve.outputs.source }}"
+          target="${{ steps.resolve.outputs.target }}"
+
+          gh api "repos/$repo/branches/$source" >/dev/null
+          gh api "repos/$repo/branches/$target" >/dev/null
+
+      - name: Check for existing open PR
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          source="${{ steps.resolve.outputs.source }}"
+          target="${{ steps.resolve.outputs.target }}"
+
+          existing_url=$(gh pr list --repo "$repo" --state open --base "$target" --head "$source" --json url --jq '.[0].url // ""')
+          if [[ -n "$existing_url" ]]; then
+            echo "existing=true" >> "$GITHUB_OUTPUT"
+            echo "url=$existing_url" >> "$GITHUB_OUTPUT"
+          else
+            echo "existing=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check branch diff
+        id: diff
+        if: steps.existing.outputs.existing == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          source="${{ steps.resolve.outputs.source }}"
+          target="${{ steps.resolve.outputs.target }}"
+
+          ahead_by=$(gh api "repos/$repo/compare/$target...$source" --jq '.ahead_by')
+          echo "ahead_by=$ahead_by" >> "$GITHUB_OUTPUT"
+
+      - name: Create promotion PR
+        id: create
+        if: steps.existing.outputs.existing == 'false' && steps.diff.outputs.ahead_by != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          source="${{ steps.resolve.outputs.source }}"
+          target="${{ steps.resolve.outputs.target }}"
+          draft_flag=""
+
+          if [[ "${{ github.event.inputs.draft }}" == "true" || "${{ github.event_name }}" != "workflow_dispatch" ]]; then
+            draft_flag="--draft"
+          fi
+
+          url=$(gh pr create \
+            --repo "$repo" \
+            --base "$target" \
+            --head "$source" \
+            --title "chore(sync): promote $source to $target" \
+            --body "Automated branch promotion PR from $source to $target.\n\nValidation:\n- Branch protection and required checks apply on target branch.\n- Merge after required checks and approvals pass." \
+            $draft_flag)
+
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Promotion summary
+        run: |
+          set -euo pipefail
+          source="${{ steps.resolve.outputs.source }}"
+          target="${{ steps.resolve.outputs.target }}"
+
+          {
+            echo "## Branch Promotion PR"
+            echo
+            echo "- Source: $source"
+            echo "- Target: $target"
+
+            if [[ "${{ steps.existing.outputs.existing }}" == "true" ]]; then
+              echo "- Result: existing PR reused"
+              echo "- URL: ${{ steps.existing.outputs.url }}"
+            elif [[ "${{ steps.diff.outputs.ahead_by }}" == "0" ]]; then
+              echo "- Result: no-op (no commits to promote)"
+            else
+              echo "- Result: promotion PR created"
+              echo "- URL: ${{ steps.create.outputs.url }}"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

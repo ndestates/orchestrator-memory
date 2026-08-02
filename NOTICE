@@ -1,0 +1,17 @@
+Orchestrator
+Copyright 2026 ND Estates Limited and contributors
+
+This product is licensed under the Apache License, Version 2.0.
+See the LICENSE file for the full license text.
+
+This product includes design inspiration from:
+- Google "Always On Memory Agent" (Apache/MIT-friendly educational pattern;
+  see https://github.com/GoogleCloudPlatform/generative-ai)
+- Google Chrome Security "Stronger with every update" public doctrine
+  (https://blog.google/security/chrome-stronger-with-every-update/)
+
+Product positioning: **freeware open source** (Apache-2.0). Optional support
+via Patreon is a donation only — not a software license or paid feature unlock.
+
+Optional license-server components (services/license-api) remain for operators
+who self-host private entitlement gates; they are not required for public use.

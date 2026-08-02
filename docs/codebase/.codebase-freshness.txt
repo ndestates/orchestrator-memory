@@ -1,0 +1,19 @@
+# Codebase freshness (lean spine — cache-efficient / load-cache / standup only)
+# FORBIDDEN in lean mode: Read docs/codebase/.codebase-scan.txt (full scan artifact).
+Generated: 2026-06-23T07:15:39Z
+Full scan artifact: docs/codebase/.codebase-scan.txt (573 lines)
+Full scan for: /acquire-codebase-knowledge, /read-codebase, /chain cache-rebuild only
+Cache stale after: 14 days (manifest token_policy.cache_stale_days)
+
+=== DETECTED STACK (summary) ===
+Project manifest: .claude/project-manifest.yaml
+  manifest.stack.framework: generic
+  manifest.stack.language: generic
+  manifest.stack.database_engine: none
+  manifest.stack.uses_database: False
+  manifest.runtime.environment_manager: local
+
+File-based signals:
+  - FOUND chains/registry.yaml -> Orchestrator chains
+  - FOUND CHAIN.md -> Orchestrator chain registry
+  - FOUND LOOP.md -> Orchestrator loops

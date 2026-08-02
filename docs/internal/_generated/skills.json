@@ -1,0 +1,766 @@
+[
+  {
+    "dir": ".grok/skills/acquire-codebase-knowledge",
+    "name": "acquire-codebase-knowledge",
+    "title": "Acquire Codebase Knowledge",
+    "description": "Map, document, and onboard into any project codebase. Produces seven evidence-backed docs in docs/codebase/ using stack detection (25+ languages), CI/CD and container discovery, and inquiry checkpoints. Trigger for \"map this codebase\", \"document architecture\", \"onboard me\", \"create codebase docs\", /acquire-codebase-knowledge, or /read-codebase. Do not trigger for routine feature work unless the us",
+    "invokes": [
+      "/daily-standup",
+      "/load-project-cache-first",
+      "/read-codebase"
+    ]
+  },
+  {
+    "dir": ".grok/skills/ai-content-guardrails",
+    "name": "ai-content-guardrails",
+    "title": "AI Content Guardrails",
+    "description": "Defense in depth for prompt injection, PII leakage, and toxic content. Mandatory for all agents reading TODO, vault, reports, MCP output, or foreign transcripts. Use on /ai-content-guardrails, security audits, or when ingesting untrusted text.",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/ai-engineering-maturity",
+    "name": "ai-engineering-maturity",
+    "title": "AI Engineering Maturity \u2014 8 Stages Framework (project .grok)",
+    "description": "Framework for the 8 stages of AI engineering maturity (team and organization view). Based on the Upsun article by Fabien Potencier (https://upsun.com/blog/8-stages-ai-engineering-maturity/), which adapts Steve Yegge's individual \"AI-assisted development\" trust gradient into an organizational SDLC model. Use to assess adoption of AI tooling (Grok skills/agents/prompts, MCP, shared context, guardrai",
+    "invokes": [
+      "/daily-standup-with-cache",
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/amazon-ses-email",
+    "name": "amazon-ses-email",
+    "title": "Amazon SES Email Setup for project Domain (Send + Receive)",
+    "description": "Full skill for setting up Amazon SES email for the project domain (sending + receiving). Non-Microsoft (AWS only). Integrated with Laravel mail config, DO hosting (droplet/App Platform), drift avoidance (project-drift-guardian + schema checks), security (least-privilege IAM, secrets), and billing flows. Use for initial domain setup, DNS records (DKIM/SPF/DMARC/MX), IAM user/keys or role, Laravel .",
+    "invokes": [
+      "/aws-route53-dns",
+      "/load-project-cache-first",
+      "/project-drift-guardian"
+    ]
+  },
+  {
+    "dir": ".grok/skills/app-compound-gate",
+    "name": "app-compound-gate",
+    "title": "App Compound Gate (session-start)",
+    "description": "Per-app compound learning gate for session-start: assess local loop spine (STATE, VISION, lessons-state), load durable lessons when READY, close SCAFFOLD or unclosed reports via loop-compound. No fleet audit \u2014 this repo only. L1: offer scaffold on GAP.",
+    "invokes": [
+      "/app-compound-gate",
+      "/read-codebase"
+    ]
+  },
+  {
+    "dir": ".grok/skills/astro-expert",
+    "name": "astro-expert",
+    "title": "Astro Expert",
+    "description": "Astro 4/5 expert: content collections, islands architecture, View Transitions, MDX, static/SSR/hybrid output, Tailwind integration. Cache-first. Use on /astro-expert or /chain web-design when manifest framework is astro.",
+    "invokes": [
+      "/load-project-cache-first",
+      "/web-build-design"
+    ]
+  },
+  {
+    "dir": ".grok/skills/aws-route53-dns",
+    "name": "aws-route53-dns",
+    "title": "AWS Route 53 DNS Setup for project Domains (Domains + Email Records + Verification)",
+    "description": "AWS Route 53 expert: hosted zones, production app DNS (A/CNAME/ALIAS), deploy-time DKIM/SPF/DMARC/MX for SES, nameserver delegation, DNS-as-code change batches. Coordinates perimeter firewalls with /digitalocean-app-platform-docr-deploy (DO Cloud Firewall) \u2014 Route 53 is DNS only, not firewall. Pairs with /amazon-ses-email, /github-workflow-expert, /git-workflow-guardrails. Cache-first.",
+    "invokes": [
+      "/amazon-ses-email",
+      "/digitalocean-app-platform-docr-deploy",
+      "/docker-expert",
+      "/eval/maintenance-task",
+      "/git-workflow-guardrails",
+      "/github-expert",
+      "/github-workflow-expert",
+      "/load-project-cache-first",
+      "/project-drift-guardian"
+    ]
+  },
+  {
+    "dir": ".grok/skills/branch-context-agent",
+    "name": "branch-context-agent",
+    "title": "Branch Context Agent",
+    "description": "Branch scope and TODO-alignment analyzer for project. Summarize branch purpose, changes vs active TODO, detect drift before merge or major work. Use when user runs /branch-context-agent or orchestrator needs context.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/bug-hunter-agent",
+    "name": "bug-hunter-agent",
+    "title": "Bug Hunter Agent",
+    "description": "Specialist bug and weakness hunter for any codebase: logic errors, edge cases, error handling, races, data integrity, config bugs, performance, integration gaps, and security surface triage. Fixes isolated issues or suggests patches with tests. Use on /bug-hunter-agent, \"find bugs\", \"hunt bugs\", \"what could break\", or in chains bug-hunt / bug-hunt-deep / bug-hunt-pre-deploy.",
+    "invokes": [
+      "/branch-context-agent",
+      "/script-not-shell",
+      "/test-safety-agent"
+    ]
+  },
+  {
+    "dir": ".grok/skills/cache-efficient",
+    "name": "cache-efficient",
+    "title": "Cache-Efficient Mode",
+    "description": "project cache-first session with minimal tokens: load INDEX + targeted cache/memories only, respond in short bullets. Use at every session start, when cost matters, or /cache-efficient. Default tone for this repo unless user asks for depth.",
+    "invokes": [
+      "/acquire-codebase-knowledge",
+      "/daily-standup-with-cache",
+      "/orchestrator",
+      "/read-codebase",
+      "/token-usage-meter"
+    ]
+  },
+  {
+    "dir": ".grok/skills/cache-freshness-check",
+    "name": "cache-freshness-check",
+    "title": "Cache Freshness Check",
+    "description": "Check docs/codebase cache freshness against manifest cache_stale_days, .codebase-scan.txt, README [UPDATED] markers, git branch, and TODO branch. Advises fresh/aging/stale/branch_drift and recommends /read-codebase or /chain cache-rebuild. Use on /cache-freshness-check, session-start, loop-triage, or before medium/high-risk orchestrator work.",
+    "invokes": [
+      "/branch-context-agent",
+      "/documentation-specialist",
+      "/load-project-cache-first",
+      "/loop-triage",
+      "/orchestrator",
+      "/read-codebase",
+      "/token-usage-meter"
+    ]
+  },
+  {
+    "dir": ".grok/skills/chain",
+    "name": "chain",
+    "title": "Chain \u2014 cache-first skill & prompt composition",
+    "description": "Discover and run token-efficient chains of skills and prompts using the cache. Auto-matches user intent to chains/registry.yaml (skills + chains catalog), executes steps with minimal handoffs. Always offers opt-out when ambiguous or if the user prefers a single skill. Registers logical custom chains to chains/registry.yaml. Use at /chain or when a task spans multiple skills.",
+    "invokes": [
+      "/cache-efficient"
+    ]
+  },
+  {
+    "dir": ".grok/skills/changelog-specialist",
+    "name": "changelog-specialist",
+    "title": "Changelog Specialist",
+    "description": "Incremental changelog for project: session log after every substantive action, consolidate into CHANGELOG.md [Unreleased] at EOD, generate PR body. Wired into /chain session-start (init) and eod-shutdown (consolidate + pr-body). Use on /changelog-specialist, after commits/features/fixes, or when user asks for changelog.",
+    "invokes": [
+      "/changelog-specialist"
+    ]
+  },
+  {
+    "dir": ".grok/skills/copilot-instructions",
+    "name": "copilot-instructions",
+    "title": "Copilot Instructions \u2014 Project Template (Grok Native)",
+    "description": "Core operational instructions for project (DDEV, security, data safety, TODO lifecycle, branch rules, auth regression, etc.). This is the native Grok skill (primary for Grok sessions). The `.github/copilot-instructions.md` version is maintained separately for GitHub Copilot users. Always reference the Grok version in .grok/ contexts.",
+    "invokes": [
+      "/ai-content-guardrails",
+      "/ai-engineering-maturity",
+      "/daily-standup",
+      "/daily-standup-with-cache",
+      "/prompt-patterns"
+    ]
+  },
+  {
+    "dir": ".grok/skills/cyber-security-essentials",
+    "name": "cyber-security-essentials",
+    "title": "Cyber Security Essentials (UK)",
+    "description": "UK NCSC Cyber Essentials compliance assessor for code, config, and CI. Maps five technical controls to application checks; complements security-audit, bug-hunter, and engineering skills. Use on /cyber-security-essentials, UK CE readiness, supplier assurance, or chains cyber-essentials-*.",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/daily-standup",
+    "name": "daily-standup",
+    "title": "Daily Standup (alias)",
+    "description": "Alias for /daily-standup-with-cache. Start a daily session: fetch remote branches, report latest remote branch worked on, then cache + TODO + briefing.",
+    "invokes": [
+      "/daily-standup-with-cache"
+    ]
+  },
+  {
+    "dir": ".grok/skills/daily-standup-with-cache",
+    "name": "daily-standup-with-cache",
+    "title": "Daily Standup With Cache (Recommended Default Session Start)",
+    "description": "Start a daily working session on project using the local cache + today's TODO + open concerns. This is the recommended prompt/skill for almost every normal development or review session.",
+    "invokes": [
+      "/daily-standup-with-cache",
+      "/ddev-local-runtime",
+      "/read-codebase",
+      "/script-not-shell"
+    ]
+  },
+  {
+    "dir": ".grok/skills/data-architect-expert",
+    "name": "data-architect-expert",
+    "title": "Data Architect Expert",
+    "description": "Senior data architect: greenfield ER design, schema analysis and improvement, normalisation, indexing strategy, migration roadmaps. Produces mermaid ER diagrams and delegates engine implementation to mysql/mariadb/sqlite/vector experts. Cache-first. Use on /data-architect-expert or /chain database-design.",
+    "invokes": [
+      "/load-project-cache-first",
+      "/mariadb-database-expert",
+      "/mysql-database-expert",
+      "/sqlite-database-expert",
+      "/vector-database-expert"
+    ]
+  },
+  {
+    "dir": ".grok/skills/ddev-cleanup",
+    "name": "ddev-cleanup",
+    "title": "ddev-cleanup",
+    "description": "End-of-day cleanup for Grok Build + ddev projects. Repo status check, drift gate, ddev stop, cache/TODO update, commit and push on a feature branch, then reposition off master/develop for tomorrow. Use on shutdown, end of day, clean stop, daily cleanup.",
+    "invokes": [
+      "/branch-context-agent",
+      "/daily-standup-with-cache",
+      "/github-expert",
+      "/project-drift-guardian",
+      "/todo-specialist-agent"
+    ]
+  },
+  {
+    "dir": ".grok/skills/ddev-local-runtime",
+    "name": "ddev-local-runtime",
+    "title": "DDEV is the local runtime \u2014 host shell is not supported",
+    "description": "Mandatory rule that all local project commands for the project repository run inside the DDEV runtime, not on the host shell. Apply when about to run php, composer, artisan, npm, node, python3, pip, mysql, pest, phpunit, or any project tooling locally.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/didit-identity-integration",
+    "name": "didit-identity-integration",
+    "title": "Didit Identity Integration (KYC / KYB / AML)",
+    "description": "Full skill for Didit identity verification (KYC, KYB, AML, biometrics) in Laravel app repos. Sessions API + SDK or standalone modules; programmatic account; HMAC webhook verification. Canonical API facts in references/; copy-paste export in exports/. Integrated with project-drift-guardian, security-audit-agent, laravel-expert-agent, cache-first. Use for signer verification, age gates, re-auth, com",
+    "invokes": [
+      "/load-project-cache-first",
+      "/project-drift-guardian"
+    ]
+  },
+  {
+    "dir": ".grok/skills/digitalocean-app-platform-docr-deploy",
+    "name": "digitalocean-app-platform-docr-deploy",
+    "title": "DigitalOcean DevOps Expert \u2014 Hosting, CI Deploy & DB Update (No-Drift)",
+    "description": "Senior DigitalOcean DevOps expert for project hosting (App Platform + DOCR and/or Droplets), CI/CD via GitHub Actions, safe database updates, and no-drift deploy gates. Integrates /git-workflow-guardrails and /github-expert for every delivery path. Deep doctl, networking, token-scoping, and troubleshooting knowledge. Use for initial setup, workflow creation, deploy, DB migrate, or production incid",
+    "invokes": [
+      "/aws-route53-dns",
+      "/branch-context-agent",
+      "/cache-efficient",
+      "/ddev-local-runtime",
+      "/docker-expert",
+      "/eval/maintenance-task",
+      "/git-workflow-guardrails",
+      "/github-expert",
+      "/github-workflow-expert",
+      "/load-project-cache-first",
+      "/model-schema-check",
+      "/prod-db-maintenance"
+    ]
+  },
+  {
+    "dir": ".grok/skills/docker-expert",
+    "name": "docker-expert",
+    "title": "Docker Expert \u2014 Local & Hardened Production Deploy",
+    "description": "Docker expert for local dev and production deploy: multi-stage hardened images, minimal runtime layers, .dockerignore discipline, non-root users. Pairs with github-workflow-expert (build/push CI), github-expert (policy), git-workflow-guardrails (commits), and digitalocean-app-platform-docr-deploy (DOCR/App Platform). Cache-first.",
+    "invokes": [
+      "/digitalocean-app-platform-docr-deploy",
+      "/git-workflow-guardrails",
+      "/github-expert",
+      "/github-workflow-expert",
+      "/load-project-cache-first",
+      "/project-drift-guardian",
+      "/security-audit-agent"
+    ]
+  },
+  {
+    "dir": ".grok/skills/documentation-specialist",
+    "name": "documentation-specialist",
+    "title": "Documentation Specialist",
+    "description": "Full-project documentation maker for orchestrator template or any forked app repo. Produces a GitHub Docs-style navigable site (docs/index.md + sections) plus agent cache. Uses /chain to compose load-cache, read-codebase, and readme-specialist. No secrets, trade secrets, or coding tips in output. Invoke /documentation-specialist or /chain documentation-full. Docs only \u2014 no source edits.",
+    "invokes": [
+      "/chain",
+      "/read-codebase",
+      "/readme-specialist",
+      "/script-not-shell"
+    ]
+  },
+  {
+    "dir": ".grok/skills/docx",
+    "name": "docx",
+    "title": "DOCX creation, editing, and analysis",
+    "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/eval/maintenance-task",
+    "name": "eval-maintenance-task",
+    "title": "Eval: Maintenance Task (AI Engineering Maturity)",
+    "description": "Post-maintenance evaluation skill for production readiness tasks (registry cleanup, DB imports, live listings freshness, etc.). Uses the 8 stages AI engineering maturity lens: moves \"standards\" (success criteria, protection of active data, freshness) out of heads and into the system as first-class evals (Stage 5/8). Always run after one-off or recurring maintenance to produce auditable reports.",
+    "invokes": [
+      "/ai-engineering-maturity",
+      "/daily-standup-with-cache",
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/filament-panel-review",
+    "name": "filament-panel-review",
+    "title": "Filament Panel Review (Cache-First)",
+    "description": "Review one or more of the 7 Filament 5 panels in project multi-panel architecture using the local cache first. Use for panel audits, resource reviews, widget checks, cross-panel reuse, or before changes to providers/resources.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/frontend-web-design-expert",
+    "name": "frontend-web-design-expert",
+    "title": "Frontend Web Design Expert",
+    "description": "Framework-agnostic UI/UX expert: HTML, Tailwind, design tokens, responsive layouts, and WCAG AA a11y. Default is server-rendered UI (Blade, Livewire, HTMX, Filament, Go templates) \u2014 not a separate SPA. Complements /web-build-design. Routes to stack experts only when manifest requires. Cache-first. Use on /frontend-web-design-expert, /frontend-expert, or /chain frontend-ui.",
+    "invokes": [
+      "/astro-expert",
+      "/filament-panel-review",
+      "/go-expert",
+      "/laravel-expert-agent",
+      "/load-project-cache-first",
+      "/nextjs-expert",
+      "/nuxt-expert",
+      "/web-build-design",
+      "/webapp-testing"
+    ]
+  },
+  {
+    "dir": ".grok/skills/git-workflow-guardrails",
+    "name": "git-workflow-guardrails",
+    "title": "Git Workflow Guardrails",
+    "description": "Git and githooks workflow for safe delivery. Use when committing, pushing, tagging, releasing, or preparing PR. Enforces secrets/env guard before commit/push, security checklist, tests, clear commits, branch promotion (feature->develop->master), annotated tags.",
+    "invokes": [
+      "/github-ci-readiness-expert",
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/github-ci-readiness-expert",
+    "name": "github-ci-readiness-expert",
+    "title": "GitHub CI/CD Branch Readiness Expert",
+    "description": "GitHub CI/CD branch readiness expert for wave projects. Analyses the current branch against .github/workflows triggers, secret names, Node 24 policy, and local parity (chain-audit). Per-project rules live in references/<slug>-ci.md. Chains with /github-expert and /git-workflow-guardrails via /chain ci-branch-readiness. Sign-off READY | CONDITIONAL | BLOCKED before push or PR. Use on /github-ci-rea",
+    "invokes": [
+      "/git-workflow-guardrails",
+      "/github-expert",
+      "/github-workflow-expert",
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/github-expert",
+    "name": "github-expert",
+    "title": "GitHub Expert Agent",
+    "description": "GitHub platform expert for project workflows, Actions, PRs, security scanning, automation. Use when /github-expert or managing CI/deploy. For programmatic workflow CRUD and secrets management, delegate to /github-workflow-expert.",
+    "invokes": [
+      "/git-workflow-guardrails",
+      "/github-workflow-expert",
+      "/load-project-cache-first",
+      "/prompt-patterns"
+    ]
+  },
+  {
+    "dir": ".grok/skills/github-workflow-expert",
+    "name": "github-workflow-expert",
+    "title": "GitHub Workflow Expert \u2014 Programmatic Actions & Secrets",
+    "description": "Programmatic GitHub Actions expert: create, amend, delete workflows in .github/workflows/, manage repo and environment secrets via gh CLI, dispatch and enable/disable workflows. Use for /github-workflow-expert, \"set GH secrets\", \"add deploy workflow\", \"remove workflow\", or CI automation tasks. Pairs with /docker-expert (hardened image CI), /git-workflow-guardrails for commits, and /github-expert f",
+    "invokes": [
+      "/digitalocean-app-platform-docr-deploy",
+      "/git-workflow-guardrails",
+      "/github-ci-readiness-expert",
+      "/github-expert",
+      "/load-project-cache-first",
+      "/project-drift-guardian",
+      "/security-audit-agent"
+    ]
+  },
+  {
+    "dir": ".grok/skills/go-expert",
+    "name": "go-expert",
+    "title": "Go Expert",
+    "description": "Go 1.22+ expert: stdlib HTTP, chi/gin/echo (project-existing), sqlc/GORM, modules, testing, observability, Docker. Cache-first. Use on /go-expert for APIs, CLIs, and static/marketing backends when manifest language is go.",
+    "invokes": [
+      "/data-architect-expert",
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/jersey-aml-compliance-expert",
+    "name": "jersey-aml-compliance-expert",
+    "title": "Jersey AML / Compliance Expert (POCL + Money Laundering Order)",
+    "description": "Expert on Jersey anti-money laundering, counter-terrorist financing and counter-proliferation financing (AML/CFT/CPF). Primary sources: Proceeds of Crime (Jersey) Law 1999 (POCL) and Money Laundering (Jersey) Order 2008 (MLO). Covers Schedule 2 scope, customer due diligence (CDD/EDD), risk assessments, MLRO/MLCO obligations, record keeping, suspicious activity reporting (SARs) to JFCU, tipping-off",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/jersey-data-protection-expert",
+    "name": "jersey-data-protection-expert",
+    "title": "Jersey Data Protection Expert",
+    "description": "Expert on the Data Protection (Jersey) Law 2018 (DPJL) and the Data Protection Authority (Jersey) Law 2018. Covers principles, lawful bases, data subject rights, DPIAs, breach notification, international transfers, accountability, registration, enforcement, and practical implementation guidance for systems and applications (especially Jersey-based or processing Jersey personal data). References of",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/laravel-expert-agent",
+    "name": "laravel-expert-agent",
+    "title": "Laravel Expert Agent",
+    "description": "Laravel 12 + Filament 5 expert for project. Use for architecture, resources, Eloquent, panels, services, Artisan, testing, or when /laravel-expert-agent.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/llm-wiki",
+    "name": "llm-wiki",
+    "title": "LLM Wiki",
+    "description": "Karpathy-style LLM wiki: ingest raw sources into a persistent markdown wiki, query with index-first navigation, lint for contradictions/orphans/stale pages. Use on /llm-wiki, /wiki, or chains wiki-ingest / wiki-query / wiki-lint. Honors wiki_policy in the project manifest (mode off|lean|full).",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/load-project-cache-first",
+    "name": "load-project-cache-first",
+    "title": "Load Local Codebase Cache First (Token-Efficient Session Start)",
+    "description": "Load project project cache (docs/codebase/ + TODO + CONCERNS + .grok/.copilot memories) first before any deep exploration. Use at the start of almost every session to save tokens and provide accurate context quickly. Mandatory entry point for ongoing work.",
+    "invokes": [
+      "/acquire-codebase-knowledge",
+      "/app-compound-gate",
+      "/cache-freshness-check"
+    ]
+  },
+  {
+    "dir": ".grok/skills/loop-compound",
+    "name": "loop-compound",
+    "title": "Loop Compound (steps 10\u201314)",
+    "description": "Compound learning closure (14-step roadmap steps 10\u201314): capture loop lessons, promote to STATE.md + secure hash-chained vault graph (reports/vault/events.jsonl with content hashes, provenance, secret scrubbing), record gates, queue promotions. Run after loop-verifier PASS. Cache-first; L1 report-only + human approval for mutations. Strong integrity via verify_ledger.",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/loop-engineering",
+    "name": "loop-engineering",
+    "title": "Loop Engineering (orchestrator template)",
+    "description": "Loop engineering for this template: design systems that prompt agents, not hand prompts. Cache is king \u2014 all loops are cache-first. Assess maturity, pick next pattern, run loop-audit. See LOOP.md, patterns/, and loop-budget.md.",
+    "invokes": [
+      "/acquire-codebase-knowledge",
+      "/cache-efficient",
+      "/chain",
+      "/documentation-specialist",
+      "/goal",
+      "/load-project-cache-first",
+      "/loop-compound",
+      "/loop-triage",
+      "/loop-verifier",
+      "/orchestrator",
+      "/skill-creator"
+    ]
+  },
+  {
+    "dir": ".grok/skills/loop-triage",
+    "name": "loop-triage",
+    "title": "Loop Triage (L1, cache-first)",
+    "description": "L1 daily loop triage for the orchestrator template. Cache is king: load manifest + lean cache before any source or gh deep-dive. Synthesise priorities into STATE.md and reports/loops/. Report-only; no auto-fix. Use on schedule or /loop-triage.",
+    "invokes": [
+      "/cache-freshness-check",
+      "/loop-compound",
+      "/loop-verifier"
+    ]
+  },
+  {
+    "dir": ".grok/skills/loop-verifier",
+    "name": "loop-verifier",
+    "title": "Loop Verifier (maker/checker split)",
+    "description": "Independent verifier for loop outputs. Checks artifacts and rubric only \u2014 not maker reasoning. Enforces cache citations, L1 no-auto-fix, and loop-budget compliance. Use after loop-triage.",
+    "invokes": [
+      "/loop-compound"
+    ]
+  },
+  {
+    "dir": ".grok/skills/loqate-address-integration",
+    "name": "loqate-address-integration",
+    "title": "Loqate Address Capture Integration",
+    "description": "Full skill for Loqate (GBG) Address Capture in Laravel app repos. Find + Retrieve type-ahead via backend proxy; normalized address storage. Canonical API in references/; export prompt in exports/. Integrated with project-drift-guardian, security-audit-agent, laravel-expert-agent, cache-first. Use for signer addresses, billing/checkout address, proof-of-address fields in e-ndsign or ndestates-io.",
+    "invokes": [
+      "/load-project-cache-first",
+      "/project-drift-guardian"
+    ]
+  },
+  {
+    "dir": ".grok/skills/mariadb-database-expert",
+    "name": "mariadb-database-expert",
+    "title": "MariaDB Database Expert",
+    "description": "MariaDB 10.x/11.x expert for project: InnoDB/Aria, Galera, replication, JSON, spatial, Laravel Eloquent, Python connectors. Schema, tuning, migrations safety. Use on /mariadb-database-expert or when manifest database_engine is mariadb/mysql-compatible MariaDB.",
+    "invokes": [
+      "/data-architect-expert",
+      "/load-project-cache-first",
+      "/model-schema-check",
+      "/schema-audit-agent",
+      "/sqlite-database-expert",
+      "/test-safety-agent"
+    ]
+  },
+  {
+    "dir": ".grok/skills/model-schema-check",
+    "name": "model-schema-check",
+    "title": "Model Schema Check (Cache-First + Safe)",
+    "description": "Review model vs database schema consistency on project using the local cache and project tooling. Use before/after migrations or when schema drift is suspected. Strictly test DB only.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/mysql-concurrency-test",
+    "name": "mysql-concurrency-test",
+    "title": "MySQL Concurrency Tests (Laravel/Eloquent)",
+    "description": "Design MySQL concurrency tests adapted for Laravel 12 + Eloquent (lockForUpdate, DB::transaction, queues, optimistic/pessimistic locking). Includes reusable prompt. Use when modeling race conditions on stock, balances, orders etc. Complements /mysql-database-expert and /laravel-expert-agent.",
+    "invokes": [
+      "/laravel-expert-agent",
+      "/mysql-database-expert",
+      "/test-safety-agent"
+    ]
+  },
+  {
+    "dir": ".grok/skills/mysql-database-expert",
+    "name": "mysql-database-expert",
+    "title": "MySQL Database Expert",
+    "description": "MySQL 8.x expert for project: InnoDB, JSON, window functions, CTEs, replication, Laravel Eloquent, Python connectors. Schema, EXPLAIN, indexing, migrations safety. Use on /mysql-database-expert or /chain migration-safe. Cache-first.",
+    "invokes": [
+      "/data-architect-expert",
+      "/load-project-cache-first",
+      "/mariadb-database-expert",
+      "/model-schema-check",
+      "/sqlite-database-expert",
+      "/vector-database-expert"
+    ]
+  },
+  {
+    "dir": ".grok/skills/nextjs-expert",
+    "name": "nextjs-expert",
+    "title": "Next.js Expert",
+    "description": "Next.js 14/15 App Router expert: RSC, server actions, route handlers, middleware, Tailwind, auth patterns, Vercel/Node deploy. Cache-first. Use on /nextjs-expert or /chain web-design when manifest framework is nextjs.",
+    "invokes": [
+      "/data-architect-expert",
+      "/load-project-cache-first",
+      "/web-build-design"
+    ]
+  },
+  {
+    "dir": ".grok/skills/nuxt-expert",
+    "name": "nuxt-expert",
+    "title": "Nuxt Expert",
+    "description": "Nuxt 3/4 expert: file-based routing, server routes, composables, Pinia, Nitro, SSR/SSG/prerender, Tailwind module. Cache-first. Use on /nuxt-expert or /chain web-design when manifest framework is nuxt or nuxtjs.",
+    "invokes": [
+      "/load-project-cache-first",
+      "/web-build-design"
+    ]
+  },
+  {
+    "dir": ".grok/skills/orchestrator-deploy",
+    "name": "orchestrator-deploy",
+    "title": "Orchestrator Deploy",
+    "description": "Deploy orchestrator .grok skills, prompts, agents, and root chains (CHAIN.md, chains/registry.yaml) to any target project. Tracks customized files in deploy-state.json; prompts overwrite, skip, or merge on conflict. Pre-deploy backups with --rollback. Selectable bundles include .claude and .copilot. Use with /orchestrator-deploy or /chain template-deploy. Fleet: explicit approval only; never copy ",
+    "invokes": [
+      "/git-workflow-guardrails"
+    ]
+  },
+  {
+    "dir": ".grok/skills/paypal-billing-integration",
+    "name": "paypal-billing-integration",
+    "title": "PayPal Billing & Payments Integration for project (Non-Microsoft)",
+    "description": "Full skill for PayPal integration in project for payments and generating billing documents (invoices, receipts) directly at PayPal. Non-Microsoft (pure PayPal + Laravel). Use for checkout flows (e.g. admin subscriptions or document requests), webhook handling (payments, disputes), generating/sending PayPal invoices tied to e-sign usage, and refunds. Integrated with DO hosting, drift avoidance (pro",
+    "invokes": [
+      "/load-project-cache-first",
+      "/project-drift-guardian"
+    ]
+  },
+  {
+    "dir": ".grok/skills/prod-db-maintenance",
+    "name": "prod-db-maintenance",
+    "title": "Prod DB Maintenance (Stage 6: Operating System)",
+    "description": "Skill for invoking import or update of the production database as Stage 6 infrastructure (operating system). Treats DB maintenance as a first-class \"agent slot\" task: spec-driven, heavily cache-backed, followed by /eval-maintenance-task, with observability. Maximizes shared context (docs/codebase, TODO, previous evals, architecture, mysql expert) to avoid \"ten things\" and ensure clean prod state. ",
+    "invokes": [
+      "/ai-engineering-maturity",
+      "/daily-standup-with-cache",
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/project-drift-guardian",
+    "name": "project-drift-guardian",
+    "title": "Project Drift Guardian (project)",
+    "description": "Specialized guardian against project drift for project. Uses GitHub branches for work isolation, persistent database (or app DB table) for requirements tracking (e-sign features, signing flows, audit/compliance), and Grok reviews for alignment checks. Enforces pre-deploy drift scans (code, schema, container tags, scope) to avoid drift at all costs. Trigger on planning, feature dev, scope reviews, ",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/prompt-patterns",
+    "name": "prompt-patterns",
+    "title": "Prompt Patterns",
+    "description": "High-signal prompt engineering patterns (grounded RAG with refusal, Socratic code review, strict formatting, complex structure). Invocable via /prompt-patterns. Use when authoring skills/prompts/agents/graders. Full reference: reports/research/prompt-patterns.md + .grok/prompts/prompt-patterns.md",
+    "invokes": [
+      "/prompt-patterns"
+    ]
+  },
+  {
+    "dir": ".grok/skills/qa-agent",
+    "name": "qa-agent",
+    "title": "QA Agent (Full Agent)",
+    "description": "Full QA agent (reusable general structure + per-wave-project specializations). Specializations live in references/<project>-specializations.md (facebook-stats, google-stats, e-ndsign, ndestates-io, lightstone, ...). Performs comprehensive quality assessment including functional correctness, test adequacy, structural maintainability, domain risks, safety/compliance (DDEV + test DB only), and produc",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/read-codebase",
+    "name": "read-codebase",
+    "title": "Read Codebase (alias)",
+    "description": "Backward-compatible alias for acquire-codebase-knowledge. Full codebase scan with stack detection, seven docs/codebase/ files, and cache refresh. Use for onboarding, major cache refresh, or /read-codebase. Rare for daily work.",
+    "invokes": [
+      "/acquire-codebase-knowledge",
+      "/read-codebase"
+    ]
+  },
+  {
+    "dir": ".grok/skills/readme-specialist",
+    "name": "readme-specialist",
+    "title": "README Specialist",
+    "description": "Documentation specialist for project README, guides, reference/*.md . Limited to docs only. Use on /readme-specialist or when improving project docs.",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/research-deep-dive",
+    "name": "research-deep-dive",
+    "title": "Research Deep Dive",
+    "description": "Optional external-topic research before implementation. Frame with multi-lens questions, gather from cache and user-approved sources only (no default web), write a short memo under reports/research/. Not for codebase onboarding. Use on /research-deep-dive or /chain research-deep-dive. STORM-inspired questioning only \u2014 no STORM product.",
+    "invokes": [
+      "/acquire-codebase-knowledge",
+      "/chain",
+      "/orchestrator"
+    ]
+  },
+  {
+    "dir": ".grok/skills/schema-audit-agent",
+    "name": "schema-audit-agent",
+    "title": "Schema Audit Agent",
+    "description": "Read-only schema/migration auditor for project. Use on /schema-audit-agent or for drift analysis.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/script-not-shell",
+    "name": "script-not-shell",
+    "title": "Script-Not-Shell (avoid escaping failures)",
+    "description": "Avoid inline shell escaping failures by writing script files first. Use when running multi-line Python/bash, heredocs, nested quotes, YAML/JSON in shell, audit logic, or after heredoc/syntax errors. Creates temp scripts (/tmp) or permanent scripts (scripts/). Invoke with /script-not-shell. Reduces retry loops and token waste.",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/security-audit-agent",
+    "name": "security-audit-agent",
+    "title": "Security Audit Agent",
+    "description": "Security, auth, permissions, CDD/consent auditor for project. Use on /security-audit-agent , post-dep or form changes.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/session-resume",
+    "name": "session-resume",
+    "title": "Session Resume (resume-first)",
+    "description": "Resume-first gate for session-start: when a fresh resume card exists, trust it for branch/done/open/cache and skip redundant TODO/STATE/git reads to save tokens. Use on /chain session-start, /daily-standup-with-cache, or when user pastes a resume card.",
+    "invokes": []
+  },
+  {
+    "dir": ".grok/skills/skill-creator",
+    "name": "skill-creator",
+    "title": "Skill Creator (orchestrator)",
+    "description": "Create new skills, modify and improve existing skills, and measure skill performance with quantitative evals, parallel subagent runs (with/without or old/new baselines), grading, benchmark aggregation (mean \u00b1 stddev), human review, and description optimization for better triggering. High token cost \u2014 use with approval and token-usage-meter. For developing .grok/skills/ primitives that power loops ",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/sqlite-database-expert",
+    "name": "sqlite-database-expert",
+    "title": "SQLite Database Expert",
+    "description": "SQLite expert for project: embedded DB, Laravel :memory:/file drivers, Python sqlite3, WAL mode, migrations, FTS5, strict tables. Use on /sqlite-database-expert or when manifest database_engine is sqlite or tests use in-memory SQLite.",
+    "invokes": [
+      "/data-architect-expert",
+      "/load-project-cache-first",
+      "/mariadb-database-expert",
+      "/mysql-database-expert",
+      "/schema-audit-agent",
+      "/test-safety-agent"
+    ]
+  },
+  {
+    "dir": ".grok/skills/template-decontaminate",
+    "name": "template-decontaminate",
+    "title": "Template Decontaminate",
+    "description": "Post-deploy, pre-commit gate for forked app repos. After the orchestrator template is deployed, renames skills/prompts/agents to the target project (slug = target dir name, e.g. /home/nickd/projects/orchestrator -> orchestrator) via customize-skills-for-project.py, then HARD-GATE scans for leftover template identifiers and unresolved placeholders. Blocks commit and notifies on residue. Use with /t",
+    "invokes": [
+      "/orchestrator-deploy"
+    ]
+  },
+  {
+    "dir": ".grok/skills/test-safety-agent",
+    "name": "test-safety-agent",
+    "title": "Test Safety Agent",
+    "description": "Enforce test DB safety and pre/post risk assessment for project tests. Use before running tests or on /test-safety-agent.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/test-specialist-agent",
+    "name": "test-specialist-agent",
+    "title": "Test Specialist Agent",
+    "description": "Write/improve/convert tests (Pest preferred) for project. Preserves logic; follows safety. Use on /test-specialist-agent or test tasks.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/todo-specialist-agent",
+    "name": "todo-specialist-agent",
+    "title": "TODO Specialist Agent",
+    "description": "Maintain project TODO-*.md (carry forward, prioritize, update from work). Use on /todo-specialist-agent or when syncing tasks.",
+    "invokes": [
+      "/load-project-cache-first"
+    ]
+  },
+  {
+    "dir": ".grok/skills/token-usage-meter",
+    "name": "token-usage-meter",
+    "title": "Token Usage Meter",
+    "description": "Always-on xAI/Grok token usage and prompt-cache monitor. Syncs session context from Grok updates.jsonl, logs trends to reports/tokens/, warns on context bloat and cache misses. Surface a one-line Token meter footer on every substantive response when monitoring is enabled. Use on /token-usage-meter, session-start, eod-shutdown, or when user asks about token cost.",
+    "invokes": [
+      "/cache-efficient",
+      "/token-usage-meter"
+    ]
+  },
+  {
+    "dir": ".grok/skills/vector-database-expert",
+    "name": "vector-database-expert",
+    "title": "Vector Database Expert",
+    "description": "Vector database expert: fit assessment (should this project use vectors?), then pgvector, Qdrant, Pinecone, Weaviate, Chroma, RAG schema, hybrid search. Cache-first. Use on /vector-database-expert, /chain vector-db-assess, or /chain vector-db-setup.",
+    "invokes": [
+      "/data-architect-expert",
+      "/load-project-cache-first",
+      "/mysql-database-expert",
+      "/security-audit-agent"
+    ]
+  },
+  {
+    "dir": ".grok/skills/web-build-design",
+    "name": "web-build-design",
+    "title": "Web Build & Design (multi-framework)",
+    "description": "Web build & design lead: conversion-focused SaaS marketing, pricing, portals. Routes implementation per manifest \u2014 Laravel/Blade/Livewire and Go templates are the default; Next/Astro/Nuxt only when the project uses them. Creative-tim inspired aesthetics. Cache-first. Use on /web-build-design or /chain web-design.",
+    "invokes": [
+      "/astro-expert",
+      "/download",
+      "/frontend-web-design-expert",
+      "/go-expert",
+      "/laravel-expert-agent",
+      "/licensing",
+      "/load-project-cache-first",
+      "/nextjs-expert",
+      "/nuxt-expert",
+      "/paypal-billing-integration",
+      "/products"
+    ]
+  },
+  {
+    "dir": ".grok/skills/webapp-testing",
+    "name": "webapp-testing",
+    "title": "Web Application Testing",
+    "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+    "invokes": []
+  }
+]

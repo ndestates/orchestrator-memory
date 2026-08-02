@@ -1,0 +1,2822 @@
+[
+  {
+    "id": "ai-maturity",
+    "name": "AI Engineering Maturity",
+    "description": "Cache load \u2192 8-stage maturity assessment",
+    "intents": [
+      "ai maturity",
+      "engineering maturity",
+      "adoption stage",
+      "ai engineering",
+      "maturity assessment"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "assess",
+        "type": "skill",
+        "invoke": "ai-engineering-maturity",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "beta-ready",
+    "name": "Beta Ready Checklist",
+    "description": "Cache load \u2192 beta checklist \u2192 drift gate",
+    "intents": [
+      "beta ready",
+      "beta checklist",
+      "ready for beta",
+      "pre-beta",
+      "launch readiness"
+    ],
+    "token_tier": "medium",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "checklist",
+        "type": "prompt",
+        "invoke": "beta-ready-checklist",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "bug-hunt",
+    "name": "Bug Hunt",
+    "description": "Cache load \u2192 bug scan (report-only). For fixes use bug-hunt-fix or pass \"fix\" in args",
+    "intents": [
+      "find bugs",
+      "hunt bugs",
+      "bug hunt",
+      "what could break",
+      "code review bugs",
+      "weakness scan",
+      "defect hunt"
+    ],
+    "token_tier": "medium",
+    "max_steps": 2,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "hunt",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "bug-hunt-deep",
+    "name": "Bug Hunt Deep",
+    "description": "Bug hunt (report) \u2192 security \u2192 schema \u2192 test safety \u2192 test gaps. Fix variant bug-hunt-fix-deep",
+    "intents": [
+      "deep bug hunt",
+      "comprehensive bug review",
+      "full defect scan",
+      "bugs and security",
+      "hunt all issues"
+    ],
+    "token_tier": "high",
+    "max_steps": 6,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "hunt",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "schema",
+        "type": "skill",
+        "invoke": "schema-audit-agent",
+        "required": false,
+        "when": "database_project"
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": false,
+        "when": "tests_requested"
+      },
+      {
+        "id": "tests",
+        "type": "skill",
+        "invoke": "test-specialist-agent",
+        "required": false,
+        "when": "test_gaps_found"
+      }
+    ]
+  },
+  {
+    "id": "bug-hunt-fix",
+    "name": "Bug Hunt and Fix",
+    "description": "Cache load \u2192 hunt \u2192 apply safe fixes \u2192 test safety \u2192 verify tests",
+    "intents": [
+      "fix bugs",
+      "bug hunt fix",
+      "hunt and fix",
+      "repair bugs",
+      "patch defects",
+      "fix issues found"
+    ],
+    "token_tier": "high",
+    "max_steps": 4,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "hunt",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": true,
+        "when": "fixes_applied"
+      },
+      {
+        "id": "tests",
+        "type": "skill",
+        "invoke": "test-specialist-agent",
+        "required": false,
+        "when": "fixes_applied"
+      }
+    ]
+  },
+  {
+    "id": "bug-hunt-fix-deep",
+    "name": "Bug Hunt Fix Deep",
+    "description": "Deep hunt with fixes \u2192 security suggest \u2192 test safety \u2192 tests for regressions",
+    "intents": [
+      "deep fix bugs",
+      "fix all bugs",
+      "comprehensive fix",
+      "hunt fix and test"
+    ],
+    "token_tier": "high",
+    "max_steps": 6,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "hunt",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": true,
+        "when": "fixes_applied"
+      },
+      {
+        "id": "tests",
+        "type": "skill",
+        "invoke": "test-specialist-agent",
+        "required": true,
+        "when": "fixes_applied"
+      },
+      {
+        "id": "schema",
+        "type": "skill",
+        "invoke": "schema-audit-agent",
+        "required": false,
+        "when": "database_project"
+      }
+    ]
+  },
+  {
+    "id": "bug-hunt-pre-deploy",
+    "name": "Bug Hunt Pre-Deploy",
+    "description": "Drift gate \u2192 bug hunt (report) \u2192 security \u2192 test safety. Fix variant append \"fix\" to args",
+    "intents": [
+      "pre-deploy bugs",
+      "release bug check",
+      "ship readiness bugs",
+      "deploy bug scan",
+      "bugs before deploy"
+    ],
+    "token_tier": "high",
+    "max_steps": 5,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "hunt",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "schema",
+        "type": "prompt",
+        "invoke": "model-schema-check",
+        "required": false,
+        "when": "database_project"
+      }
+    ]
+  },
+  {
+    "id": "bug-hunt-pre-deploy-fix",
+    "name": "Bug Hunt Pre-Deploy Fix",
+    "description": "Drift \u2192 hunt with safe fixes \u2192 security \u2192 test safety \u2192 schema check",
+    "intents": [
+      "pre-deploy fix",
+      "fix before deploy",
+      "ship with fixes",
+      "release bug fixes"
+    ],
+    "token_tier": "high",
+    "max_steps": 6,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "hunt",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": true,
+        "when": "fixes_applied"
+      },
+      {
+        "id": "tests",
+        "type": "skill",
+        "invoke": "test-specialist-agent",
+        "required": false,
+        "when": "fixes_applied"
+      },
+      {
+        "id": "schema",
+        "type": "prompt",
+        "invoke": "model-schema-check",
+        "required": false,
+        "when": "database_project"
+      }
+    ]
+  },
+  {
+    "id": "cache-freshness-watch",
+    "name": "Cache Freshness Watch",
+    "description": "L1 cache staleness report then verifier gate",
+    "intents": [
+      "cache freshness",
+      "cache stale",
+      "cache watch",
+      "refresh cache",
+      "codebase scan stale"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "check",
+        "type": "skill",
+        "invoke": "cache-freshness-check",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "verify",
+        "type": "skill",
+        "invoke": "loop-verifier",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "cache-rebuild",
+    "name": "Cache Rebuild",
+    "description": "Cache load \u2192 full codebase scan and cache write",
+    "intents": [
+      "refresh cache",
+      "rebuild cache",
+      "stale cache",
+      "read codebase",
+      "codebase scan",
+      "update cache"
+    ],
+    "token_tier": "high",
+    "max_steps": 2,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "scan",
+        "type": "skill",
+        "invoke": "acquire-codebase-knowledge",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "chain-health-watch",
+    "name": "Chain Health Watch",
+    "description": "L1 chain registry audit report then verifier gate",
+    "intents": [
+      "chain health",
+      "chain audit",
+      "registry audit",
+      "broken chain",
+      "chains registry"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "audit",
+        "type": "skill",
+        "invoke": "loop-engineering",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "verify",
+        "type": "skill",
+        "invoke": "loop-verifier",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "ci-branch-readiness",
+    "name": "CI Branch Readiness",
+    "description": "Cache \u2192 branch CI/CD analysis (per-wave) \u2192 GitHub policy \u2192 git guardrails; block push on BLOCKED",
+    "intents": [
+      "ci readiness",
+      "will ci pass",
+      "check workflows before push",
+      "branch ci",
+      "actions readiness",
+      "pre-push ci",
+      "github ci cd",
+      "ci branch readiness"
+    ],
+    "token_tier": "medium",
+    "max_steps": 4,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "readiness",
+        "type": "skill",
+        "invoke": "github-ci-readiness-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "github",
+        "type": "skill",
+        "invoke": "github-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "code-review",
+    "name": "Code Review (diff-scoped)",
+    "description": "Lean, token-efficient review of the working diff \u2014 correctness + obvious issues; security pass only when auth/secrets/permissions change. Report-only.",
+    "intents": [
+      "code review",
+      "review code",
+      "review the diff",
+      "review my changes",
+      "review changes",
+      "pre-commit review",
+      "review before commit"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "review",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": false,
+        "when": "auth_or_secrets_or_permissions_touched"
+      }
+    ]
+  },
+  {
+    "id": "complex-task",
+    "name": "Complex Task Orchestration",
+    "description": "Cache load then orchestrator decomposition for multi-domain work",
+    "intents": [
+      "orchestrate",
+      "multi-step",
+      "complex",
+      "several agents",
+      "implement feature"
+    ],
+    "token_tier": "high",
+    "max_steps": 2,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "plan",
+        "type": "prompt",
+        "invoke": "orchestrator-v2",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "cyber-essentials-hunt",
+    "name": "Cyber Essentials Bug Hunt",
+    "description": "CE assess \u2192 bug hunt \u2192 security audit for code compliance gaps",
+    "intents": [
+      "cyber essentials bugs",
+      "CE bug hunt",
+      "compliance bugs",
+      "CE weaknesses",
+      "hunt CE gaps"
+    ],
+    "token_tier": "high",
+    "max_steps": 4,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "ce",
+        "type": "skill",
+        "invoke": "cyber-security-essentials",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "hunt",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "cyber-essentials-maturity",
+    "name": "Cyber Essentials Maturity",
+    "description": "CE assess \u2192 AI engineering maturity \u2192 security audit for SDLC posture",
+    "intents": [
+      "cyber maturity",
+      "CE and AI maturity",
+      "engineering cyber compliance",
+      "SDLC cyber essentials"
+    ],
+    "token_tier": "medium",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "ce",
+        "type": "skill",
+        "invoke": "cyber-security-essentials",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "maturity",
+        "type": "skill",
+        "invoke": "ai-engineering-maturity",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "cyber-essentials-pre-deploy",
+    "name": "Cyber Essentials Pre-Deploy",
+    "description": "Drift gate \u2192 CE assess \u2192 pre-deploy bug hunt \u2192 security audit",
+    "intents": [
+      "CE pre-deploy",
+      "cyber essentials deploy",
+      "CE ship check",
+      "certification before release"
+    ],
+    "token_tier": "high",
+    "max_steps": 5,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "ce",
+        "type": "skill",
+        "invoke": "cyber-security-essentials",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "hunt",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "cyber-essentials-review",
+    "name": "Cyber Essentials Review",
+    "description": "UK NCSC Cyber Essentials code/config assess \u2192 deep security audit",
+    "intents": [
+      "cyber essentials",
+      "cyber essentials review",
+      "UK CE",
+      "NCSC compliance",
+      "certification readiness",
+      "supplier cyber assurance"
+    ],
+    "token_tier": "medium",
+    "max_steps": 2,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "ce",
+        "type": "skill",
+        "invoke": "cyber-security-essentials",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "database-design",
+    "name": "Database Design",
+    "description": "Data architect ER design \u2192 schema audit \u2192 engine expert (manifest-driven). Cache-first.",
+    "intents": [
+      "database design",
+      "schema design",
+      "ER diagram",
+      "data model",
+      "mermaid er",
+      "normalise schema",
+      "improve database",
+      "greenfield database",
+      "laravel schema",
+      "eloquent model"
+    ],
+    "token_tier": "medium",
+    "max_steps": 8,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "architect",
+        "type": "skill",
+        "invoke": "data-architect-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "model_check",
+        "type": "prompt",
+        "invoke": "model-schema-check",
+        "required": false,
+        "when": "laravel_project"
+      },
+      {
+        "id": "audit",
+        "type": "skill",
+        "invoke": "schema-audit-agent",
+        "required": false,
+        "when": "existing_schema"
+      },
+      {
+        "id": "laravel",
+        "type": "skill",
+        "invoke": "laravel-expert-agent",
+        "required": false,
+        "when": "laravel_project"
+      },
+      {
+        "id": "mysql_impl",
+        "type": "skill",
+        "invoke": "mysql-database-expert",
+        "required": false,
+        "when": "mysql_engine"
+      },
+      {
+        "id": "mariadb_impl",
+        "type": "skill",
+        "invoke": "mariadb-database-expert",
+        "required": false,
+        "when": "mariadb_engine"
+      },
+      {
+        "id": "sqlite_impl",
+        "type": "skill",
+        "invoke": "sqlite-database-expert",
+        "required": false,
+        "when": "sqlite_engine"
+      },
+      {
+        "id": "filament",
+        "type": "skill",
+        "invoke": "filament-panel-review",
+        "required": false,
+        "when": "filament_project"
+      }
+    ]
+  },
+  {
+    "id": "delivery",
+    "name": "Safe Delivery",
+    "description": "Branch alignment \u2192 diff-scoped code review \u2192 git guardrails \u2192 tests when code changed",
+    "intents": [
+      "commit",
+      "push",
+      "PR",
+      "deliver",
+      "merge",
+      "release"
+    ],
+    "token_tier": "medium",
+    "max_steps": 5,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "branch",
+        "type": "skill",
+        "invoke": "branch-context-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "review",
+        "type": "skill",
+        "invoke": "bug-hunter-agent",
+        "required": false,
+        "when": "code_changed"
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "test-safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": false,
+        "when": "code_changed"
+      },
+      {
+        "id": "tests",
+        "type": "skill",
+        "invoke": "test-specialist-agent",
+        "required": false,
+        "when": "code_changed"
+      }
+    ]
+  },
+  {
+    "id": "deploy-check",
+    "name": "Deploy Check",
+    "description": "Drift \u2192 hardened Docker \u2192 GitHub workflows \u2192 git guardrails \u2192 DO deploy \u2192 eval",
+    "intents": [
+      "deploy",
+      "production",
+      "digitalocean",
+      "CI",
+      "release to prod"
+    ],
+    "token_tier": "high",
+    "max_steps": 7,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "docker",
+        "type": "skill",
+        "invoke": "docker-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "workflows",
+        "type": "skill",
+        "invoke": "github-workflow-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "github",
+        "type": "skill",
+        "invoke": "github-expert",
+        "required": false,
+        "when": null
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "deploy",
+        "type": "skill",
+        "invoke": "digitalocean-app-platform-docr-deploy",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "eval",
+        "type": "skill",
+        "invoke": "eval/maintenance-task",
+        "required": false,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "deploy-dns-infra",
+    "name": "Deploy DNS and Perimeter",
+    "description": "Route 53 app + email DNS (DKIM) \u2192 DO firewall \u2192 SES verify \u2192 git commit DNS JSON",
+    "intents": [
+      "deploy dns",
+      "production dns",
+      "dkim deploy",
+      "firewall setup",
+      "route53 deploy",
+      "app subdomain",
+      "email dns go live"
+    ],
+    "token_tier": "high",
+    "max_steps": 6,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "dns",
+        "type": "skill",
+        "invoke": "aws-route53-dns",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "firewall",
+        "type": "skill",
+        "invoke": "digitalocean-app-platform-docr-deploy",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "ses",
+        "type": "skill",
+        "invoke": "amazon-ses-email",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "eval",
+        "type": "skill",
+        "invoke": "eval/maintenance-task",
+        "required": false,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "didit-identity-setup",
+    "name": "Didit Identity Setup",
+    "description": "Drift gate \u2192 Didit KYC/KYB integration",
+    "intents": [
+      "didit",
+      "kyc",
+      "kyb",
+      "aml",
+      "identity verification",
+      "biometric verification"
+    ],
+    "token_tier": "medium",
+    "max_steps": 2,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "didit",
+        "type": "skill",
+        "invoke": "didit-identity-integration",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "docker-deploy",
+    "name": "Docker Deploy Setup",
+    "description": "Hardened image \u2192 CI workflow \u2192 GitHub policy \u2192 git guardrails \u2192 DO registry",
+    "intents": [
+      "docker deploy",
+      "hardened dockerfile",
+      "thin production image",
+      "dockerignore",
+      "DOCR build",
+      "container CI"
+    ],
+    "token_tier": "high",
+    "max_steps": 6,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "docker",
+        "type": "skill",
+        "invoke": "docker-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "workflows",
+        "type": "skill",
+        "invoke": "github-workflow-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "github",
+        "type": "skill",
+        "invoke": "github-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "deploy",
+        "type": "skill",
+        "invoke": "digitalocean-app-platform-docr-deploy",
+        "required": false,
+        "when": "deploy_requested"
+      }
+    ]
+  },
+  {
+    "id": "documentation-full",
+    "name": "Full Documentation",
+    "description": "Cache load \u2192 codebase scan (optional) \u2192 README \u2192 GitHub Docs-style site + cache",
+    "intents": [
+      "full documentation",
+      "document project",
+      "write docs",
+      "onboarding docs",
+      "documentation specialist",
+      "api docs",
+      "architecture docs"
+    ],
+    "token_tier": "high",
+    "max_steps": 4,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "scan",
+        "type": "skill",
+        "invoke": "acquire-codebase-knowledge",
+        "required": false,
+        "when": null
+      },
+      {
+        "id": "readme",
+        "type": "skill",
+        "invoke": "readme-specialist",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "docs",
+        "type": "skill",
+        "invoke": "documentation-specialist",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "documentation-refresh",
+    "name": "Documentation Refresh",
+    "description": "Cache load \u2192 README polish \u2192 doc set update (no full scan)",
+    "intents": [
+      "refresh docs",
+      "update documentation",
+      "doc refresh",
+      "sync docs to cache"
+    ],
+    "token_tier": "medium",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "readme",
+        "type": "skill",
+        "invoke": "readme-specialist",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "docs",
+        "type": "skill",
+        "invoke": "documentation-specialist",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "eod-shutdown",
+    "name": "End of Day Shutdown",
+    "description": "Close TODO \u2192 README \u2192 token report \u2192 ddev-cleanup (mandatory clean git) \u2192 emit useful daily learnings to vault graph (self-learning brain) if activity detected. All changes committed, porcelain empty, brain updated.",
+    "intents": [
+      "end of day",
+      "shutdown",
+      "ddev cleanup",
+      "stop work",
+      "daily cleanup",
+      "mark work done",
+      "close todo",
+      "eod",
+      "eod session",
+      "eod-session",
+      "eod shutdown",
+      "clean git"
+    ],
+    "token_tier": "low",
+    "max_steps": 6,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "todo",
+        "type": "skill",
+        "invoke": "todo-specialist-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "changelog",
+        "type": "skill",
+        "invoke": "changelog-specialist",
+        "required": false,
+        "when": null
+      },
+      {
+        "id": "readme",
+        "type": "skill",
+        "invoke": "readme-specialist",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "tokens",
+        "type": "skill",
+        "invoke": "token-usage-meter",
+        "required": false,
+        "when": null
+      },
+      {
+        "id": "cleanup",
+        "type": "skill",
+        "invoke": "ddev-cleanup",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "wiki-fileback",
+        "type": "skill",
+        "invoke": "llm-wiki",
+        "required": false,
+        "when": "wiki_mode_lean_or_full"
+      },
+      {
+        "id": "vault-emit",
+        "type": "skill",
+        "invoke": "ddev-cleanup",
+        "required": false,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "filament-review",
+    "name": "Filament Panel Review",
+    "description": "Cache load \u2192 panel audit \u2192 security follow-up",
+    "intents": [
+      "filament review",
+      "panel review",
+      "filament panel",
+      "admin panel audit",
+      "resource review"
+    ],
+    "token_tier": "medium",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "panels",
+        "type": "skill",
+        "invoke": "filament-panel-review",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": false,
+        "when": "auth_or_permissions_touched"
+      }
+    ]
+  },
+  {
+    "id": "frontend-ui",
+    "name": "Frontend UI and Components",
+    "description": "HTML/Tailwind ui_spec \u2192 stack expert (Laravel/Livewire/HTMX/Go default; SPA only when manifest matches)",
+    "intents": [
+      "frontend ui",
+      "dashboard ui",
+      "form design",
+      "blade ui",
+      "livewire ui",
+      "htmx ui",
+      "filament ui",
+      "tailwind components",
+      "server rendered ui",
+      "design tokens",
+      "ui spec",
+      "accessibility ui"
+    ],
+    "token_tier": "medium",
+    "max_steps": 7,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "frontend",
+        "type": "skill",
+        "invoke": "frontend-web-design-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "laravel",
+        "type": "skill",
+        "invoke": "laravel-expert-agent",
+        "required": false,
+        "when": "laravel_project"
+      },
+      {
+        "id": "go",
+        "type": "skill",
+        "invoke": "go-expert",
+        "required": false,
+        "when": "go_framework"
+      },
+      {
+        "id": "nextjs",
+        "type": "skill",
+        "invoke": "nextjs-expert",
+        "required": false,
+        "when": "nextjs_framework"
+      },
+      {
+        "id": "astro",
+        "type": "skill",
+        "invoke": "astro-expert",
+        "required": false,
+        "when": "astro_framework"
+      },
+      {
+        "id": "nuxt",
+        "type": "skill",
+        "invoke": "nuxt-expert",
+        "required": false,
+        "when": "nuxt_framework"
+      }
+    ]
+  },
+  {
+    "id": "github-ci-watch",
+    "name": "GitHub CI Watch",
+    "description": "L1 GitHub Actions health report then verifier gate",
+    "intents": [
+      "github ci watch",
+      "workflow health",
+      "failed workflow runs",
+      "actions audit",
+      "ci watch"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "ci",
+        "type": "skill",
+        "invoke": "github-workflow-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "verify",
+        "type": "skill",
+        "invoke": "loop-verifier",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "github-workflow-setup",
+    "name": "GitHub Workflow Setup",
+    "description": "Cache \u2192 CI policy review \u2192 workflow/secrets CRUD \u2192 security audit \u2192 git delivery",
+    "intents": [
+      "github workflow",
+      "create workflow",
+      "add workflow",
+      "amend workflow",
+      "delete workflow",
+      "set secrets",
+      "gh secret",
+      "github actions setup",
+      "CI workflow",
+      "deploy workflow",
+      "workflow automation",
+      "github-workflow-expert"
+    ],
+    "token_tier": "medium",
+    "max_steps": 5,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "policy",
+        "type": "skill",
+        "invoke": "github-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "workflows",
+        "type": "skill",
+        "invoke": "github-workflow-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "laravel-database-design",
+    "name": "Laravel Database Design",
+    "description": "Full stack DB design \u2014 architect \u2192 model check \u2192 Laravel \u2192 engine \u2192 Filament. Cache-first.",
+    "intents": [
+      "laravel database",
+      "filament schema",
+      "eloquent design",
+      "model migration",
+      "database with filament",
+      "laravel ER diagram"
+    ],
+    "token_tier": "high",
+    "max_steps": 8,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "architect",
+        "type": "skill",
+        "invoke": "data-architect-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "model_check",
+        "type": "prompt",
+        "invoke": "model-schema-check",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "audit",
+        "type": "skill",
+        "invoke": "schema-audit-agent",
+        "required": false,
+        "when": "existing_schema"
+      },
+      {
+        "id": "laravel",
+        "type": "skill",
+        "invoke": "laravel-expert-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "mysql_impl",
+        "type": "skill",
+        "invoke": "mysql-database-expert",
+        "required": false,
+        "when": "mysql_engine"
+      },
+      {
+        "id": "mariadb_impl",
+        "type": "skill",
+        "invoke": "mariadb-database-expert",
+        "required": false,
+        "when": "mariadb_engine"
+      },
+      {
+        "id": "sqlite_impl",
+        "type": "skill",
+        "invoke": "sqlite-database-expert",
+        "required": false,
+        "when": "sqlite_engine"
+      },
+      {
+        "id": "filament",
+        "type": "skill",
+        "invoke": "filament-panel-review",
+        "required": false,
+        "when": "filament_project"
+      }
+    ]
+  },
+  {
+    "id": "laravel-feature",
+    "name": "Laravel Feature",
+    "description": "Branch alignment \u2192 Laravel expert \u2192 test safety and tests when code changes",
+    "intents": [
+      "laravel",
+      "filament",
+      "eloquent",
+      "livewire",
+      "artisan",
+      "implement laravel"
+    ],
+    "token_tier": "medium",
+    "max_steps": 5,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "branch",
+        "type": "skill",
+        "invoke": "branch-context-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "laravel",
+        "type": "skill",
+        "invoke": "laravel-expert-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": false,
+        "when": "code_changed"
+      },
+      {
+        "id": "tests",
+        "type": "skill",
+        "invoke": "test-specialist-agent",
+        "required": false,
+        "when": "code_changed"
+      }
+    ]
+  },
+  {
+    "id": "loop-daily",
+    "name": "Loop Daily Triage",
+    "description": "L1 triage report then verifier gate",
+    "intents": [
+      "loop triage",
+      "daily triage",
+      "loop report",
+      "STATE.md"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "triage",
+        "type": "skill",
+        "invoke": "loop-triage",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "verify",
+        "type": "skill",
+        "invoke": "loop-verifier",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "loop-engineering-audit",
+    "name": "Loop Engineering Audit",
+    "description": "Cache load \u2192 loop maturity and readiness assessment",
+    "intents": [
+      "loop engineering",
+      "loop maturity",
+      "loop audit",
+      "loop readiness",
+      "loop patterns"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "audit",
+        "type": "skill",
+        "invoke": "loop-engineering",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "loqate-address-setup",
+    "name": "Loqate Address Setup",
+    "description": "Drift gate \u2192 Loqate Address Capture integration",
+    "intents": [
+      "loqate",
+      "address capture",
+      "address validation",
+      "postcode lookup",
+      "type-ahead address"
+    ],
+    "token_tier": "medium",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "loqate",
+        "type": "skill",
+        "invoke": "loqate-address-integration",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "migration-safe",
+    "name": "Migration Safe",
+    "description": "Schema check \u2192 audit \u2192 test safety \u2192 engine \u2192 Laravel models (when laravel)",
+    "intents": [
+      "migration",
+      "schema",
+      "database change",
+      "alter table",
+      "model drift"
+    ],
+    "token_tier": "medium",
+    "max_steps": 7,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "check",
+        "type": "prompt",
+        "invoke": "model-schema-check",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "audit",
+        "type": "skill",
+        "invoke": "schema-audit-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "mysql",
+        "type": "skill",
+        "invoke": "mysql-database-expert",
+        "required": false,
+        "when": "mysql_engine"
+      },
+      {
+        "id": "mariadb",
+        "type": "skill",
+        "invoke": "mariadb-database-expert",
+        "required": false,
+        "when": "mariadb_engine"
+      },
+      {
+        "id": "sqlite",
+        "type": "skill",
+        "invoke": "sqlite-database-expert",
+        "required": false,
+        "when": "sqlite_engine"
+      },
+      {
+        "id": "laravel",
+        "type": "skill",
+        "invoke": "laravel-expert-agent",
+        "required": false,
+        "when": "laravel_project"
+      },
+      {
+        "id": "filament",
+        "type": "skill",
+        "invoke": "filament-panel-review",
+        "required": false,
+        "when": "filament_project"
+      }
+    ]
+  },
+  {
+    "id": "paypal-setup",
+    "name": "PayPal Billing Setup",
+    "description": "Drift gate \u2192 PayPal integration configuration",
+    "intents": [
+      "paypal",
+      "billing setup",
+      "checkout",
+      "webhook",
+      "invoice",
+      "subscription billing"
+    ],
+    "token_tier": "medium",
+    "max_steps": 2,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "paypal",
+        "type": "skill",
+        "invoke": "paypal-billing-integration",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "pre-flight",
+    "name": "Pre-Flight Check",
+    "description": "Branch scope \u2192 drift scan \u2192 test DB safety before starting work",
+    "intents": [
+      "pre flight",
+      "before starting",
+      "start feature",
+      "scope check",
+      "am I on track"
+    ],
+    "token_tier": "medium",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "branch",
+        "type": "skill",
+        "invoke": "branch-context-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": false,
+        "when": "tests_planned"
+      }
+    ]
+  },
+  {
+    "id": "prod-db-ops",
+    "name": "Production DB Operations",
+    "description": "Drift gate \u2192 prod DB maintenance \u2192 post-maintenance eval",
+    "intents": [
+      "production database",
+      "prod db",
+      "db import",
+      "database maintenance",
+      "clean prod",
+      "listings refresh"
+    ],
+    "token_tier": "high",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "maintain",
+        "type": "skill",
+        "invoke": "prod-db-maintenance",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "eval",
+        "type": "skill",
+        "invoke": "eval/maintenance-task",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "promote-master",
+    "name": "Promote Master",
+    "description": "Audit develop \u2192 sync master conflicts \u2192 merge develop to master via PR",
+    "intents": [
+      "promote master",
+      "develop to master",
+      "merge develop into master",
+      "master promotion",
+      "promote to production",
+      "merge develop"
+    ],
+    "token_tier": "medium",
+    "max_steps": 4,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "branch",
+        "type": "skill",
+        "invoke": "branch-context-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "gates",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "github",
+        "type": "skill",
+        "invoke": "github-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "promote",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "push-secrets-guard",
+    "name": "Push Secrets Guard",
+    "description": "GitHub posture review \u2192 git guardrails with mandatory secrets/env pre-push hooks (GitGuardian-safe)",
+    "intents": [
+      "push secrets",
+      "gitguardian",
+      "pre-push guard",
+      "env files push",
+      "secrets guard",
+      "no secrets push",
+      "github expert guardrails"
+    ],
+    "token_tier": "medium",
+    "max_steps": 2,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "github",
+        "type": "skill",
+        "invoke": "github-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "qa-gate",
+    "name": "QA Gate (after complex work)",
+    "description": "After bug-hunt / rotation / analysis \u2192 qa-agent gate for sign-off",
+    "intents": [
+      "qa gate",
+      "quality signoff",
+      "qa after task"
+    ],
+    "token_tier": "medium",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "qa",
+        "type": "skill",
+        "invoke": "qa-agent",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "qa-pre-deploy",
+    "name": "QA Pre-Deploy",
+    "description": "Full qa-agent pre-deploy (risks, tests, domain, readiness)",
+    "intents": [
+      "pre deploy qa",
+      "qa before release",
+      "ship readiness qa"
+    ],
+    "token_tier": "high",
+    "max_steps": 5,
+    "max_cache_files": 4,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "qa",
+        "type": "skill",
+        "invoke": "qa-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "tests",
+        "type": "skill",
+        "invoke": "test-specialist-agent",
+        "required": false,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "qa-pre-pr",
+    "name": "QA Pre-PR Gate",
+    "description": "Cache \u2192 qa-agent pre-pr (diff focus, safety, domain risks, tests). Pass specialization (e.g. facebook-stats, e-ndsign) via skill_args or invocation.",
+    "intents": [
+      "pre pr qa",
+      "qa before pr",
+      "quality gate pre merge"
+    ],
+    "token_tier": "medium",
+    "max_steps": 4,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "branch",
+        "type": "skill",
+        "invoke": "branch-context-agent",
+        "required": false,
+        "when": null
+      },
+      {
+        "id": "qa",
+        "type": "skill",
+        "invoke": "qa-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": false,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "qa-scan",
+    "name": "QA Scan",
+    "description": "Cache load \u2192 qa-agent scan (report + checklist). Lightweight health check.",
+    "intents": [
+      "qa scan",
+      "quality check",
+      "run qa",
+      "qa review"
+    ],
+    "token_tier": "medium",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "qa",
+        "type": "skill",
+        "invoke": "qa-agent",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "repo-health",
+    "name": "Repo Health Check",
+    "description": "GitHub audit \u2192 git workflow verification \u2192 drift and sync gates",
+    "intents": [
+      "repo health",
+      "all in order",
+      "pull branches",
+      "sync branches",
+      "fetch all branches",
+      "github audit",
+      "drift check",
+      "make sure all in order",
+      "branch hygiene"
+    ],
+    "token_tier": "medium",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "github",
+        "type": "skill",
+        "invoke": "github-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "drift",
+        "type": "skill",
+        "invoke": "project-drift-guardian",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "repo-health-watch",
+    "name": "Repo Health Watch",
+    "description": "L1 branch/PR hygiene report then verifier gate",
+    "intents": [
+      "repo health watch",
+      "branch hygiene watch",
+      "weekly repo health",
+      "stale branches",
+      "branch divergence"
+    ],
+    "token_tier": "low",
+    "max_steps": 3,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "github",
+        "type": "skill",
+        "invoke": "github-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "verify",
+        "type": "skill",
+        "invoke": "loop-verifier",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "research-deep-dive",
+    "name": "Research Deep Dive (external)",
+    "description": "Cache load \u2192 perspective frame \u2192 gather (user-approved sources) \u2192 research memo",
+    "intents": [
+      "research before implement",
+      "deep dive",
+      "domain research",
+      "integration research",
+      "compliance research",
+      "architecture options",
+      "unfamiliar domain"
+    ],
+    "token_tier": "medium",
+    "max_steps": 4,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "frame",
+        "type": "skill",
+        "invoke": "research-deep-dive",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "gather",
+        "type": "skill",
+        "invoke": "research-deep-dive",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "memo",
+        "type": "skill",
+        "invoke": "research-deep-dive",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "security-review",
+    "name": "Security Review",
+    "description": "Security audit with test DB safety gate",
+    "intents": [
+      "security",
+      "auth",
+      "permissions",
+      "consent",
+      "secrets",
+      "CDD"
+    ],
+    "token_tier": "medium",
+    "max_steps": 2,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "audit",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "safety",
+        "type": "skill",
+        "invoke": "test-safety-agent",
+        "required": false,
+        "when": "tests_requested"
+      }
+    ]
+  },
+  {
+    "id": "ses-email-setup",
+    "name": "SES Email Setup",
+    "description": "Route 53 email DNS (DKIM/SPF/DMARC) then Amazon SES \u2014 use deploy-dns-infra for go-live",
+    "intents": [
+      "ses",
+      "email setup",
+      "DKIM",
+      "SPF",
+      "DMARC",
+      "inbound email"
+    ],
+    "token_tier": "medium",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "dns",
+        "type": "skill",
+        "invoke": "aws-route53-dns",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "ses",
+        "type": "skill",
+        "invoke": "amazon-ses-email",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "session-end",
+    "name": "Session End (mid-day pause)",
+    "description": "Pause work to leave and return later the same day. Captures WIP checkpoint, optional TODO resume note, workspace pointer + light vault pause lesson. Does NOT require clean git, does NOT stop ddev, does NOT run full eod-shutdown.",
+    "intents": [
+      "session end",
+      "session-end",
+      "end session",
+      "pause session",
+      "pause work",
+      "break",
+      "back later",
+      "mid day",
+      "midday",
+      "leave for now",
+      "step away"
+    ],
+    "token_tier": "low",
+    "max_steps": 4,
+    "max_cache_files": 1,
+    "steps": [
+      {
+        "id": "checkpoint",
+        "type": "skill",
+        "invoke": "cache-efficient",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "changelog",
+        "type": "skill",
+        "invoke": "changelog-specialist",
+        "required": false,
+        "when": null
+      },
+      {
+        "id": "meter",
+        "type": "skill",
+        "invoke": "token-usage-meter",
+        "required": false,
+        "when": null
+      },
+      {
+        "id": "handoff",
+        "type": "skill",
+        "invoke": "cache-efficient",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "session-start",
+    "name": "Session Start",
+    "description": "Resume-first gate \u2192 standup (runtime + resume-branch) \u2192 security sweep \u2192 lean cache load (0 files when card fresh) \u2192 compound gate \u2192 working mode",
+    "intents": [
+      "session start",
+      "session-start",
+      "start session",
+      "daily",
+      "standup",
+      "morning",
+      "what should I work on"
+    ],
+    "token_tier": "low",
+    "max_steps": 9,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "resume-first",
+        "type": "skill",
+        "invoke": "session-resume",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "standup",
+        "type": "skill",
+        "invoke": "daily-standup-with-cache",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "security-hygiene",
+        "type": "skill",
+        "invoke": "cyber-security-essentials",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "wiki-brief",
+        "type": "skill",
+        "invoke": "llm-wiki",
+        "required": false,
+        "when": "wiki_mode_lean_or_full"
+      },
+      {
+        "id": "compound-gate",
+        "type": "skill",
+        "invoke": "app-compound-gate",
+        "required": false,
+        "when": "loop_enabled_app"
+      },
+      {
+        "id": "changelog-init",
+        "type": "skill",
+        "invoke": "changelog-specialist",
+        "required": false,
+        "when": "token_context_ok_or_unreleased"
+      },
+      {
+        "id": "meter",
+        "type": "skill",
+        "invoke": "token-usage-meter",
+        "required": false,
+        "when": null
+      },
+      {
+        "id": "tone",
+        "type": "skill",
+        "invoke": "cache-efficient",
+        "required": false,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "template-deploy",
+    "name": "Template Deploy",
+    "description": "Cache load then deploy .grok + root chains to target project",
+    "intents": [
+      "deploy template",
+      "deploy grok",
+      "deploy to project",
+      "push orchestrator to",
+      "template deploy",
+      "update fork from orchestrator"
+    ],
+    "token_tier": "medium",
+    "max_steps": 3,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "deploy",
+        "type": "skill",
+        "invoke": "orchestrator-deploy",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "decontaminate",
+        "type": "skill",
+        "invoke": "template-decontaminate",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "token-monitor",
+    "name": "Token Monitor",
+    "description": "Sync Grok session context size, log trends, warn on bloat and cache misses",
+    "intents": [
+      "token usage",
+      "token meter",
+      "token monitor",
+      "cache efficiency",
+      "monitor tokens",
+      "how many tokens"
+    ],
+    "token_tier": "low",
+    "max_steps": 1,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "meter",
+        "type": "skill",
+        "invoke": "token-usage-meter",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "vector-db-assess",
+    "name": "Vector DB Fit Assessment",
+    "description": "Assess whether project benefits from vector DB \u2014 report-only recommendation. Cache-first.",
+    "intents": [
+      "need vector database",
+      "vector db assessment",
+      "should we use embeddings",
+      "rag feasibility",
+      "semantic search fit"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "assess",
+        "type": "skill",
+        "invoke": "vector-database-expert",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "vector-db-setup",
+    "name": "Vector DB Setup",
+    "description": "Vector store selection, RAG schema, hybrid search \u2014 cache-first; optional ER via data-architect",
+    "intents": [
+      "vector database",
+      "embeddings",
+      "rag schema",
+      "pgvector",
+      "qdrant",
+      "pinecone",
+      "semantic search",
+      "hybrid search"
+    ],
+    "token_tier": "medium",
+    "max_steps": 6,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "assess",
+        "type": "skill",
+        "invoke": "vector-database-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "architect",
+        "type": "skill",
+        "invoke": "data-architect-expert",
+        "required": false,
+        "when": "vector_recommended"
+      },
+      {
+        "id": "vector",
+        "type": "skill",
+        "invoke": "vector-database-expert",
+        "required": false,
+        "when": "vector_recommended"
+      },
+      {
+        "id": "security",
+        "type": "skill",
+        "invoke": "security-audit-agent",
+        "required": false,
+        "when": "pii_in_embeddings"
+      },
+      {
+        "id": "laravel",
+        "type": "skill",
+        "invoke": "laravel-expert-agent",
+        "required": false,
+        "when": "laravel_project"
+      },
+      {
+        "id": "engine",
+        "type": "skill",
+        "invoke": "mysql-database-expert",
+        "required": false,
+        "when": "mysql_engine"
+      }
+    ]
+  },
+  {
+    "id": "web-design",
+    "name": "Web Build and Design",
+    "description": "Design lead \u2192 frontend UI spec \u2192 stack expert (Laravel/Go default; SPA when manifest matches) \u2192 README",
+    "intents": [
+      "marketing page",
+      "landing page",
+      "pricing page",
+      "web design",
+      "saas landing",
+      "public site",
+      "blade marketing",
+      "laravel landing",
+      "static site"
+    ],
+    "token_tier": "medium",
+    "max_steps": 8,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "design",
+        "type": "skill",
+        "invoke": "web-build-design",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "frontend",
+        "type": "skill",
+        "invoke": "frontend-web-design-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "laravel",
+        "type": "skill",
+        "invoke": "laravel-expert-agent",
+        "required": false,
+        "when": "laravel_project"
+      },
+      {
+        "id": "go",
+        "type": "skill",
+        "invoke": "go-expert",
+        "required": false,
+        "when": "go_framework"
+      },
+      {
+        "id": "nextjs",
+        "type": "skill",
+        "invoke": "nextjs-expert",
+        "required": false,
+        "when": "nextjs_framework"
+      },
+      {
+        "id": "astro",
+        "type": "skill",
+        "invoke": "astro-expert",
+        "required": false,
+        "when": "astro_framework"
+      },
+      {
+        "id": "nuxt",
+        "type": "skill",
+        "invoke": "nuxt-expert",
+        "required": false,
+        "when": "nuxt_framework"
+      },
+      {
+        "id": "readme",
+        "type": "skill",
+        "invoke": "readme-specialist",
+        "required": false,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "wiki-ingest",
+    "name": "Wiki Ingest",
+    "description": "Ingest one raw source into the LLM wiki (propose multi-page updates, index + log). L1 approval for writes; dual-write vault when accepted.",
+    "intents": [
+      "wiki ingest",
+      "ingest wiki",
+      "llm wiki ingest",
+      "karpathy ingest"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "ingest",
+        "type": "skill",
+        "invoke": "llm-wiki",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "wiki-lint",
+    "name": "Wiki Lint",
+    "description": "L1 health check of the LLM wiki (contradictions, orphans, stale sources). Report-only; no auto-fix.",
+    "intents": [
+      "wiki lint",
+      "lint wiki",
+      "wiki health",
+      "llm wiki lint"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "lint",
+        "type": "skill",
+        "invoke": "llm-wiki",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "wiki-lint-watch",
+    "name": "Wiki Lint Watch",
+    "description": "L1 wiki health (wiki_lint_check + host snapshot) then loop-verifier. Report-only; manual until scheduled.",
+    "intents": [
+      "wiki lint watch",
+      "wiki-lint-watch",
+      "weekly wiki lint"
+    ],
+    "token_tier": "low",
+    "max_steps": 3,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "host",
+        "type": "skill",
+        "invoke": "llm-wiki",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "verify",
+        "type": "skill",
+        "invoke": "loop-verifier",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "wiki-query",
+    "name": "Wiki Query",
+    "description": "Answer a question from the wiki (index-first, capped pages). Optional file-back.",
+    "intents": [
+      "wiki query",
+      "ask wiki",
+      "llm wiki query",
+      "query knowledge wiki"
+    ],
+    "token_tier": "low",
+    "max_steps": 2,
+    "max_cache_files": 2,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "query",
+        "type": "skill",
+        "invoke": "llm-wiki",
+        "required": true,
+        "when": null
+      }
+    ]
+  },
+  {
+    "id": "workflow-debug",
+    "name": "Workflow Debug / Failure Diagnosis",
+    "description": "Cache load \u2192 github-workflow-expert (diagnose-failure.sh + log analysis) \u2192 github-expert (policy) \u2192 git-workflow-guardrails (apply fix + commit). Stops continual CI failures with root-cause + exact remediation.",
+    "intents": [
+      "workflow debug",
+      "debug workflow",
+      "why ci failing",
+      "diagnose failure",
+      "fix workflow failure",
+      "workflow error",
+      "github action debug",
+      "ci failure",
+      "debug github workflow",
+      "workflow not working"
+    ],
+    "token_tier": "medium",
+    "max_steps": 4,
+    "max_cache_files": 3,
+    "steps": [
+      {
+        "id": "load",
+        "type": "prompt",
+        "invoke": "load-project-cache-first",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "diagnose",
+        "type": "skill",
+        "invoke": "github-workflow-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "policy",
+        "type": "skill",
+        "invoke": "github-expert",
+        "required": true,
+        "when": null
+      },
+      {
+        "id": "git",
+        "type": "skill",
+        "invoke": "git-workflow-guardrails",
+        "required": true,
+        "when": null
+      }
+    ]
+  }
+]

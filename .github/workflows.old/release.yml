@@ -1,0 +1,135 @@
+name: Release
+'on':
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (for example 1.2.3 or v1.2.3)"
+        required: true
+        type: string
+      target:
+        description: "Target branch or commit for tagging"
+        required: false
+        default: "master"
+        type: string
+      prerelease:
+        description: "Mark release as prerelease"
+        required: false
+        default: false
+        type: boolean
+      draft:
+        description: "Create release as draft"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Resolve release tag
+        id: resolve_tag
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            tag="${{ github.ref_name }}"
+            echo "Using pushed tag: $tag"
+          else
+            requested="${{ github.event.inputs.version }}"
+            if [[ "$requested" == v* ]]; then
+              tag="$requested"
+            else
+              tag="v$requested"
+            fi
+
+            target="${{ github.event.inputs.target }}"
+            git fetch origin "$target" --tags
+
+            if git rev-parse --verify "$tag" >/dev/null 2>&1; then
+              echo "Tag already exists: $tag"
+            else
+              git config user.name 'github-actions[bot]'
+              git config user.email 'github-actions[bot]@users.noreply.github.com'
+              git tag -a "$tag" "origin/$target" -m "Release $tag"
+              git push origin "$tag"
+              echo "Created and pushed tag: $tag from origin/$target"
+            fi
+          fi
+
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          prev_tag=$(git tag --sort=-creatordate | grep '^v' | grep -Fxv "$tag" | head -n 1 || true)
+
+          {
+            echo "# Release $tag"
+            echo
+            if [[ -n "$prev_tag" ]]; then
+              echo "Changes since $prev_tag:"
+              echo
+              git log --no-merges --pretty='- %s (%h)' "$prev_tag..$tag"
+            else
+              echo "Initial tagged release notes."
+              echo
+              git log --no-merges --pretty='- %s (%h)' -n 100
+            fi
+            echo
+            echo "## Commit Range"
+            if [[ -n "$prev_tag" ]]; then
+              echo "https://github.com/${{ github.repository }}/compare/$prev_tag...$tag"
+            else
+              echo "https://github.com/${{ github.repository }}/commits/$tag"
+            fi
+          } > RELEASE_NOTES.md
+
+          echo "Generated RELEASE_NOTES.md"
+
+      - name: Create or update GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          prerelease_flag=""
+          draft_flag=""
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            [[ "${{ github.event.inputs.prerelease }}" == "true" ]] && prerelease_flag="--prerelease"
+            [[ "${{ github.event.inputs.draft }}" == "true" ]] && draft_flag="--draft"
+          fi
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release edit "$tag" --title "$tag" --notes-file RELEASE_NOTES.md $prerelease_flag $draft_flag
+            echo "Updated existing release: $tag"
+          else
+            gh release create "$tag" --title "$tag" --notes-file RELEASE_NOTES.md $prerelease_flag $draft_flag --verify-tag
+            echo "Created new release: $tag"
+          fi
+
+      - name: Publish release summary
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          {
+            echo "## Release Pipeline"
+            echo
+            echo "- Tag: $tag"
+            echo "- Notes file: RELEASE_NOTES.md"
+            echo "- Release URL: https://github.com/${{ github.repository }}/releases/tag/$tag"
+          } >> "$GITHUB_STEP_SUMMARY"

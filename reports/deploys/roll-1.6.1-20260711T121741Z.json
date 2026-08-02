@@ -1,0 +1,109 @@
+[
+  {
+    "app": "ndestates-io",
+    "path": "/home/nickd/projects/ndestates-io",
+    "branch": "chore/orchestrator-upgrade-1-5-1",
+    "dirty_count": 0,
+    "lock": "1.5.1",
+    "apply_exit": 0,
+    "apply_tail": "ICT .grok/skills/github-ci-readiness-expert/SKILL.md (project-customized)\nCONFLICT .grok/skills/github-ci-readiness-expert/references/facebook-stats-ci.md (project-customized)\nCONFLICT .grok/skills/github-ci-readiness-expert/references/google-stats-ci.md (project-customized)\nCONFLICT .grok/skills/github-ci-readiness-expert/references/wave-projects-ci.md (project-customized)\nCONFLICT .grok/skills/qa-agent/SKILL.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/README.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/facebook-stats-specializations.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/google-stats-specializations.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/qa-checklist.md (project-customized)\nCONFLICT .grok/skills/qa-agent/scripts/qa-report-helper.py (project-customized)\nUPDATE scripts/_engine/vault.py\nUPDATE scripts/mcp-host-stdio.sh\nCONFLICT scripts/mcp-threat-scan.sh (no prior deploy-state)\nUPDATE scripts/orchestrator-template-version\nUPDATE scripts/session-vault-brief.py\norchestrator upgrade v1.6.1 ok branch=chore/orchestrator-upgrade-1-6-1 commit=f57ce8f (PR not created \u2014 gh unavailable or --no-pr)",
+    "lock_after": "1.6.1",
+    "branch_after": "chore/orchestrator-upgrade-1-6-1",
+    "status": "ok"
+  },
+  {
+    "app": "e-ndsign",
+    "path": "/home/nickd/projects/e-ndsign",
+    "branch": "feature/laravel-e-ndsign-scaffold",
+    "dirty_count": 108,
+    "lock": null,
+    "status": "skip_dirty",
+    "dirty_sample": [
+      ".claude/agents/documentation-specialist.md",
+      ".claude/agents/github-expert.md",
+      ".claude/agents/loop-verifier.md",
+      ".claude/agents/mysql-database-expert.md",
+      ".claude/agents/orchestrator-deploy.md",
+      ".claude/commands/aws-route53-dns.md",
+      ".claude/commands/cache-efficient.md",
+      ".claude/commands/chain.md"
+    ]
+  },
+  {
+    "app": "jerseyhouseprices",
+    "path": "/home/nickd/projects/jerseyhouseprices",
+    "branch": "feature/frontend-production-refresh-2026-07-03",
+    "dirty_count": 0,
+    "lock": null,
+    "lock_backfill": "1.5.0",
+    "apply_exit": 1,
+    "apply_tail": "ERROR: working tree is not clean \u2014 commit or stash before orchestrator deploy",
+    "lock_after": "1.5.0",
+    "branch_after": "feature/frontend-production-refresh-2026-07-03",
+    "status": "fail"
+  },
+  {
+    "app": "lightstone",
+    "path": "/home/nickd/projects/lightstone",
+    "branch": "develop",
+    "dirty_count": 1,
+    "lock": "1.5.1",
+    "stashed": true,
+    "apply_exit": 0,
+    "apply_tail": "adiness-expert/references/facebook-stats-ci.md (project-customized)\nCONFLICT .grok/skills/github-ci-readiness-expert/references/google-stats-ci.md (project-customized)\nCONFLICT .grok/skills/github-ci-readiness-expert/references/wave-projects-ci.md (project-customized)\nCONFLICT .grok/skills/qa-agent/SKILL.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/README.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/facebook-stats-specializations.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/google-stats-specializations.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/qa-checklist.md (project-customized)\nCONFLICT .grok/skills/qa-agent/scripts/qa-report-helper.py (project-customized)\nCONFLICT scripts/_engine/vault.py (no prior deploy-state)\nCONFLICT scripts/mcp-host-stdio.sh (no prior deploy-state)\nCONFLICT scripts/mcp-threat-scan.sh (no prior deploy-state)\nUPDATE scripts/orchestrator-template-version\nCONFLICT scripts/resume-branch.sh (project-customized)\nUPDATE scripts/session-vault-brief.py\norchestrator upgrade v1.6.1 ok branch=chore/orchestrator-upgrade-1-6-1 commit=c55bb9a6 (PR not created \u2014 gh unavailable or --no-pr)",
+    "lock_after": "1.6.1",
+    "branch_after": "chore/orchestrator-upgrade-1-6-1",
+    "status": "ok",
+    "stash_popped": true
+  },
+  {
+    "app": "mailchimp",
+    "path": "/home/nickd/projects/mailchimp",
+    "branch": "feature/image-selector-2026-07-04",
+    "dirty_count": 0,
+    "lock": null,
+    "lock_backfill": "1.5.0",
+    "apply_exit": 1,
+    "apply_tail": "ERROR: working tree is not clean \u2014 commit or stash before orchestrator deploy",
+    "lock_after": "1.5.0",
+    "branch_after": "feature/image-selector-2026-07-04",
+    "status": "fail"
+  },
+  {
+    "app": "facebook-stats",
+    "path": "/home/nickd/projects/facebook-stats",
+    "branch": "chore/orchestrator-upgrade-1-5-1",
+    "dirty_count": 0,
+    "lock": "1.5.1",
+    "apply_exit": 0,
+    "apply_tail": "_run.py (project-customized)\nCONFLICT .grok/skills/skill-creator/scripts/run_eval.py (project-customized)\nCONFLICT .grok/skills/skill-creator/scripts/run_loop.py (project-customized)\nCONFLICT .grok/skills/sqlite-database-expert/SKILL.md (project-customized)\nCONFLICT .grok/skills/test-safety-agent/SKILL.md (project-customized)\nCONFLICT .grok/skills/test-specialist-agent/SKILL.md (project-customized)\nCONFLICT .grok/skills/todo-specialist-agent/SKILL.md (project-customized)\nCONFLICT .grok/skills/token-usage-meter/SKILL.md (project-customized)\nCONFLICT .grok/skills/token-usage-meter/scripts/token_monitor.py (project-customized)\nCONFLICT .grok/skills/vector-database-expert/SKILL.md (project-customized)\nCONFLICT .grok/skills/web-build-design/SKILL.md (project-customized)\nCONFLICT chains/registry.template.yaml (project-customized)\nCONFLICT scripts/_engine/vault.py (no prior deploy-state)\nUPDATE scripts/mcp-host-stdio.sh\nCONFLICT scripts/mcp-threat-scan.sh (no prior deploy-state)\nUPDATE scripts/orchestrator-template-version\nUPDATE scripts/session-vault-brief.py\norchestrator upgrade v1.6.1 ok branch=chore/orchestrator-upgrade-1-6-1 commit=2616daa (PR not created \u2014 gh unavailable or --no-pr)",
+    "lock_after": "1.6.1",
+    "branch_after": "chore/orchestrator-upgrade-1-6-1",
+    "status": "ok"
+  },
+  {
+    "app": "google-stats",
+    "path": "/home/nickd/projects/google-stats",
+    "branch": "feature/daily-tasks-2026-07-05",
+    "dirty_count": 0,
+    "lock": null,
+    "lock_backfill": "1.5.0",
+    "apply_exit": 1,
+    "apply_tail": "ERROR: working tree is not clean \u2014 commit or stash before orchestrator deploy",
+    "lock_after": "1.5.0",
+    "branch_after": "feature/daily-tasks-2026-07-05",
+    "status": "fail"
+  },
+  {
+    "app": "ndestates",
+    "path": "/home/nickd/projects/ndestates",
+    "branch": "chore/orchestrator-upgrade-1-5-1",
+    "dirty_count": 0,
+    "lock": "1.5.1",
+    "apply_exit": 0,
+    "apply_tail": "-readiness-expert/SKILL.md (project-customized)\nCONFLICT .grok/skills/github-ci-readiness-expert/references/facebook-stats-ci.md (project-customized)\nCONFLICT .grok/skills/github-ci-readiness-expert/references/google-stats-ci.md (project-customized)\nCONFLICT .grok/skills/github-ci-readiness-expert/references/wave-projects-ci.md (project-customized)\nCONFLICT .grok/skills/qa-agent/SKILL.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/README.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/facebook-stats-specializations.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/google-stats-specializations.md (project-customized)\nCONFLICT .grok/skills/qa-agent/references/qa-checklist.md (project-customized)\nCONFLICT .grok/skills/qa-agent/scripts/qa-report-helper.py (project-customized)\nUPDATE scripts/_engine/vault.py\nCONFLICT scripts/mcp-host-stdio.sh (no prior deploy-state)\nCONFLICT scripts/mcp-threat-scan.sh (no prior deploy-state)\nUPDATE scripts/orchestrator-template-version\nUPDATE scripts/session-vault-brief.py\norchestrator upgrade v1.6.1 ok branch=chore/orchestrator-upgrade-1-6-1 commit=64e1e54 (PR not created \u2014 gh unavailable or --no-pr)",
+    "lock_after": "1.6.1",
+    "branch_after": "chore/orchestrator-upgrade-1-6-1",
+    "status": "ok"
+  }
+]

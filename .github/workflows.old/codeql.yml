@@ -1,0 +1,58 @@
+name: CodeQL
+
+# NOTE (2026-05-31): Automatic triggers are DISABLED while GitHub Advanced
+# Security (GHAS) / Code Scanning is not enabled for this PRIVATE repository.
+# CodeQL on a private repo requires GHAS to upload SARIF results; without it
+# the "Analyze (javascript-typescript)" check failed on every push/PR.
+# This workflow is left intact and runnable on demand via workflow_dispatch.
+#
+# TO RE-ENABLE (after GHAS / Code Scanning is turned on at the org/repo level):
+#   1. Restore the push/pull_request/schedule triggers below.
+#   2. Re-add "Analyze (javascript-typescript)" (and PHP, if configured) to the
+#      required status checks on `master` (see docs/github/security-audit.md,
+#      Open Item D, and docs/github/branch-protection-baseline.md).
+'on':
+  workflow_dispatch:
+  # Disabled pending GHAS / Code Scanning — restore when enabled:
+  # push:
+  #   branches:
+  #     - master
+  #     - main
+  # pull_request:
+  # schedule:
+  #   - cron: '30 3 * * 1'
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+concurrency:
+  group: codeql-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - javascript-typescript
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@fee9466b8957867761f2d78f922ab084e3e2dd17 # v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@fee9466b8957867761f2d78f922ab084e3e2dd17 # v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@fee9466b8957867761f2d78f922ab084e3e2dd17 # v3

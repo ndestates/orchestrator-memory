@@ -1,0 +1,47 @@
+{
+  "name": "@ndestates/orchestrator",
+  "version": "2.2.0",
+  "description": "Cross-platform installer wrapper for the orchestrator manifest-first AI template CLI",
+  "license": "Apache-2.0",
+  "author": "ND Holdings Limited",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ndestates/orchestrator.git"
+  },
+  "homepage": "https://github.com/ndestates/orchestrator#readme",
+  "bugs": {
+    "url": "https://github.com/ndestates/orchestrator/issues"
+  },
+  "keywords": [
+    "orchestrator",
+    "ai",
+    "agents",
+    "skills",
+    "cli",
+    "template"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "orchestrator": "bin/orchestrator.js"
+  },
+  "files": [
+    "bin/",
+    "scripts/npm/",
+    "LICENSE",
+    "README.md",
+    "INSTALL.md",
+    "VERSION",
+    "NOTICE"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/npm/postinstall.js",
+    "install:cli": "node scripts/npm/postinstall.js --force",
+    "version:sync": "node scripts/npm/sync-version.js"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  }
+}

@@ -1,0 +1,9 @@
+# Project-scoped MCP for Grok Build (Composer-in-Grok loads via .grok/config.toml).
+# Cursor IDE can use the same launcher via .cursor/mcp.json (see mcp.cursor.ddev.example.json).
+# Prerequisite: cp mcp-server/ddev/Dockerfile.mcp .ddev/web-build/Dockerfile.mcp && ddev restart
+# Launcher resolves git root from script path; ensure DDEV is up (mcp-ddev-stdio may start it).
+
+[mcp_servers.orchestrator-ddev]
+command = "bash"
+args = ["scripts/mcp-ddev-stdio.sh"]
+enabled = true

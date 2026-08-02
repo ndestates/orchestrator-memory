@@ -1,0 +1,162 @@
+name: CI
+
+'on':
+  pull_request:
+  push:
+    branches:
+      - master
+      - main
+      - feature/**
+      - fix/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php-static:
+    runs-on: ubuntu-latest
+
+    # Database tests run only against the dedicated `test` database in DDEV,
+    # not in CI. The previous "migrate on SQLite" + non-blocking unit-test
+    # steps tested a code path the application never uses (the app targets
+    # MySQL and the test suite relies on a pre-migrated `test` DB with
+    # DatabaseTransactions). They are intentionally omitted here. CI in this
+    # job provides composer/lock validation and a syntax check of changed
+    # PHP files. Real test signal comes from local `php artisan test` runs.
+
+    env:
+      APP_ENV: testing
+      APP_KEY: base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      CACHE_DRIVER: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@8358ee0e2e8afe63c2fb8253d1d52085811ab1e5 # v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, bcmath, ctype, fileinfo, json, openssl, pdo, tokenizer, xml
+          tools: composer:v2
+          coverage: none
+
+      - name: Prepare environment
+        run: cp .env.example .env || true
+
+      - name: Validate composer
+        run: composer validate --no-check-lock --no-check-publish
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress --no-scripts
+
+      - name: Lint PHP files
+        run: |
+          git fetch origin master --depth=1
+          changed_php=$(git diff --name-only origin/master...HEAD | grep -E '\.php$' || true)
+          if [[ -z "$changed_php" ]]; then
+            echo "No changed PHP files to lint."
+            exit 0
+          fi
+
+          while IFS= read -r file; do
+            [[ -z "$file" ]] && continue
+            php -l "$file"
+          done <<< "$changed_php"
+
+  auth-guardrails:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Run auth stability static guards
+        run: bash scripts/guard-auth-stability.sh
+
+  frontend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend assets
+        run: npm run build
+
+      - name: Verify Vite manifest exists
+        run: test -f public/build/manifest.json
+
+      - name: Verify required manifest entries
+        run: |
+          node -e "const fs=require('fs'); const m=JSON.parse(fs.readFileSync('public/build/manifest.json','utf8')); const required=['resources/js/app.js','resources/css/app.css']; const missing=required.filter(k=>!Object.prototype.hasOwnProperty.call(m,k)); if(missing.length){console.error('Missing manifest entries:', missing.join(', ')); process.exit(1);} console.log('Manifest entries OK');"
+
+  security-checklist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@8358ee0e2e8afe63c2fb8253d1d52085811ab1e5 # v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, bcmath, ctype, fileinfo, json, openssl, pdo, tokenizer, xml
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          composer install --no-interaction --prefer-dist --no-progress --no-scripts
+          npm ci
+
+      - name: Run security checklist
+        run: bash scripts/ci_security_checklist.sh
+
+      - name: Enforce vulnerability thresholds
+        run: |
+          python3 scripts/security/evaluate_audit_thresholds.py \
+            --composer reports/security/composer-audit-latest.json \
+            --npm reports/security/npm-audit-latest.json \
+            --pip reports/security/pip-audit-target-latest.json \
+            --max-composer 25 \
+            --max-npm-high 5 \
+            --max-npm-critical 0 \
+            --max-pip 2
+
+      - name: Upload security artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: security-reports
+          path: reports/security/
+          if-no-files-found: warn

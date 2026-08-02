@@ -1,0 +1,573 @@
+Codebase Scan — /home/nickd/projects/orchestrator
+Generated: 2026-06-23T07:15:39Z
+
+=== DETECTED STACK (installed project — do not assume other repos) ===
+Project manifest: .claude/project-manifest.yaml
+  manifest.stack.framework: generic
+  manifest.stack.language: generic
+  manifest.stack.database_engine: none
+  manifest.stack.uses_database: False
+  manifest.runtime.environment_manager: local
+
+File-based signals:
+  - FOUND chains/registry.yaml -> Orchestrator chains
+  - FOUND CHAIN.md -> Orchestrator chain registry
+  - FOUND LOOP.md -> Orchestrator loops
+
+=== TREE (top levels, standard excludes) ===
+./
+  .gitignore
+  CHAIN.md
+  CHANGELOG.md
+  CLAUDE.md
+  INSTALL.md
+  LOOP.md
+  README.md
+  STATE.md
+  loop-budget.md
+  loop-run-log.md
+  starters/
+    daily-triage/
+      README.md
+  scripts/
+    chain-audit.sh
+    check_name_alignment.py
+    commit-cache-efficiency-wave.sh
+    commit-template-wave-skip.sh
+    commit-template-wave.sh
+    commit-token-meter-wave.sh
+    customize-skills-for-project.py
+    deploy-bundle.yaml
+    deploy-cache-efficiency-wave.sh
+    deploy-mcp-wave.sh
+    deploy-skills-customize-wave.sh
+    deploy-template-wave-skip.sh
+    deploy-template-wave.sh
+    deploy-token-meter-wave.sh
+    deploy_grok_to_project.py
+    detect-project-skills.py
+    fix-chain-audit-wave.sh
+    fix-node24-wave.sh
+    install.sh
+    loop-audit.sh
+    stack-profiles/
+      facebook-stats.yaml
+      google-stats.yaml
+      laravel.yaml
+      manifest-map.yaml
+      python-flask.yaml
+      facebook-stats/
+  TODO/
+    2026-06-02_TODO.md
+    2026-06-16_TODO.md
+    2026-06-17_TODO.md
+    2026-06-18_TODO.md
+    2026-06-19_TODO.md
+    2026-06-19_storm-inspired-patterns_TODO.md
+    2026-06-20_TODO.md
+    2026-06-21_TODO.md
+  patterns/
+    README.md
+    cache-freshness-watch.md
+    chain-health-watch.md
+    daily-triage.md
+    github-ci-watch.md
+    perspective-guided-discovery.md
+    registry.yaml
+  docs/
+    TEMPLATE_ADOPTION.md
+    index.md
+    reference/
+      chains.md
+      index.md
+      manifest.md
+      skills.md
+      storm-inspired-patterns-plan.md
+    codebase/
+      .codebase-scan.txt
+      ARCHITECTURE.md
+      CONCERNS.md
+      CONVENTIONS.md
+      INTEGRATIONS.md
+      README.md
+      STACK.md
+      STRUCTURE.md
+      TESTING.md
+    operations/
+      delivery.md
+      index.md
+      testing.md
+    getting-started/
+      index.md
+      project-overview.md
+      quickstart.md
+    github/
+      repo-health.md
+      workflow-review.md
+    guides/
+      chains-and-skills.md
+      daily-workflow.md
+      documentation.md
+      index.md
+      template-deploy.md
+  chains/
+    registry.yaml
+  mcp-server/
+    README.md
+    pyproject.toml
+    config/
+      ddev.config.snippet.yaml
+      mcp.cursor.ddev.example.json
+      mcp.cursor.example.json
+      mcp.grok.project.example.toml
+      mcp.http.example.json
+    tests/
+      test_helpers.py
+    src/
+      orchestrator_mcp/
+        __init__.py
+        audit.py
+        auth.py
+        config.py
+        helpers.py
+        sandbox.py
+        server.py
+    ddev/
+      Dockerfile.mcp
+
+=== MANIFESTS & CONFIGS ===
+--- .claude/project-manifest.yaml ---
+# Project Manifest v1
+# Purpose: make prompts/agents portable across repositories and reduce token cost.
+# This is the Claude Code copy of .github/project-manifest.yaml — keep them in sync.
+
+project:
+  name: "Project Template"
+  description: "Reusable orchestrator template for fast start-to-beta delivery"
+  default_branch: "master"
+
+stack:
+  framework: "generic"        # laravel | nextjs | django | fastapi | go | generic
+  language: "generic"         # php | js | ts | python | go | rust | generic
+  uses_database: false
+  database_engine: "none"     # mysql | postgres | sqlite | none
+
+runtime:
+  environment_manager: "local" # ddev | docker-compose | local
+  start_command: ""
+  test_command: ""
+
+paths:
+  todo_dir: "TODO"
+  docs_index: "docs/codebase/README.md"
+  docs_dir: "docs/codebase"
+  i
+
+--- .github/project-manifest.yaml ---
+# Project Manifest v1
+# Purpose: make prompts/agents portable across repositories and reduce token cost.
+
+project:
+  name: "Project Template"
+  description: "Reusable orchestrator template for fast start-to-beta delivery"
+  default_branch: "master"
+
+stack:
+  framework: "generic"        # laravel | nextjs | django | fastapi | go | generic
+  language: "generic"         # php | js | ts | python | go | rust | generic
+  uses_database: false
+  database_engine: "none"     # mysql | postgres | sqlite | none
+
+runtime:
+  environment_manager: "local" # ddev | docker-compose | local
+  start_command: ""
+  test_command: ""
+
+paths:
+  todo_dir: "TODO"
+  docs_index: "docs/codebase/README.md"
+  docs_dir: "docs/codebase"
+  implementation_summary: "IMPLEMENTATION_SUMMARY.md"
+  branch_analysis: "BRANCH_ANALYSI
+
+--- CHAIN.md ---
+# Chain Registry
+
+**Cache is king.** Chains load shared cache **once** at the start, then pass minimal handoffs between steps — never reload full cache per step unless a step explicitly requires new files.
+
+Machine-readable catalog (skills + chains): [`chains/registry.yaml`](chains/registry.yaml)
+
+## Purpose
+
+`/chain` discovers which skills and prompts work together for a task, runs them in order, and keeps token use lean via shared context and the handoff schema in `chain_policy` (manifest).
+
+**Chains are optional.** When intent is ambiguous or the user prefers not to chain, the agent offers a menu with a **No chain** option and runs a single skill or direct task instead.
+
+## Active chains
+
+| Chain | Steps | Token tier | Use when |
+|-------|-------|------------|----------|
+| [session-star
+
+--- chains/registry.yaml ---
+version: 2
+skills:
+- id: script-not-shell
+  slash: /script-not-shell
+  path: .grok/skills/script-not-shell/SKILL.md
+  tier: orchestrator
+  description: Write script files instead of inline shell; avoids heredoc/escaping
+    failures
+- id: chain
+  slash: /chain
+  path: .grok/skills/chain/SKILL.md
+  tier: orchestrator
+  description: On-demand skill/prompt chains from this registry
+- id: cache-efficient
+  slash: /cache-efficient
+  path: .grok/skills/cache-efficient/SKILL.md
+  tier: orchestrator
+  description: Lean cache-first responses; default token mode
+- id: token-usage-meter
+  slash: /token-usage-meter
+  path: .grok/skills/token-usage-meter/SKILL.md
+  tier: orchestrator
+  description: Always-on token monitor with USD cost analysis, session log, and cache
+    miss warnings
+- id: load-proje
+
+=== KEY ENTRYPOINT CANDIDATES (checked) ===
+FOUND: CLAUDE.md
+FOUND: LOOP.md
+
+=== RECENT COMMITS (churn signals) ===
+f5186cb Merge pull request #47 from ndestates/feature/work-2026-06-21
+561f0e7 feat(orchestrator): github-workflow-expert, weekly L1 loops, wave deploy fixes
+f702335 chore(todo): note v1.0.1, master #46, wave redeploy
+456fa96 Merge pull request #45 from ndestates/feature/eod-orchestrator-2026-06-21
+e18a334 chore(eod): close 2026-06-20 session — TODO carry-forward, changelog, gitignore
+0993bd2 Merge pull request #44 from ndestates/feature/wave-deploy-current-branch-2026-06-20
+f307f8d chore(todo): mark wave deploy complete on working branches
+ef2d4b2 feat(wave): deploy to each app's current working branch
+d977988 Merge pull request #42 from ndestates/chore/todo-pr41-merged-2026-06-20
+d9a95d7 chore(todo): note PR #30 closed stale, #31 already merged
+99af44f chore(todo): mark PR #41 changelog-specialist merged to develop
+6578b32 Merge pull request #41 from ndestates/feature/changelog-specialist-2026-06-20
+8758dd9 chore(todo): reconcile merged PRs and mark changelog-specialist done
+1536f7f feat(changelog): add changelog-specialist skill and chain wiring
+bbbc23a Merge pull request #40 from ndestates/fix/wave-project-slug-with-path-alias
+6bbcf2a fix(wave): project slug with deploy_paths alias to ndestates-io
+cc14ee9 Merge pull request #39 from ndestates/fix/wave-ndestates-io-inventory
+ff9b004 fix(wave): replace fictional project app with ndestates-io
+93b1106 Merge PR #38: orchestrator template genericization
+591bb5b fix(generic): complete template genericization for orchestrator spine
+
+
+=== TODO/FIXME/HACK markers (first N in source) ===
+CLAUDE.md:20: 1. Active TODO file under `paths.todo_dir`
+CLAUDE.md:67: | `/ddev-cleanup` | End-of-day drift check, cache/TODO, commit and push |
+CLAUDE.md:76: | `todo-specialist` | TODO file management & sync |
+CLAUDE.md:100: - Always sync with the active TODO before significant work.
+loop-budget.md:15: | daily-triage | 1d | 3 + TODO + STATE | **0** at L1 | verifier only | low |
+loop-budget.md:16: | cache-freshness-watch | 1w (Mon) | 3 + scan + TODO | **0** | verifier only | low |
+LOOP.md:11: | [daily-triage](patterns/daily-triage.md) | Weekdays 09:00 UTC | **L1** report-only | `loop-triage` | `loop-verifier` |
+LOOP.md:12: | [cache-freshness-watch](patterns/cache-freshness-watch.md) | Mondays 09:30 UTC | L1 | `cache-freshness-check` | `loop-
+CHAIN.md:36: | [eod-shutdown](chains/registry.yaml) | todo → changelog → readme → token meter → ddev-cleanup | low | End of day (`/ch
+INSTALL.md:27: - `TODO`
+loop-run-log.md:6: | 2026-06-16T15:30:00Z | daily-triage | L1 | manifest, LOOP, budget, STATE, README, CONCERNS, TODO, INDEX | verifier PAS
+loop-run-log.md:7: | 2026-06-17T12:00:00Z | daily-triage | L1 | manifest, LOOP, budget, STATE, README, CONCERNS, TODO/2026-06-17, INDEX | v
+STATE.md:10: - `TODO/2026-06-17_TODO.md`
+STATE.md:36: - [x] Commit triage artifact + STATE/run-log; fresh TODO `2026-06-16_TODO.md`
+STATE.md:54: - **Outcome:** Triage report written; STATE queue refreshed to `TODO/2026-06-17`
+README.md:41: TODO/             # Daily task files (YYYY-MM-DD_TODO.md)
+scripts/check_name_alignment.py:43: "todo-specialist-agent": "todo-specialist",
+scripts/deploy-bundle.yaml:111: - TODO
+scripts/sync_grok_to_github_claude.py:31: "todo-specialist-agent",
+scripts/sync_grok_to_github_claude.py:53: "todo-specialist-agent.md": ("todo-specialist-agent.md", "todo-specialist"),
+scripts/sync_grok_to_github_claude.py:92: "todo-specialist-agent": "todo-specialist",
+scripts/sync_grok_to_github_claude.py:263: "/todo-specialist-agent": "/todo-specialist",
+scripts/sync_grok_to_github_claude.py:280: "todo-specialist-agent.md": "todo-specialist.md",
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:3: description: 'Core operational instructions for facebook-stats (DDEV, security, data safety, TODO lifecycle, branch rule
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:19: - At session startup, read the daily TODO before any coding, edits, or runtime commands.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:21: - If a TODO exists for today, follow it.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:22: - If the latest TODO is from an earlier date, carry it forward to today's TODO file and continue from there.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:51: - At session end, when stopping DDEV, ensure tomorrow's TODO file exists. If it does not exist, create it before or imme
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:57: - Find the latest `TODO/*_TODO.md` file in `TODO/`.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:58: - If today's TODO file is missing, create `TODO/YYYY-MM-DD_TODO.md` by carrying forward open items from the latest TODO.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:59: - Read today's TODO and state the active work items before proceeding.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:62: - Compute tomorrow's date and check for tomorrow's TODO file.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:64: - Run `ddev stop` only after confirming tomorrow's TODO exists.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.SKILL.md:166: - Shared context engineering first: maintain `.grok/skills/`, prompts, agents, `docs/codebase/`, TODO carry, and `chains
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.github.md:16: - At session startup, read the daily TODO before any coding, edits, or runtime commands.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.github.md:18: - If a TODO exists for today, follow it.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.github.md:19: - If the latest TODO is from an earlier date, carry it forward to today's TODO file and continue from there.
+scripts/stack-profiles/facebook-stats/overrides/copilot-instructions.github.md:39: - Create tomorrow's TODO before `ddev stop` when ending a session.
+TODO/2026-06-16_TODO.md:1: # TODO - 2026-06-16
+TODO/2026-06-16_TODO.md:31: ## Carried forward → see `TODO/2026-06-17_TODO.md`
+TODO/2026-06-19_TODO.md:1: # TODO - 2026-06-19
+TODO/2026-06-19_TODO.md:3: **Branch:** `feature/work-2026-06-19` · **Carried from:** `TODO/2026-06-18_TODO.md`
+TODO/2026-06-02_TODO.md:1: # TODO - 2026-06-02
+TODO/2026-06-02_TODO.md:26: - [x] Run a dry-run using this TODO file as the synchronization source.
+TODO/2026-06-02_TODO.md:30: - Root TODO folder created.
+TODO/2026-06-18_TODO.md:1: # TODO - 2026-06-18
+TODO/2026-06-18_TODO.md:3: **Branch:** `feature/work-2026-06-18` · **Carried from:** `TODO/2026-06-17_TODO.md`
+TODO/2026-06-18_TODO.md:28: - [ ] Optional: update TODO carry-forward notes in `copilot-instructions`
+TODO/2026-06-19_storm-inspired-patterns_TODO.md:1: # TODO — STORM-inspired patterns (no STORM adoption)
+TODO/2026-06-21_TODO.md:1: # TODO - 2026-06-21
+TODO/2026-06-21_TODO.md:6: **Carried from:** `TODO/2026-06-20_TODO.md`
+TODO/2026-06-17_TODO.md:1: # TODO - 2026-06-17
+TODO/2026-06-17_TODO.md:3: **Branch:** `feature/work-2026-06-18` · **Carried from:** `TODO/2026-06-16_TODO.md` · **Status:** Closed (EOD 2026-06-17
+TODO/2026-06-17_TODO.md:13: - [ ] Optional: update TODO carry-forward notes in `copilot-instructions`
+TODO/2026-06-20_TODO.md:1: # TODO - 2026-06-20
+TODO/2026-06-20_TODO.md:6: **Carried from:** `TODO/2026-06-19_storm-inspired-patterns_TODO.md`, storm PR #36 (merged)
+.copilot/memories/repo/orchestrator-template-cache.md:33: - Latest TODO: `TODO/2026-06-16_TODO.md`
+.copilot/skills/cache-efficient/SKILL.md:17: Read manifest `token_policy` first. **Spine** (free): README index, `.codebase-scan.txt`, latest TODO, `INDEX.md`.
+.copilot/skills/research-deep-dive/SKILL.md:44: 2. `docs/codebase/README.md`, latest `TODO/*.md`, active branch (offer switch per standup rules if stale)
+.copilot/skills/research-deep-dive/SKILL.md:72: 3. Apply four lenses; add **Compliance** only when manifest `stack.uses_database: true` or TODO mentions CDD/consent/e-s
+
+=== DOCKER / COMPOSE / DDEV ===
+
+=== CI/CD WORKFLOWS ===
+--- .github/workflows/branch-promotion-prs.yml (head) ---
+name: Branch Promotion PRs
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: Source branch for promotion PR
+        required: false
+        type: string
+      target:
+        description: Target branch for promotion PR
+        required: false
+        type: string
+      draft:
+        description: Create promotion PR as draft
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: promotion-pr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  create-promotion-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions
+
+--- .github/workflows/chain-audit.yml (head) ---
+name: Chain Registry Audit
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - master
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: chain-audit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chain-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Enforce Node 24 for GitHub Actions (no Node 20)
+        run: python3 scripts/verify_github_actions_node24.py
+
+      - name: Install Python dependencies
+        run: pip install pyyaml
+
+      - name: Run chain registry audit
+        run: bash scripts/chain-audit.sh
+
+      - name: Audit summary
+        if: al
+
+--- .github/workflows/loop-daily-triage.yml (head) ---
+name: Loop Daily Triage (L1 host)
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  schedule:
+    - cron: '0 9 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+  actions: read
+
+concurrency:
+  group: loop-daily-triage-${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  triage-host:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Loop readiness audit
+        run: bash scripts/loop-audit.sh
+
+      - name: Write host snapshot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash scripts/loop-daily-triage-host.sh
+
+      - name: Upload triage artifact
+        uses: actions/upload-artifact@v7  # Node 24 native
+        with:
+          name: loop-triage-${{ github
+
+--- .github/workflows/loop-weekly-watch.yml (head) ---
+name: Loop Weekly Watch (L1 host)
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  schedule:
+    - cron: '30 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      watch:
+        description: Which watch to run (all, cache-freshness, chain-health, github-ci)
+        required: false
+        default: all
+        type: choice
+        options:
+          - all
+          - cache-freshness
+          - chain-health
+          - github-ci
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: loop-weekly-watch-${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  cache-freshness:
+    if: >-
+      github.event_name == 'schedule' ||
+      github.event.inputs.watch == 'all' ||
+      github.event.inputs.watch == 'cache-freshness'
+    runs-on: ubuntu-latest
+    steps:
+      - uses:
+
+--- .github/workflows/release.yml (head) ---
+name: Release
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+'on':
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (for example 1.2.3 or v1.2.3)"
+        required: true
+        type: string
+      target:
+        description: "Target branch or commit for tagging"
+        required: false
+        default: "master"
+        type: string
+      prerelease:
+        description: "Mark release as prerelease"
+        required: false
+        default: false
+        type: boolean
+      draft:
+        description: "Create release as draft"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress
+
+--- .github/workflows/repository-sync.yml (head) ---
+name: Repository Sync & Maintenance
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repo-sync-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Fetch all branches
+        run: |
+          git fetch --all --prune
+          echo "Repository Status:"
+          git status --short --branc

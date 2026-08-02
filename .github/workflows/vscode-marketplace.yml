@@ -1,0 +1,124 @@
+# Package Orchestrator Memory VSIX (always). Marketplace publish is optional.
+#
+# Default path (match ndestates/vscode-grok4 operations):
+#   - CI packages VSIX → artifact (+ attach on tag)
+#   - Humans upload via https://marketplace.visualstudio.com/manage
+#     product type: Visual Studio Code · publisher: ndestates
+#
+# Optional PAT path (legacy until Dec 2026; not required for ship):
+#   - secret VSCE_PAT + workflow_dispatch publish_marketplace=true
+#   - never fail the job solely because VSCE_PAT is missing
+
+name: VS Code Marketplace
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Extension version to set before package (e.g. 2.0.11). Empty = package.json"
+        required: false
+        default: ""
+      publish_marketplace:
+        description: "Also vsce publish (requires VSCE_PAT). Default package-only."
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vscode-marketplace-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: extensions/vscode-orchestrator
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node (latest LTS)
+        uses: actions/setup-node@v6
+        with:
+          node-version: "lts/*"
+
+      - name: Align extension version
+        working-directory: .
+        run: |
+          set -euo pipefail
+          if [[ -n "${{ github.event.inputs.version }}" ]]; then
+            ver="${{ github.event.inputs.version }}"
+          elif [[ "${{ github.ref_type }}" == "tag" ]]; then
+            ver="${GITHUB_REF_NAME#v}"
+            ver="${ver%%-*}"   # core X.Y.Z for pre tags
+          else
+            ver="$(python3 -c 'import json; print(json.load(open("extensions/vscode-orchestrator/package.json"))["version"])')"
+          fi
+          echo "extension_version=$ver" >> "$GITHUB_OUTPUT"
+          echo "Packaging extension version: $ver"
+          node -e "
+            const fs=require('fs');
+            const p=JSON.parse(fs.readFileSync('extensions/vscode-orchestrator/package.json','utf8'));
+            p.version=process.argv[1];
+            fs.writeFileSync('extensions/vscode-orchestrator/package.json', JSON.stringify(p,null,2)+'\\n');
+          " "$ver"
+        id: ver
+
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+
+      - name: Package VSIX
+        run: |
+          vsce package --allow-missing-repository
+          ls -la *.vsix
+          mkdir -p ../../dist
+          cp -f ./*.vsix ../../dist/
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: orchestrator-memory-vsix
+          path: dist/*.vsix
+
+      - name: Attach VSIX to GitHub Release (tag only)
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: .
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" dist/*.vsix --clobber || true
+          fi
+
+      - name: Optional Marketplace publish (PAT)
+        if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.publish_marketplace == true || github.event.inputs.publish_marketplace == 'true') }}
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${VSCE_PAT:-}" ]]; then
+            echo "::warning::publish_marketplace=true but VSCE_PAT is not set — skipping vsce publish."
+            echo "Preferred path: download the VSIX artifact and upload via Marketplace manage UI"
+            echo "  (product type Visual Studio Code, publisher ndestates)."
+            exit 0
+          fi
+          vsce publish -p "$VSCE_PAT" --allow-missing-repository
+          echo "Published ndestates.orchestrator-memory to VS Code Marketplace"
+
+      - name: Package-only notice
+        if: ${{ github.event_name != 'workflow_dispatch' || (github.event.inputs.publish_marketplace != true && github.event.inputs.publish_marketplace != 'true') }}
+        run: |
+          echo "Package-only complete. Upload VSIX on manage:"
+          echo "  https://marketplace.visualstudio.com/manage/publishers/ndestates"
+          echo "  Product type: Visual Studio Code (not Visual Studio)."

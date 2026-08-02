@@ -1,0 +1,358 @@
+name: Release
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+'on':
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (for example 1.2.3 or v1.2.3)"
+        required: true
+        type: string
+      target:
+        description: "Target branch or commit for tagging"
+        required: false
+        default: "master"
+        type: string
+      prerelease:
+        description: "Mark release as prerelease"
+        required: false
+        default: false
+        type: boolean
+      draft:
+        description: "Create release as draft"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  packages: write   # GitHub Packages (npm)
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install gate deps
+        run: pip install pytest pyyaml build
+
+      - name: Resolve release tag
+        id: resolve_tag
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            tag="${{ github.ref_name }}"
+            echo "Using pushed tag: $tag"
+          else
+            requested="${{ github.event.inputs.version }}"
+            if [[ "$requested" == v* ]]; then
+              tag="$requested"
+            else
+              tag="v$requested"
+            fi
+
+            target="${{ github.event.inputs.target }}"
+            git fetch origin "$target" --tags
+
+            if git rev-parse --verify "$tag" >/dev/null 2>&1; then
+              echo "Tag already exists: $tag"
+            else
+              git config user.name 'github-actions[bot]'
+              git config user.email 'github-actions[bot]@users.noreply.github.com'
+              git tag -a "$tag" "origin/$target" -m "Release $tag"
+              git push origin "$tag"
+              echo "Created and pushed tag: $tag from origin/$target"
+            fi
+          fi
+
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      # VERSION / stamp / package.json must match the tag without leading v.
+      # Stable: 1.8.9 == v1.8.9. Pre-release: 1.9.0-pre.2 == v1.9.0-pre.2 (full string).
+      # Hatch still extracts core X.Y.Z from VERSION for the wheel name (PEP 440).
+      - name: Gate - VERSION matches tag (+ stamp + package.json)
+        run: |
+          set -euo pipefail
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          ver=$(tr -d 'v \n\r' < VERSION)
+          tagv=${tag#v}
+          tag_core=$(echo "$tagv" | sed -E 's/^([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          if [[ ! "$tag_core" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "ERROR: cannot parse core semver from tag ($tag)"
+            exit 1
+          fi
+          # Prefer exact match (stable or full pre label). Allow core-only only for plain X.Y.Z tags.
+          if [[ "$tagv" == "$tag_core" ]]; then
+            # Stable tag: VERSION must be exactly X.Y.Z
+            if [[ "$ver" != "$tagv" ]]; then
+              echo "ERROR: VERSION ($ver) must equal stable tag ($tagv)"
+              exit 1
+            fi
+          else
+            # Pre-release tag: VERSION must equal full pre string (e.g. 1.9.0-pre.2)
+            if [[ "$ver" != "$tagv" ]]; then
+              echo "ERROR: VERSION ($ver) must equal pre-release tag without v ($tagv)"
+              echo "Users read scripts/orchestrator-template-version / VERSION — it must show pre.N"
+              exit 1
+            fi
+            ver_core=$(echo "$ver" | sed -E 's/^([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+            if [[ "$ver_core" != "$tag_core" ]]; then
+              echo "ERROR: VERSION core ($ver_core) != tag core ($tag_core)"
+              exit 1
+            fi
+          fi
+          stamp=$(tr -d 'v \n\r' < scripts/orchestrator-template-version)
+          if [[ "$stamp" != "$ver" ]]; then
+            echo "ERROR: scripts/orchestrator-template-version ($stamp) != VERSION ($ver)"
+            echo "Fix: node scripts/npm/sync-version.js  (writes stamp + package.json from VERSION)"
+            exit 1
+          fi
+          pkg=$(python3 -c 'import json; print(json.load(open("package.json"))["version"])')
+          if [[ "$pkg" != "$ver" ]]; then
+            echo "ERROR: package.json version ($pkg) != VERSION ($ver)"
+            exit 1
+          fi
+          echo "VERSION $ver == tag $tag · stamp $stamp · package.json $pkg ✓"
+
+      # Mandatory: full pytest + security suite (no tagging without green)
+      - name: Gate - Pre-release (tests + security)
+        run: bash scripts/pre-release-gate.sh
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          prev_tag=$(git tag --sort=-creatordate | grep '^v' | grep -Fxv "$tag" | head -n 1 || true)
+
+          {
+            echo "# Release $tag"
+            echo
+            if [[ -n "$prev_tag" ]]; then
+              echo "Changes since $prev_tag:"
+              echo
+              git log --no-merges --pretty='- %s (%h)' "$prev_tag..$tag"
+            else
+              echo "Initial tagged release notes."
+              echo
+              git log --no-merges --pretty='- %s (%h)' -n 100
+            fi
+            echo
+            echo "## Commit Range"
+            if [[ -n "$prev_tag" ]]; then
+              echo "https://github.com/${{ github.repository }}/compare/$prev_tag...$tag"
+            else
+              echo "https://github.com/${{ github.repository }}/commits/$tag"
+            fi
+          } > RELEASE_NOTES.md
+
+          echo "Generated RELEASE_NOTES.md"
+
+      - name: Create or update GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          tagv=${tag#v}
+          tag_core=$(echo "$tagv" | sed -E 's/^([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          prerelease_flag=""
+          draft_flag=""
+
+          # Tag-push pre-releases: keep GitHub Latest on stable (e.g. v1.8.9)
+          if [[ "$tagv" != "$tag_core" ]]; then
+            prerelease_flag="--prerelease"
+            echo "Auto prerelease: tag has pre-release suffix ($tag)"
+          fi
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            [[ "${{ github.event.inputs.prerelease }}" == "true" ]] && prerelease_flag="--prerelease"
+            [[ "${{ github.event.inputs.draft }}" == "true" ]] && draft_flag="--draft"
+          fi
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            if [[ -n "$prerelease_flag" ]]; then
+              gh release edit "$tag" --title "$tag" --notes-file RELEASE_NOTES.md --prerelease ${draft_flag}
+            else
+              gh release edit "$tag" --title "$tag" --notes-file RELEASE_NOTES.md ${draft_flag}
+            fi
+            echo "Updated existing release: $tag"
+          else
+            gh release create "$tag" --title "$tag" --notes-file RELEASE_NOTES.md ${prerelease_flag} ${draft_flag} --verify-tag
+            echo "Created new release: $tag"
+          fi
+
+      - name: Publish release summary
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          {
+            echo "## Release Pipeline"
+            echo
+            echo "- Tag: $tag"
+            echo "- Notes file: RELEASE_NOTES.md"
+            echo "- Release URL: https://github.com/${{ github.repository }}/releases/tag/$tag"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Build wheel + sdist
+        run: |
+          python -m build
+          ls -l dist/
+          cd dist
+          sha256sum *.whl *.tar.gz > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+          cd ..
+          # Refresh bundle stamp so release tag matches high-risk hashes
+          python3 scripts/orchestrator-bundle-hash.py generate
+          python3 scripts/orchestrator-bundle-hash.py verify
+          cp reports/security/bundle-hashes.json dist/bundle-hashes.json
+
+      - name: Attach packages to GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" dist/*.whl dist/*.tar.gz dist/SHA256SUMS.txt dist/bundle-hashes.json --clobber || echo "upload skipped or failed (may need manual)"
+            echo "Wheel + sdist + checksums + bundle stamp attached (if gh succeeded)"
+          fi
+
+      # Phase B — publish when repo secrets exist (skip cleanly if unset).
+      # Configure: Settings → Secrets → PYPI_API_TOKEN, NPM_TOKEN
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          if [[ -z "${TWINE_PASSWORD:-}" ]]; then
+            echo "Skipping PyPI publish — secret PYPI_API_TOKEN not set"
+            exit 0
+          fi
+          pip install twine
+          # pyproject name is "orchestrator". If taken on PyPI, rename before first publish.
+          twine upload --non-interactive dist/*.whl dist/*.tar.gz
+
+      # Node once for npm publish + VSIX (latest LTS)
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'  # always latest Node LTS
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@ndestates'
+
+      - name: Sync package.json version from VERSION
+        run: |
+          ver=$(tr -d 'v \n' < VERSION)
+          node -e "
+            const fs=require('fs');
+            const p=JSON.parse(fs.readFileSync('package.json','utf8'));
+            p.version=process.argv[1];
+            fs.writeFileSync('package.json', JSON.stringify(p,null,2)+'\n');
+          " "$ver"
+          node -e "console.log('package.json version', require('./package.json').version)"
+
+      # GitHub Packages — default npm channel (uses GITHUB_TOKEN; no NPM_TOKEN required)
+      - name: Publish to GitHub Packages (npm)
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # Scoped package → GitHub Packages for org/user "ndestates"
+          {
+            echo "@ndestates:registry=https://npm.pkg.github.com"
+            echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}"
+          } > .npmrc
+          npm publish --access public
+          rm -f .npmrc
+          echo "Published @ndestates/orchestrator to GitHub Packages"
+
+      # Optional public npmjs.org (needs org token on npmjs)
+      - name: Publish to npmjs.org (optional)
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [[ -z "${NODE_AUTH_TOKEN:-}" ]]; then
+            echo "Skipping npmjs.org — secret NPM_TOKEN not set (GitHub Packages still published)"
+            exit 0
+          fi
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          # Clear GitHub scope so this hit goes to npmjs
+          npm publish --access public --registry https://registry.npmjs.org/
+          rm -f .npmrc
+
+      # VS Code extension: always build VSIX and attach; Marketplace only if VSCE_PAT set.
+
+      - name: Build VS Code VSIX
+        run: |
+          set -euo pipefail
+          ver=$(tr -d 'v \n\r' < VERSION)
+          # Keep extension version aligned with product VERSION (core X.Y.Z)
+          node -e "
+            const fs=require('fs');
+            const p=JSON.parse(fs.readFileSync('extensions/vscode-orchestrator/package.json','utf8'));
+            p.version=process.argv[1].split('-')[0];
+            fs.writeFileSync('extensions/vscode-orchestrator/package.json', JSON.stringify(p,null,2)+'\n');
+          " "$ver"
+          npm install -g @vscode/vsce
+          cd extensions/vscode-orchestrator
+          vsce package --allow-missing-repository --skip-license 2>/dev/null || vsce package --allow-missing-repository
+          ls -la *.vsix
+          mkdir -p ../../dist
+          cp -f ./*.vsix ../../dist/
+          cd ../..
+
+      - name: Attach VSIX to GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${{ steps.resolve_tag.outputs.tag }}"
+          shopt -s nullglob
+          files=(dist/*.vsix)
+          if [[ ${#files[@]} -eq 0 ]]; then
+            echo "No VSIX to attach"
+            exit 0
+          fi
+          gh release upload "$tag" "${files[@]}" --clobber || echo "VSIX upload skipped or failed"
+
+      - name: Publish VS Code Marketplace (optional)
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          if [[ -z "${VSCE_PAT:-}" ]]; then
+            echo "Skipping VS Marketplace — secret VSCE_PAT not set (VSIX still on GitHub Release)"
+            exit 0
+          fi
+          cd extensions/vscode-orchestrator
+          vsce publish -p "$VSCE_PAT" || echo "vsce publish failed (publisher/login?)"
+
+      - name: Publish packages summary
+        run: |
+          {
+            echo "## Package publish (production)"
+            echo
+            echo "- **License:** Apache-2.0 freeware"
+            echo "- **GitHub Release:** wheel + sdist + VSIX (always when gate passes)"
+            echo "- **GitHub Packages (npm):** always — \`@ndestates/orchestrator\` @ npm.pkg.github.com"
+            echo "- **npmjs.org:** when secret \`NPM_TOKEN\` is set"
+            echo "- **PyPI:** when secret \`PYPI_API_TOKEN\` is set"
+            echo "- **VS Marketplace:** when secret \`VSCE_PAT\` is set; else sideload VSIX from Release"
+            echo "- **Install:** see docs/guides/production-ship.md"
+            echo "- Host CLI: wheel URL · GitHub Packages npm · optional npmjs/PyPI"
+            echo "- Memory: \`orchestrator memory brief --seed\`"
+          } >> "$GITHUB_STEP_SUMMARY"

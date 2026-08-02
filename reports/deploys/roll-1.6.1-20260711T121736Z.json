@@ -1,0 +1,98 @@
+[
+  {
+    "app": "ndestates-io",
+    "path": "/home/nickd/projects/ndestates-io",
+    "branch": "chore/orchestrator-upgrade-1-5-1",
+    "dirty_count": 0,
+    "lock": "1.5.1",
+    "dry_run_exit": 0,
+    "dry_run_tail": " (skip default)\nCONFLICT .grok/skills/qa-agent/references/facebook-stats-specializations.md (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/qa-agent/references/google-stats-specializations.md (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/qa-agent/references/qa-checklist.md (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/qa-agent/scripts/qa-report-helper.py (project-customized)\n  dry-run: would prompt (skip default)\nUPDATE scripts/_engine/vault.py\nUPDATE scripts/mcp-host-stdio.sh\nCONFLICT scripts/mcp-threat-scan.sh (no prior deploy-state)\n  dry-run: would prompt (skip default)\nUPDATE scripts/orchestrator-template-version\nUPDATE scripts/session-vault-brief.py\norchestrator upgrade v1.6.1 ok",
+    "status": "dry_only"
+  },
+  {
+    "app": "e-ndsign",
+    "path": "/home/nickd/projects/e-ndsign",
+    "branch": "feature/laravel-e-ndsign-scaffold",
+    "dirty_count": 108,
+    "lock": null,
+    "status": "skip_dirty",
+    "dirty_sample": [
+      ".claude/agents/documentation-specialist.md",
+      ".claude/agents/github-expert.md",
+      ".claude/agents/loop-verifier.md",
+      ".claude/agents/mysql-database-expert.md",
+      ".claude/agents/orchestrator-deploy.md",
+      ".claude/commands/aws-route53-dns.md",
+      ".claude/commands/cache-efficient.md",
+      ".claude/commands/chain.md"
+    ]
+  },
+  {
+    "app": "jerseyhouseprices",
+    "path": "/home/nickd/projects/jerseyhouseprices",
+    "branch": "feature/frontend-production-refresh-2026-07-03",
+    "dirty_count": 0,
+    "lock": null,
+    "lock_backfill_planned": "1.5.0",
+    "lock_backfill_temp": true,
+    "dry_run_exit": 0,
+    "dry_run_tail": "ject.py\nNEW  scripts/detect-project-runtime.sh\nNEW  scripts/eod-vault-emit.py\nUPDATE scripts/git-push-secrets-guard.py\nUPDATE scripts/loop-daily-triage-host.sh\nUPDATE scripts/mcp-host-stdio.sh\nUPDATE scripts/mcp-threat-scan.sh\nNEW  scripts/orchestrator-app-update.sh\nNEW  scripts/orchestrator-template-version\nUPDATE scripts/resume-branch.sh\nNEW  scripts/session-end-checkpoint.py\nNEW  scripts/session-orchestrator-check.py\nNEW  scripts/session-vault-brief.py\nNEW  scripts/session-vault-todo-query.py\nUPDATE scripts/sync_grok_to_github_claude.py\nNEW  scripts/vault-emit-ci-failure.py\nNEW  scripts/vault-learning-watch.py\nNEW  scripts/vault-workspace-pointer.py\nCONFLICT scripts/verify_github_actions_node24.py (project-customized)\n  dry-run: would prompt (skip default)\norchestrator upgrade v1.6.1 ok",
+    "status": "dry_only"
+  },
+  {
+    "app": "lightstone",
+    "path": "/home/nickd/projects/lightstone",
+    "branch": "develop",
+    "dirty_count": 1,
+    "lock": "1.5.1",
+    "stashed": true,
+    "dry_run_exit": 0,
+    "dry_run_tail": "d (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/qa-agent/references/qa-checklist.md (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/qa-agent/scripts/qa-report-helper.py (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/_engine/vault.py (no prior deploy-state)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/mcp-host-stdio.sh (no prior deploy-state)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/mcp-threat-scan.sh (no prior deploy-state)\n  dry-run: would prompt (skip default)\nUPDATE scripts/orchestrator-template-version\nCONFLICT scripts/resume-branch.sh (project-customized)\n  dry-run: would prompt (skip default)\nUPDATE scripts/session-vault-brief.py\norchestrator upgrade v1.6.1 ok",
+    "status": "dry_only",
+    "stash_popped": true
+  },
+  {
+    "app": "mailchimp",
+    "path": "/home/nickd/projects/mailchimp",
+    "branch": "feature/image-selector-2026-07-04",
+    "dirty_count": 0,
+    "lock": null,
+    "lock_backfill_planned": "1.5.0",
+    "lock_backfill_temp": true,
+    "dry_run_exit": 0,
+    "dry_run_tail": "r-project-skills.py (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/resume-branch.sh (project-customized)\n  dry-run: would prompt (skip default)\nNEW  scripts/session-end-checkpoint.py\nNEW  scripts/session-orchestrator-check.py\nNEW  scripts/session-vault-brief.py\nNEW  scripts/session-vault-todo-query.py\nCONFLICT scripts/stack-profiles/laravel.yaml (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/stack-profiles/python-flask.yaml (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/sync_grok_to_github_claude.py (project-customized)\n  dry-run: would prompt (skip default)\nNEW  scripts/vault-emit-ci-failure.py\nNEW  scripts/vault-learning-watch.py\nNEW  scripts/vault-workspace-pointer.py\norchestrator upgrade v1.6.1 ok",
+    "status": "dry_only"
+  },
+  {
+    "app": "facebook-stats",
+    "path": "/home/nickd/projects/facebook-stats",
+    "branch": "chore/orchestrator-upgrade-1-5-1",
+    "dirty_count": 0,
+    "lock": "1.5.1",
+    "dry_run_exit": 0,
+    "dry_run_tail": "ip default)\nCONFLICT .grok/skills/token-usage-meter/scripts/token_monitor.py (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/vector-database-expert/SKILL.md (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/web-build-design/SKILL.md (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT chains/registry.template.yaml (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/_engine/vault.py (no prior deploy-state)\n  dry-run: would prompt (skip default)\nUPDATE scripts/mcp-host-stdio.sh\nCONFLICT scripts/mcp-threat-scan.sh (no prior deploy-state)\n  dry-run: would prompt (skip default)\nUPDATE scripts/orchestrator-template-version\nUPDATE scripts/session-vault-brief.py\norchestrator upgrade v1.6.1 ok",
+    "status": "dry_only"
+  },
+  {
+    "app": "google-stats",
+    "path": "/home/nickd/projects/google-stats",
+    "branch": "feature/daily-tasks-2026-07-05",
+    "dirty_count": 0,
+    "lock": null,
+    "lock_backfill_planned": "1.5.0",
+    "lock_backfill_temp": true,
+    "dry_run_exit": 0,
+    "dry_run_tail": "cripts/session-orchestrator-check.py\nNEW  scripts/session-vault-brief.py\nNEW  scripts/session-vault-todo-query.py\nCONFLICT scripts/stack-profiles/laravel.yaml (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/stack-profiles/python-flask.yaml (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/sync_grok_to_github_claude.py (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/upgrade_github_actions_node24.py (project-customized)\n  dry-run: would prompt (skip default)\nNEW  scripts/vault-emit-ci-failure.py\nNEW  scripts/vault-learning-watch.py\nNEW  scripts/vault-workspace-pointer.py\nCONFLICT scripts/verify_github_actions_node24.py (project-customized)\n  dry-run: would prompt (skip default)\norchestrator upgrade v1.6.1 ok",
+    "status": "dry_only"
+  },
+  {
+    "app": "ndestates",
+    "path": "/home/nickd/projects/ndestates",
+    "branch": "chore/orchestrator-upgrade-1-5-1",
+    "dirty_count": 0,
+    "lock": "1.5.1",
+    "dry_run_exit": 0,
+    "dry_run_tail": "k-stats-specializations.md (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/qa-agent/references/google-stats-specializations.md (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/qa-agent/references/qa-checklist.md (project-customized)\n  dry-run: would prompt (skip default)\nCONFLICT .grok/skills/qa-agent/scripts/qa-report-helper.py (project-customized)\n  dry-run: would prompt (skip default)\nUPDATE scripts/_engine/vault.py\nCONFLICT scripts/mcp-host-stdio.sh (no prior deploy-state)\n  dry-run: would prompt (skip default)\nCONFLICT scripts/mcp-threat-scan.sh (no prior deploy-state)\n  dry-run: would prompt (skip default)\nUPDATE scripts/orchestrator-template-version\nUPDATE scripts/session-vault-brief.py\norchestrator upgrade v1.6.1 ok",
+    "status": "dry_only"
+  }
+]

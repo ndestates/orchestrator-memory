@@ -1,0 +1,44 @@
+# Stack profile: Laravel + Filament wave apps (ndestates-io, e-ndsign, etc.)
+id: laravel
+
+# Written into project-manifest.yaml on init seed / residue amend (never overwrites customized apps)
+manifest_stack:
+  framework: laravel
+  language: php
+  uses_database: true
+  database_engine: mysql
+
+project_titles_by_slug:
+  ndestates-io: NDestates IO
+  e-ndsign: e-NDSign
+  jerseyhouseprices: Jersey House Prices
+  lightstone: Lightstone
+  ndestates: NDestates
+
+name_replacements:
+  - - google-stats
+    - project
+  - - Google Stats
+    - "{title}"
+  - - facebook-stats
+    - project
+  - - Facebook Stats
+    - "{title}"
+  - - "Core operational instructions for project"
+    - "Core operational instructions for {slug}"
+  - - "# Copilot Instructions — Project Template (Grok Native)"
+    - "# Copilot Instructions — {title} (Grok Native)"
+  - - "# Copilot Instructions — NDestates IO (Grok Native)"
+    - "# Copilot Instructions — {title} (Grok Native)"
+  - - >-
+      **Orchestrator template** (`ndestates/orchestrator`): manifest-first, cache-first prompt/agent system for fast start-to-beta delivery. This repo ships `.grok/` skills, chains, loops, and docs — not application source.
+    - >-
+      **{title}** (`{slug}`): Laravel 12 + Filament application. Manifest-first, cache-first AI scaffolding via `.grok/` skills, chains, and loops.
+
+stack_replacements: []
+
+file_overrides:
+  - source: copilot-instructions.SKILL.md
+    target: .grok/skills/copilot-instructions/SKILL.md
+  - source: copilot-instructions.github.md
+    target: .github/copilot-instructions.md
