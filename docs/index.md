@@ -4,7 +4,9 @@
 
 This documentation explains how to use the **orchestrator template** — a manifest-first, cache-first system for AI-assisted delivery. It ships skills, prompts, agents, loops, and chains synced across **Grok, Claude Code, GitHub Copilot, Gemini, Cursor, and ChatGPT/OpenAI**.
 
-**Install path:** [Installation](getting-started/installation.md) · **Upgrade your apps:** [Per-app upgrade](guides/per-app-upgrade.md) · **MCP + hosts:** [Multi-platform MCP and host tools](guides/multi-platform-mcp-and-host-tools.md) · **Licensing:** [Licensing](reference/licensing.md).  
+**Bring your own keys:** You must have **your own** accounts (and API keys where needed) with those providers. Orchestrator does not supply model API keys. See [Bring your own keys](reference/bring-your-own-keys.md).
+
+**Install path:** [Installation](getting-started/installation.md) · **BYOK:** [Bring your own keys](reference/bring-your-own-keys.md) · **Upgrade your apps:** [Per-app upgrade](guides/per-app-upgrade.md) · **MCP + hosts:** [Multi-platform MCP and host tools](guides/multi-platform-mcp-and-host-tools.md) · **Licensing:** [Licensing](reference/licensing.md).  
 Per-app `orchestrator init` / `upgrade` only — multi-app wave is blocked by default (abandoned for routine releases).
 
 For repository overview, see the [root README](../README.md).
@@ -13,6 +15,7 @@ For repository overview, see the [root README](../README.md).
 
 - [Overview](getting-started/index.md) — what this project is and who it is for
 - [Installation](getting-started/installation.md) — Linux/macOS, Windows PowerShell, package CLI, host tools, MCP ensure, per-app install
+- [Bring your own keys](reference/bring-your-own-keys.md) — **required:** your own model-provider accounts and API keys
 - [Quickstart](getting-started/quickstart.md) — first successful session in under 15 minutes
 - [Project overview](getting-started/project-overview.md) — architecture at a glance
 
@@ -43,6 +46,7 @@ For repository overview, see the [root README](../README.md).
 ## Reference
 
 - [Reference index](reference/index.md) — manifests, chains, skills, licensing, platform surfaces
+- [**Bring your own keys (BYOK)**](reference/bring-your-own-keys.md) — **your** model accounts & API keys required
 - [Platform surfaces](reference/platform-surfaces.md) — Grok · Claude · Copilot · Gemini · Cursor · **ChatGPT**
 - [Multi-platform tool use](reference/tools/multi-platform-tool-use.md) — MCP client configs per host
 - [Manifest](reference/manifest.md) — `project-manifest.yaml` fields (incl. vault_events_dir, vault_ledger)

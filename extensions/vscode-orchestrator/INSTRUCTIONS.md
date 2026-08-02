@@ -9,6 +9,17 @@ This document ships inside the VS Code / Cursor extension and is the operator SS
 | **Item ID** | `ndestates.orchestrator-memory` |
 | **One-liner** | Local project memory for AI coding — paste a short brief, stop re-prompting the whole repo. |
 | **License** | Apache-2.0 freeware |
+| **Model access** | **Bring your own keys / accounts** — we do not supply OpenAI, Anthropic, xAI, Google, etc. |
+
+### Bring your own keys (required)
+
+| You must have | We do **not** provide |
+|---------------|------------------------|
+| Your own Claude / Anthropic, Grok / xAI, Copilot, Cursor, Gemini, OpenAI (etc.) **accounts** | Free cloud model API keys |
+| Your own **API keys** when you call a provider API | Keys in the VSIX, wheel, or Marketplace package |
+| Optional: local Ollama models on **your** machine | A hosted multi-model proxy from ndestates |
+
+Memory Brief and `/chain` prompts are **local context** for **your** AI host. Billing and keys stay with **you** and that host.
 
 **In the app:** Command Palette → **Orchestrator: Read instructions (memory + vault)**  
 or Command Hub → **Read full instructions**.
@@ -155,14 +166,14 @@ The extension shells out to `orchestrator`. Without it, Memory commands fail.
 # Latest published wheel train (example): 2.0.0 — 2.1.0 only after that release exists
 VER=2.2.0
 uv tool install --force \
-  "orchestrator @ https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
+  "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
 
 # Or from this repo (gets tree tip, e.g. 2.1.0):
 # bash scripts/install.sh --uv-tool
 
 # B) pip + wheel
 pip install --upgrade \
-  "https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
+  "https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
 
 # C) From clone
 git clone https://github.com/ndestates/orchestrator.git && cd orchestrator

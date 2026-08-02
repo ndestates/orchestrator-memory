@@ -10,6 +10,9 @@ Free **VS Code / Cursor** extension on the Marketplace · **Apache-2.0** · Publ
 |--|--|
 | **Marketplace** | [ndestates.orchestrator-memory](https://marketplace.visualstudio.com/items?itemName=ndestates.orchestrator-memory) |
 | **Strapline** | Session start in seconds — not 10 minutes of context paste. Same project brief in Cursor **and** Claude. Memory stays on your machine. |
+| **BYOK** | **You** need your own Claude / Grok / Copilot / Cursor / Gemini / OpenAI accounts. We do **not** provide API keys. |
+
+> **Bring your own keys:** This extension and the host CLI are local tools. They do **not** include or sell model API access. Use **your** provider accounts (and API keys when you call APIs). See project doc [bring-your-own-keys.md](../../docs/reference/bring-your-own-keys.md) when using the full template.
 
 ---
 
@@ -132,9 +135,9 @@ After install: **Orchestrator: Read instructions (memory + vault)** → **Setup 
 
 | Channel | Commands |
 |---------|----------|
-| **uv + Release wheel** (preferred) | `VER=2.2.0` (must be a **published** GitHub Release) · `uv tool install --force "orchestrator @ https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"` |
+| **uv + Release wheel** (preferred) | `VER=2.2.0` (must be a **published** GitHub Release) · `uv tool install --force "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"` |
 | **From git clone** | `bash scripts/install.sh --uv-tool` (tree tip, e.g. 2.1.0+) |
-| **pip + wheel** | `pip install "https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"` |
+| **pip + wheel** | `pip install "https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"` |
 | **PyPI** (when live) | `uv tool install orchestrator` / `pip install orchestrator` |
 | **npm GitHub Packages** | `~/.npmrc` with `@ndestates:registry=https://npm.pkg.github.com` + PAT `read:packages` · `npm i -g @ndestates/orchestrator` |
 | **npmjs.org** (when live) | `npm i -g @ndestates/orchestrator` |

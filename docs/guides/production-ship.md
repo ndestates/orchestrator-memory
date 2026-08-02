@@ -1,8 +1,27 @@
 # Production ship — host install (npm, pip, VS Code)
 
+
+> **Repository split (2026-08-02)**  
+> | Repo | Visibility | Role |  
+> |------|------------|------|  
+> | **[ndestates/orchestrator-memory](https://github.com/ndestates/orchestrator-memory)** | **Public** | Product: host CLI wheel, VSIX, install docs, release tags |  
+> | **[ndestates/orchestrator](https://github.com/ndestates/orchestrator)** | **Private** | Factory: full template, `develop` / feature branches, internal work |  
+>
+> End users install from **orchestrator-memory** releases only. Maintainers develop on **orchestrator** (private).
+
 [UPDATED 2026-08-01] · **Apache-2.0 freeware** · product **2.2.0** · optional [Patreon](https://www.patreon.com/ndestates)
 
 How **end users** install the orchestrator in production, and how **maintainers** publish a release.
+
+### Bring your own keys (required)
+
+This product is **not** a cloud model API. **You** must have:
+
+- Accounts with the AI tools you use (Claude, Grok/xAI, Copilot, Cursor, Gemini, ChatGPT/OpenAI, …), and  
+- **Your own** API keys when you call a provider API (env vars / host settings — never committed to git).
+
+We do **not** issue or embed OpenAI, Anthropic, xAI, Google, or other vendor keys.  
+Full policy: [Bring your own keys](../reference/bring-your-own-keys.md).
 
 There are **three host surfaces** (all free open source). There is **no Packagist** path (that is PHP/Composer — see FAQ below).
 
@@ -23,7 +42,7 @@ In-app template (`orchestrator init/upgrade`) is **optional** and separate from 
 ```bash
 # From GitHub Release wheel (no full clone required once published)
 uv tool install \
-  "orchestrator @ https://github.com/ndestates/orchestrator/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl"
+  "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl"
 
 # Or when PyPI publish is enabled:
 # uv tool install orchestrator==2.2.0
@@ -38,7 +57,7 @@ Ensure `~/.local/bin` (or uv’s tool bin) is on `PATH`.
 
 ```bash
 pip install \
-  "https://github.com/ndestates/orchestrator/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl"
+  "https://github.com/ndestates/orchestrator-memory/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl"
 # or: pip install orchestrator==2.2.0   # after PyPI
 ```
 
@@ -150,16 +169,21 @@ git push origin v2.2.0
 # Or: Actions → Release → Run workflow → version=2.0.0 target=master
 ```
 
-### What `release.yml` does on `v*` tags
+### What release workflows do on `v*` tags
 
-1. Gate: VERSION == tag, stamp, package.json  
-2. Gate: `pre-release-gate.sh` (tests + security)  
-3. Create/update **GitHub Release** + notes  
-4. **Build** wheel + sdist + SHA256SUMS + bundle-hashes  
-5. **Attach** artifacts to the release  
-6. **PyPI** publish if `PYPI_API_TOKEN` set  
-7. **npm** publish if `NPM_TOKEN` set  
-8. **VSIX** package + attach to Release; **Marketplace** = human upload on manage (same as vscode-grok4). Optional PAT publish only if you explicitly opt in
+| Workflow | Repo | Gate |
+|----------|------|------|
+| **`release.yml`** | Private **`ndestates/orchestrator`** only | Full `pre-release-gate.sh` (pytest + security) |
+| **`product-release.yml`** | Public **`ndestates/orchestrator-memory`** only | VERSION/stamp only — **no** factory suite |
+
+**Product release (`product-release.yml`) steps:**
+
+1. Gate: VERSION == tag (+ stamp + package.json)  
+2. Create/update **GitHub Release** + notes  
+3. **Build** wheel + sdist + SHA256SUMS (+ bundle-hashes if present)  
+4. **Attach** artifacts  
+5. **npm** GitHub Packages (optional npmjs/PyPI with secrets)  
+6. **VSIX** package + attach; Marketplace if `VSCE_PAT` set
 
 ### Verify after ship
 
@@ -168,7 +192,7 @@ git push origin v2.2.0
 gh release view v2.2.0
 
 # Host CLI from wheel URL
-uv tool install --force "orchestrator @ https://github.com/ndestates/orchestrator/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl"
+uv tool install --force "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl"
 orchestrator version
 orchestrator memory status
 

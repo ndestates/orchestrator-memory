@@ -2,6 +2,11 @@
 
 Project-agnostic AI orchestration template for manifest-first, cache-first development. Ships skills, prompts, agents, loops, and chains — for **Grok, Claude Code, GitHub Copilot, Gemini, Cursor, and ChatGPT/OpenAI**.
 
+
+> **Bring your own keys (BYOK):** This project does **not** provide API keys or model accounts.
+> You need **your own** accounts with Claude / Anthropic, Grok / xAI, Copilot, Cursor, Gemini, OpenAI, etc.
+> Details: [docs/reference/bring-your-own-keys.md](docs/reference/bring-your-own-keys.md)
+
 **License:** [Apache-2.0](LICENSE) — **freeware open source** (no paid tier required)  
 **Support (optional):** [Patreon](https://www.patreon.com/ndestates) — donate if you like; **not** a license key  
 **Repository:** [ndestates/orchestrator](https://github.com/ndestates/orchestrator) · **Latest:** see [Releases](https://github.com/ndestates/orchestrator/releases)

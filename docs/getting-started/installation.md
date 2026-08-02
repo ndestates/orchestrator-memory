@@ -1,6 +1,18 @@
 # Installation
 
-[UPDATED 2026-08-02] — package-first host CLI · **v2.2.0** wheel · production ship guide
+[UPDATED 2026-08-02] — package-first host CLI · **v2.2.0** wheel · production ship guide · **BYOK**
+
+## Bring your own keys (required)
+
+Orchestrator does **not** include model-provider API keys or free cloud model access.
+
+| You need | Examples |
+|----------|----------|
+| **Your own AI host account** | Claude Code, Grok Build, GitHub Copilot, Cursor, Gemini, ChatGPT |
+| **Your own API keys** (when using APIs) | Created in **your** OpenAI / Anthropic / xAI / Google / etc. console |
+| **Local option (no cloud key)** | [Ollama BYOM](../guides/local-ollama.md) if you prefer models on your machine |
+
+Do **not** commit keys. Details: [Bring your own keys](../reference/bring-your-own-keys.md).
 
 ## Overview
 
@@ -40,7 +52,7 @@ Isolated install under `~/.local/share/uv/tools/orchestrator`; binary on `~/.loc
 # Preferred production: GitHub Release wheel (no clone required)
 VER=2.2.0
 uv tool install --force \
-  "orchestrator @ https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
+  "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
 
 # From a checkout of this repo (any branch — install is not tied to it after this)
 cd /path/to/orchestrator
@@ -64,7 +76,7 @@ Ensure `~/.local/bin` is on `PATH`.
 ```bash
 VER=2.2.0
 pip install --upgrade \
-  "https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
+  "https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
 # or from a clone: bash scripts/install.sh --cli
 # or: python3 -m pip install -e .
 # PyPI (when published): pip install orchestrator==2.2.0
@@ -406,10 +418,10 @@ npm install -g @ndestates/orchestrator
 ```bash
 VER=2.2.0
 uv tool install --force \
-  "orchestrator @ https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
+  "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
 # or:
 pip install --upgrade \
-  "https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
+  "https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
 ```
 
 From a checkout of this repository:

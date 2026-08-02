@@ -1,12 +1,17 @@
+> **Public product installs:** https://github.com/ndestates/orchestrator-memory/releases  
+> **BYOK:** You must use **your own** model-provider accounts and API keys — we do not supply them.  
+> See [Bring your own keys](docs/reference/bring-your-own-keys.md).
+
 # Installation Guide
 
-[UPDATED 2026-08-01] — Apache-2.0 freeware · production host packages
+[UPDATED 2026-08-02] — Apache-2.0 freeware · production host packages · BYOK
 
 This repository is a project-agnostic orchestrator template. **Canonical install and licensing docs** live on the documentation site:
 
 | Doc | Contents |
 |-----|----------|
 | **[Installation](docs/getting-started/installation.md)** | Linux/macOS bash, Windows PowerShell, **npm**, pip, per-app CLI |
+| **[Bring your own keys](docs/reference/bring-your-own-keys.md)** | **Required:** your own Claude/Grok/Copilot/Cursor/Gemini/OpenAI accounts & keys |
 | **[Production ship](docs/guides/production-ship.md)** | **Ship npm / PyPI / GitHub wheel / VS Code VSIX** — maintainer + user paths |
 | **[Host-first memory](docs/guides/host-first-memory.md)** | `orchestrator memory` on any project |
 | **[Licensing](docs/reference/licensing.md)** | **Apache-2.0** free; optional self-hosted license server |

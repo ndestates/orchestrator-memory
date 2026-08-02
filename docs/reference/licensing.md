@@ -10,10 +10,13 @@
 | **Cost to use** | **£0** — no paid tier required for CLI, memory, skills, VS Code extension, or full deploy selections |
 | **Support the project** | **Optional** [Patreon](https://www.patreon.com/ndestates) (or your published page) — **donations only**, never a license key |
 | **Attribution** | Keep copyright + LICENSE notices when you redistribute (Apache requirement) |
+| **Model / LLM access** | **Not included** — use [your own provider accounts and API keys](bring-your-own-keys.md) |
 
 There is **no Pro / Light product split** for end users. Paid £99 “Pro company keys” are **retired as a product model** in favour of free OSS + optional patronage.
 
-See also: [NOTICE](../../NOTICE) · [Production ship](../guides/production-ship.md)
+**Apache-2.0 freeware ≠ free OpenAI/Anthropic/xAI/Google tokens.** Those are separate products you subscribe to under **your** accounts.
+
+See also: [NOTICE](../../NOTICE) · [Bring your own keys](bring-your-own-keys.md) · [Production ship](../guides/production-ship.md)
 
 ---
 
