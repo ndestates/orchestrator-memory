@@ -1,0 +1,55 @@
+{
+  "name": "@ndestates/orchestrator",
+  "version": "2.3.5",
+  "description": "Stop re-pasting your entire repo. Local AI project memory + token cache for Claude, Grok, Cursor, Copilot & more. One brief → every session. Free. Private. Apache-2.0.",
+  "license": "Apache-2.0",
+  "author": "ND Holdings Limited",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ndestates/orchestrator.git"
+  },
+  "homepage": "https://github.com/ndestates/orchestrator#readme",
+  "bugs": {
+    "url": "https://github.com/ndestates/orchestrator/issues"
+  },
+  "keywords": [
+    "ai",
+    "memory",
+    "token-cache",
+    "project-memory",
+    "claude",
+    "cursor",
+    "copilot",
+    "grok",
+    "chatgpt",
+    "local-ai",
+    "sqlite",
+    "session-start",
+    "session-end",
+    "byok"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "orchestrator": "bin/orchestrator.js"
+  },
+  "files": [
+    "bin/orchestrator.js",
+    "scripts/npm/",
+    "LICENSE",
+    "README.md",
+    "INSTALL.md",
+    "VERSION",
+    "NOTICE"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/npm/postinstall.js",
+    "install:cli": "node scripts/npm/postinstall.js --force",
+    "version:sync": "node scripts/npm/sync-version.js"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}

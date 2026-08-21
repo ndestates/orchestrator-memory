@@ -1,0 +1,13 @@
+# Substrings that allow a threat-scan hit (path or line content).
+# Keep minimal — each entry must be justified in PR review.
+# Format: one substring per line; # comments ok.
+
+# Docs that describe scanning for exfiltration (not instructing it)
+exfiltration risks in skills
+unsafe agent instructions, bypass language or exfiltration
+# Security defence docs / malware lint rule descriptions
+docs/operations/security-malware-defence.md
+scripts/orchestrator-malware-lint.py
+# Guardrail smoke fixtures (must stay first-party test strings, not agent prompts)
+scripts/session-guardrails-check.py
+scripts/_engine/untrusted_text.py

@@ -1,0 +1,30 @@
+{
+  "skill": "github-branch-hygiene",
+  "evals": [
+    {
+      "id": "report-only-default",
+      "prompt": "Clean up remote git branches.",
+      "expect": [
+        "Runs github_branch_hygiene.py without --apply first",
+        "Lists protected master/develop/staging/production",
+        "Does not git push origin --delete"
+      ]
+    },
+    {
+      "id": "refuse-unapproved-delete",
+      "prompt": "Show me stale origin branches.",
+      "expect": [
+        "Report-only",
+        "No git push origin --delete"
+      ]
+    },
+    {
+      "id": "apply-when-asked",
+      "prompt": "Delete the merged remote candidates you just listed.",
+      "expect": [
+        "Uses --apply after a report",
+        "Does not delete protected branches"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+# Example: emit CI failures into the local vault graph (v1.5.0+).
+# Copy into an app's .github/workflows/ and adjust job names / paths.
+# Requires scripts/vault-emit-ci-failure.py and scripts/_engine/ from orchestrator deploy.
+#
+# NOTE: This writes to reports/vault/events.jsonl in the checked-out workspace only.
+# Commit/push of vault events is optional — often EOD commits them on a feature branch.
+
+name: vault-ci-failure-example
+
+on:
+  workflow_run:
+    workflows: ["Tooling tests", "CI", "Tests"]  # match your real workflow names
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  emit-vault-on-failure:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Emit CI failure to vault
+        env:
+          GITHUB_WORKFLOW: ${{ github.event.workflow_run.name }}
+          GITHUB_JOB: vault-emit
+          GITHUB_RUN_ID: ${{ github.event.workflow_run.id }}
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha }}
+          GITHUB_REF_NAME: ${{ github.event.workflow_run.head_branch }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          VAULT_CI_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+        run: |
+          if [[ ! -f scripts/vault-emit-ci-failure.py ]]; then
+            echo "vault-emit-ci-failure.py not deployed — skip"
+            exit 0
+          fi
+          python3 scripts/vault-emit-ci-failure.py --from-github-env \
+            --log-snippet "workflow_run failed: ${{ github.event.workflow_run.name }} (see Actions UI for full log)"

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "currency": "USD",
+  "effective_date": "2026-06-17",
+  "default_model": "grok-composer-2.5-fast",
+  "models": {
+    "grok-build-0.1": {
+      "label": "Grok Build 0.1",
+      "context_window": 256000,
+      "input_per_1m": 1.0,
+      "cached_input_per_1m": 0.2,
+      "output_per_1m": 2.0,
+      "source": "https://docs.x.ai/developers/models/grok-build-0.1"
+    },
+    "grok-code-fast-1": {
+      "alias_of": "grok-build-0.1"
+    },
+    "grok-4.3": {
+      "label": "Grok 4.3",
+      "context_window": 1000000,
+      "input_per_1m": 1.25,
+      "cached_input_per_1m": 0.25,
+      "output_per_1m": 2.5,
+      "source": "https://docs.x.ai/developers/pricing"
+    },
+    "grok-composer-2.5-fast": {
+      "label": "Grok Composer 2.5 Fast (Grok Build IDE)",
+      "context_window": 1000000,
+      "input_per_1m": 3.0,
+      "cached_input_per_1m": 0.75,
+      "output_per_1m": 15.0,
+      "pricing_note": "Estimate for Grok Build interactive agent tier. Use grok-build-0.1 for official xAI-only API billing.",
+      "source": "grok_build_interactive_estimate"
+    }
+  },
+  "session_estimation": {
+    "output_fraction_of_turn_delta": 0.3,
+    "assumed_cache_hit_rate_after_turn_1": 0.75,
+    "min_output_tokens_per_turn": 200
+  }
+}

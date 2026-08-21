@@ -1,0 +1,29 @@
+# High-risk paths included in orchestrator bundle hash stamps (v1.6.1 Phase 2).
+# One path or glob per line (relative to repo root). Used by orchestrator-bundle-hash.py.
+# Prefer fixed files over broad globs so stamps stay stable and reviewable.
+
+scripts/orchestrator-malware-lint.py
+scripts/mcp-threat-scan.sh
+scripts/git-push-secrets-guard.py
+scripts/loop_compound.py
+scripts/app_compound_gate.py
+scripts/mcp-host-stdio.sh
+scripts/_engine/vault.py
+scripts/_engine/deploy.py
+scripts/_engine/app_compound.py
+src/orchestrator_cli/flow.py
+src/orchestrator_cli/__main__.py
+src/orchestrator_cli/license.py
+src/orchestrator_cli/licensing_policy.py
+CODEOWNERS
+.githooks/pre-commit
+.githooks/pre-push
+.github/workflows/security-malware.yml
+.github/workflows/release.yml
+.github/workflows/mcp-security.yml
+mcp-server/src/orchestrator_mcp/server.py
+mcp-server/src/orchestrator_mcp/sandbox.py
+mcp-server/src/orchestrator_mcp/auth.py
+VERSION
+SECURITY.md
+docs/reference/stronger-with-every-update.md

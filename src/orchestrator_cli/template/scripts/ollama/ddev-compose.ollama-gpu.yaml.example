@@ -1,0 +1,18 @@
+# Optional NVIDIA GPU passthrough for DDEV Ollama (Linux / WSL2 only).
+#
+# Prerequisite: NVIDIA Container Toolkit installed on the host.
+# After tyler36/ddev-ollama add-on:
+#   cp scripts/ollama/ddev-compose.ollama-gpu.yaml.example .ddev/docker-compose.ollama-gpu.yaml
+#   ddev restart
+#
+# See docs/guides/local-ollama.md
+
+services:
+  ollama:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

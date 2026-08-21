@@ -1,0 +1,392 @@
+{
+  "name": "orchestrator-memory",
+  "displayName": "Orchestrator Memory — AI token cache",
+  "description": "Local project memory for AI coding. Type /session-start, /chain, /memory-brief in the IDE Command Palette, Chat (@orchestrator), and paste the same / commands into Claude, Grok, Cursor, Copilot. Free Apache-2.0.",
+  "version": "2.3.5",
+  "publisher": "ndestates",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "copyright": "Copyright (c) 2026 ND Estates Limited and contributors",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "AI",
+    "Machine Learning",
+    "Chat",
+    "Other"
+  ],
+  "keywords": [
+    "slash commands",
+    "/session-start",
+    "/chain",
+    "project memory",
+    "token cache",
+    "Claude Code",
+    "Cursor",
+    "Copilot Chat",
+    "Grok",
+    "Gemini",
+    "ChatGPT",
+    "orchestrator",
+    "SQLite memory",
+    "vault",
+    "ndestates"
+  ],
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#0B1F33",
+    "theme": "dark"
+  },
+  "homepage": "https://marketplace.visualstudio.com/items?itemName=ndestates.orchestrator-memory",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ndestates/orchestrator.git",
+    "directory": "extensions/vscode-orchestrator"
+  },
+  "bugs": {
+    "url": "https://github.com/ndestates/orchestrator/issues"
+  },
+  "qna": false,
+  "activationEvents": [
+    "onStartupFinished",
+    "onChatParticipant:orchestrator.memory"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "orchestrator.memory",
+        "fullName": "Orchestrator",
+        "name": "orchestrator",
+        "description": "Project memory + /chain slash commands (local SQLite token cache)",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "session-start",
+            "description": "Memory brief + /chain session-start for this project"
+          },
+          {
+            "name": "session-resume",
+            "description": "Same-day return after mid-day session-end"
+          },
+          {
+            "name": "session-end",
+            "description": "Memory snapshot + /chain session-end / eod-shutdown"
+          },
+          {
+            "name": "brief",
+            "description": "Lean Memory Brief from SQLite (+ seed)"
+          },
+          {
+            "name": "query",
+            "description": "Query local project memory (follow with your question)"
+          },
+          {
+            "name": "ingest",
+            "description": "Save text into local memory (follow with text)"
+          },
+          {
+            "name": "seed",
+            "description": "Seed VERSION/git/TODO/resume into memory"
+          },
+          {
+            "name": "status",
+            "description": "Memory + vault status"
+          },
+          {
+            "name": "chain",
+            "description": "Run /chain <id> (follow with chain id, e.g. session-start)"
+          },
+          {
+            "name": "setup",
+            "description": "One-click host CLI install + memory dirs"
+          },
+          {
+            "name": "help",
+            "description": "List / slash commands for IDE and models"
+          }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "orchestrator.slash.sessionStart",
+        "title": "/chain session-start",
+        "category": "Orchestrator",
+        "enablement": "true"
+      },
+      {
+        "command": "orchestrator.slash.sessionResume",
+        "title": "/chain session-resume",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slash.sessionEnd",
+        "title": "/chain session-end",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slash.brief",
+        "title": "/memory-brief",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slash.query",
+        "title": "/memory-query",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slash.ingest",
+        "title": "/memory-ingest",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slash.seed",
+        "title": "/memory-seed",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slash.status",
+        "title": "/memory-status",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slash.chain",
+        "title": "/chain …",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slash.setup",
+        "title": "/setup",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slash.help",
+        "title": "/orchestrator-help",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.slashHub",
+        "title": "/  (Orchestrator slash commands)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.quickStart",
+        "title": "/quick-start  (install CLI + seed + brief)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.readInstructions",
+        "title": "/instructions  (memory + vault guide)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.commandHub",
+        "title": "Command Hub (all / commands)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.storage",
+        "title": "/memory-storage",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.memory.brief",
+        "title": "Memory Brief (alias of /memory-brief)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.memory.query",
+        "title": "Memory Query (alias of /memory-query)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.memory.ingest",
+        "title": "Memory Ingest Selection (alias of /memory-ingest)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.memory.seed",
+        "title": "Memory Seed (alias of /memory-seed)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.memory.status",
+        "title": "Memory Status (alias of /memory-status)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.memory.serve",
+        "title": "/memory-serve",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.runChain",
+        "title": "Run /chain … (picker)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.runSkill",
+        "title": "Run skill / command …",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.copyBrief",
+        "title": "Copy last Memory Brief",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.exportBrief",
+        "title": "Export MEMORY.md",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.setup",
+        "title": "Setup / Install CLI (alias of /setup)",
+        "category": "Orchestrator"
+      },
+      {
+        "command": "orchestrator.openDocs",
+        "title": "Open docs",
+        "category": "Orchestrator"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "orchestrator.slashHub",
+        "key": "ctrl+shift+o",
+        "mac": "cmd+shift+o"
+      },
+      {
+        "command": "orchestrator.slash.sessionStart",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+shift+s",
+        "when": "!terminalFocus"
+      },
+      {
+        "command": "orchestrator.slash.brief",
+        "key": "ctrl+shift+m",
+        "mac": "cmd+shift+m"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "orchestrator.memory.ingest",
+          "when": "editorHasSelection",
+          "group": "orchestrator@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "orchestrator.slash.sessionStart"
+        },
+        {
+          "command": "orchestrator.slash.sessionResume"
+        },
+        {
+          "command": "orchestrator.slash.sessionEnd"
+        },
+        {
+          "command": "orchestrator.slash.brief"
+        },
+        {
+          "command": "orchestrator.slash.query"
+        },
+        {
+          "command": "orchestrator.slash.ingest"
+        },
+        {
+          "command": "orchestrator.slash.seed"
+        },
+        {
+          "command": "orchestrator.slash.status"
+        },
+        {
+          "command": "orchestrator.slash.chain"
+        },
+        {
+          "command": "orchestrator.slash.setup"
+        },
+        {
+          "command": "orchestrator.slash.help"
+        },
+        {
+          "command": "orchestrator.slashHub"
+        },
+        {
+          "command": "orchestrator.quickStart"
+        },
+        {
+          "command": "orchestrator.readInstructions"
+        },
+        {
+          "command": "orchestrator.commandHub"
+        },
+        {
+          "command": "orchestrator.storage"
+        },
+        {
+          "command": "orchestrator.runChain"
+        },
+        {
+          "command": "orchestrator.runSkill"
+        }
+      ],
+      "chat/participant": []
+    },
+    "configuration": {
+      "title": "Orchestrator Memory",
+      "properties": {
+        "orchestrator.cliPath": {
+          "type": "string",
+          "default": "orchestrator",
+          "description": "Host CLI binary (on PATH or absolute path). Required for Memory / slash commands."
+        },
+        "orchestrator.publishedCliVersion": {
+          "type": "string",
+          "default": "2.3.5",
+          "description": "GitHub Release version used for one-click wheel install (must exist as a published release)."
+        },
+        "orchestrator.memory.scope": {
+          "type": "string",
+          "enum": [
+            "project",
+            "global"
+          ],
+          "default": "project",
+          "description": "project = <workspace>/reports/memory; global = ~/.orchestrator"
+        },
+        "orchestrator.memory.servePort": {
+          "type": "number",
+          "default": 8888,
+          "description": "Port for orchestrator memory serve (local only)"
+        },
+        "orchestrator.showWelcomeOnActivate": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, show a one-time welcome after the first Orchestrator command (never on window open). Default false."
+        },
+        "orchestrator.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the SQLite $(database) Memory item in the status bar as soon as a project window opens"
+        },
+        "orchestrator.encourageReadInstructions": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, prompt to open the full guide before first brief (off by default for easier start)"
+        },
+        "orchestrator.writeSessionFiles": {
+          "type": "boolean",
+          "default": true,
+          "description": "Write SESSION_READY.md + MEMORY.md so any model can read the same / command context"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package": "vsce package --allow-missing-repository",
+    "publish": "vsce publish"
+  }
+}

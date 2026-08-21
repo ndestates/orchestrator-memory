@@ -1,0 +1,209 @@
+# Machine-readable loop + on-demand pattern catalog. Cache is king: every entry lists required cache files.
+
+version: 1
+
+patterns:
+  - id: compound-learning
+    name: Compound Learning (steps 10–14)
+    pattern: patterns/compound-learning.md
+    cadence: on_demand
+    token_tier: low
+    maker_skills:
+      - loop-compound
+    cache_files_required:
+      - VISION.md
+      - STATE.md
+      - reports/loops/lessons-state.json
+    max_cache_files: 2
+    max_source_files: 0
+
+  - id: app-compound-gate
+    name: App Compound Gate (session-start)
+    pattern: patterns/app-compound-gate.md
+    cadence: session_start
+    token_tier: low
+    maker_skills:
+      - app-compound-gate
+    cache_files_required:
+      - STATE.md
+      - VISION.md
+      - LOOP.md
+      - reports/loops/lessons-state.json
+    max_cache_files: 2
+    max_source_files: 0
+
+  - id: perspective-guided-discovery
+    name: Perspective-Guided Discovery
+    pattern: patterns/perspective-guided-discovery.md
+    cadence: on_demand
+    token_tier: low
+    maker_skills:
+      - acquire-codebase-knowledge
+      - documentation-specialist
+      - research-deep-dive
+    cache_files_required:
+      - docs/codebase/README.md
+      - TODO/
+      - .grok/memories/INDEX.md
+    max_cache_files: 2
+    max_source_files: 0
+    plan: docs/reference/storm-inspired-patterns-plan.md
+
+loops:
+  - id: daily-triage
+    name: Daily Triage
+    pattern: patterns/daily-triage.md
+    cadence: "0 9 * * 1-5"
+    level: L1
+    token_tier: low
+    maker_skill: loop-triage
+    verifier_skill: loop-verifier
+    cache_files_required:
+      - LOOP.md
+      - STATE.md
+      - docs/codebase/README.md
+      - docs/codebase/CONCERNS.md
+      - TODO/
+    max_cache_files: 2
+    max_source_files: 0
+    workflow: .github/workflows/loop-daily-triage.yml
+    reports_dir: reports/loops
+
+  - id: branch-promotion-watch
+    name: Branch Promotion Watch
+    pattern: null
+    cadence: on_push
+    level: L1
+    token_tier: low
+    maker_skill: github-expert
+    verifier_skill: null
+    cache_files_required:
+      - STATE.md
+      - docs/codebase/CONVENTIONS.md
+    max_cache_files: 2
+    max_source_files: 0
+    workflow: .github/workflows/branch-promotion-prs.yml
+    reports_dir: null
+
+  - id: cache-freshness-watch
+    name: Cache Freshness Watch
+    pattern: patterns/cache-freshness-watch.md
+    cadence: "30 9 * * 1"
+    level: L1
+    token_tier: low
+    maker_skill: cache-freshness-check
+    verifier_skill: loop-verifier
+    cache_files_required:
+      - docs/codebase/.codebase-freshness.txt
+      - docs/codebase/README.md
+      - STATE.md
+      - TODO/
+    max_cache_files: 2
+    max_source_files: 0
+    workflow: .github/workflows/loop-weekly-watch.yml
+    reports_dir: reports/loops
+
+  - id: chain-health-watch
+    name: Chain Health Watch
+    pattern: patterns/chain-health-watch.md
+    cadence: "30 9 * * 1"
+    level: L1
+    token_tier: low
+    maker_skill: loop-engineering
+    verifier_skill: loop-verifier
+    cache_files_required:
+      - chains/registry.yaml
+      - CHAIN.md
+      - STATE.md
+    max_cache_files: 2
+    max_source_files: 0
+    workflow: .github/workflows/loop-weekly-watch.yml
+    reports_dir: reports/loops
+
+  - id: github-ci-watch
+    name: GitHub CI Watch
+    pattern: patterns/github-ci-watch.md
+    cadence: "30 9 * * 1"
+    level: L1
+    token_tier: low
+    maker_skill: github-workflow-expert
+    verifier_skill: loop-verifier
+    cache_files_required:
+      - docs/codebase/INTEGRATIONS.md
+      - STATE.md
+      - LOOP.md
+    max_cache_files: 2
+    max_source_files: 0
+    workflow: .github/workflows/loop-weekly-watch.yml
+    reports_dir: reports/loops
+
+  - id: repo-health-watch
+    name: Repo Health Watch
+    pattern: patterns/repo-health-watch.md
+    cadence: "30 9 * * 1"
+    level: L1
+    token_tier: low
+    maker_skill: github-expert
+    verifier_skill: loop-verifier
+    cache_files_required:
+      - docs/codebase/CONVENTIONS.md
+      - docs/codebase/INTEGRATIONS.md
+      - STATE.md
+      - LOOP.md
+    max_cache_files: 2
+    max_source_files: 0
+    workflow: .github/workflows/loop-weekly-watch.yml
+    reports_dir: reports/loops
+
+  # Scaffolded — manual /chain only until scheduled (see docs/guides/when-to-use-loops.md)
+  - id: vault-integrity-watch
+    name: Vault Integrity Watch
+    pattern: patterns/vault-integrity-watch.md
+    cadence: manual
+    level: L1
+    token_tier: low
+    maker_skill: loop-engineering
+    verifier_skill: loop-verifier
+    cache_files_required:
+      - STATE.md
+      - VISION.md
+      - LOOP.md
+    max_cache_files: 2
+    max_source_files: 0
+    workflow: null
+    reports_dir: reports/loops
+
+  - id: version-drift-watch
+    name: Version Drift Watch
+    pattern: patterns/version-drift-watch.md
+    cadence: manual
+    level: L1
+    token_tier: low
+    maker_skill: loop-engineering
+    verifier_skill: loop-verifier
+    cache_files_required:
+      - VERSION
+      - STATE.md
+      - LOOP.md
+      - TODO/
+    max_cache_files: 2
+    max_source_files: 0
+
+  - id: wiki-lint-watch
+    name: Wiki Lint Watch
+    pattern: patterns/wiki-lint-watch.md
+    cadence: manual
+    level: L1
+    token_tier: low
+    maker_skill: llm-wiki
+    verifier_skill: loop-verifier
+    cache_files_required:
+      - wiki/index.md
+      - wiki/log.md
+      - STATE.md
+      - LOOP.md
+    max_cache_files: 2
+    max_source_files: 0
+    workflow: null
+    workflow: null
+    reports_dir: reports/loops

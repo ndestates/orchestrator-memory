@@ -1,0 +1,1118 @@
+version: 1
+canonical_session: /chain session-start
+skills:
+- slash: /acquire-codebase-knowledge
+  id: acquire-codebase-knowledge
+  skill_dir: acquire-codebase-knowledge
+  description: Map, document, and onboard into any project codebase.
+  grok: .grok/skills/acquire-codebase-knowledge/SKILL.md
+  claude: .claude/commands/acquire-codebase-knowledge.md
+  cursor: .cursor/commands/acquire-codebase-knowledge.md
+  github: .github/skills/acquire-codebase-knowledge/SKILL.md
+- slash: /ai-content-guardrails
+  id: ai-content-guardrails
+  skill_dir: ai-content-guardrails
+  description: Defense in depth for prompt injection, PII leakage, and toxic content.
+  grok: .grok/skills/ai-content-guardrails/SKILL.md
+  claude: .claude/commands/ai-content-guardrails.md
+  cursor: .cursor/commands/ai-content-guardrails.md
+  github: .github/skills/ai-content-guardrails/SKILL.md
+- slash: /ai-engineering-maturity
+  id: ai-engineering-maturity
+  skill_dir: ai-engineering-maturity
+  description: Framework for the 8 stages of AI engineering maturity (team and organization
+    view).
+  grok: .grok/skills/ai-engineering-maturity/SKILL.md
+  claude: .claude/commands/ai-engineering-maturity.md
+  cursor: .cursor/commands/ai-engineering-maturity.md
+  github: .github/skills/ai-engineering-maturity/SKILL.md
+- slash: /always-on-memory
+  id: always-on-memory
+  skill_dir: always-on-memory
+  description: 'Always-on memory agent: ingest/consolidate/query via project model-route
+    catalog + all agents; SQLite store; inbox watch; session brief.'
+  grok: .grok/skills/always-on-memory/SKILL.md
+  claude: .claude/commands/always-on-memory.md
+  cursor: .cursor/commands/always-on-memory.md
+  github: .github/skills/always-on-memory/SKILL.md
+- slash: /amazon-ses-email
+  id: amazon-ses-email
+  skill_dir: amazon-ses-email
+  description: Full skill for setting up Amazon SES email for the project domain (sending
+    + receiving).
+  grok: .grok/skills/amazon-ses-email/SKILL.md
+  claude: .claude/commands/amazon-ses-email.md
+  cursor: .cursor/commands/amazon-ses-email.md
+  github: .github/skills/amazon-ses-email/SKILL.md
+- slash: /app-compound-gate
+  id: app-compound-gate
+  skill_dir: app-compound-gate
+  description: 'Per-app compound learning gate for session-start: assess local loop
+    spine (STATE, VISION, lessons-state), load durable lessons when READY, close SCAFFOLD
+    or unc'
+  grok: .grok/skills/app-compound-gate/SKILL.md
+  claude: .claude/commands/app-compound-gate.md
+  cursor: .cursor/commands/app-compound-gate.md
+  github: .github/skills/app-compound-gate/SKILL.md
+- slash: /astro-expert
+  id: astro-expert
+  skill_dir: astro-expert
+  description: 'Astro 4/5 expert: content collections, islands architecture, View
+    Transitions, MDX, static/SSR/hybrid output, Tailwind integration. Cache-first.
+    Use on /astro-e'
+  grok: .grok/skills/astro-expert/SKILL.md
+  claude: .claude/commands/astro-expert.md
+  cursor: .cursor/commands/astro-expert.md
+  github: .github/skills/astro-expert/SKILL.md
+- slash: /aws-route53-dns
+  id: aws-route53-dns
+  skill_dir: aws-route53-dns
+  description: 'AWS Route 53 expert: hosted zones, production app DNS (A/CNAME/ALIAS),
+    deploy-time DKIM/SPF/DMARC/MX for SES, nameserver delegation, DNS-as-code change
+    batches.'
+  grok: .grok/skills/aws-route53-dns/SKILL.md
+  claude: .claude/commands/aws-route53-dns.md
+  cursor: .cursor/commands/aws-route53-dns.md
+  github: .github/skills/aws-route53-dns/SKILL.md
+- slash: /branch-context
+  id: branch-context
+  skill_dir: branch-context-agent
+  description: Branch scope and TODO-alignment analyzer for project. Summarize branch
+    purpose, changes vs active TODO, detect drift before merge or major work. Use
+    when user r
+  grok: .grok/skills/branch-context-agent/SKILL.md
+  claude: .claude/commands/branch-context.md
+  cursor: .cursor/commands/branch-context.md
+  github: .github/skills/branch-context-agent/SKILL.md
+- slash: /bug-hunter
+  id: bug-hunter
+  skill_dir: bug-hunter-agent
+  description: 'Specialist bug and weakness hunter for any codebase: logic errors,
+    edge cases, error handling, races, data integrity, config bugs, performance, integration
+    gaps'
+  grok: .grok/skills/bug-hunter-agent/SKILL.md
+  claude: .claude/commands/bug-hunter.md
+  cursor: .cursor/commands/bug-hunter.md
+  github: .github/skills/bug-hunter-agent/SKILL.md
+- slash: /cache-efficient
+  id: cache-efficient
+  skill_dir: cache-efficient
+  description: 'project cache-first session with minimal tokens: load INDEX + targeted
+    cache/memories only, respond in short bullets.'
+  grok: .grok/skills/cache-efficient/SKILL.md
+  claude: .claude/commands/cache-efficient.md
+  cursor: .cursor/commands/cache-efficient.md
+  github: .github/skills/cache-efficient/SKILL.md
+- slash: /cache-freshness-check
+  id: cache-freshness-check
+  skill_dir: cache-freshness-check
+  description: Check docs/codebase cache freshness against manifest cache_stale_days,
+    .codebase-scan.txt, README [UPDATED] markers, git branch, and TODO branch.
+  grok: .grok/skills/cache-freshness-check/SKILL.md
+  claude: .claude/commands/cache-freshness-check.md
+  cursor: .cursor/commands/cache-freshness-check.md
+  github: .github/skills/cache-freshness-check/SKILL.md
+- slash: /chain
+  id: chain
+  skill_dir: chain
+  description: 'Run a named chain. Default session opener: /chain session-start'
+  grok: .grok/skills/chain/SKILL.md
+  claude: .claude/commands/chain.md
+  cursor: .cursor/commands/chain.md
+  github: .github/skills/chain/SKILL.md
+- slash: /changelog-specialist
+  id: changelog-specialist
+  skill_dir: changelog-specialist
+  description: 'Incremental changelog for project: session log after every substantive
+    action, consolidate into CHANGELOG.md [Unreleased] at EOD, generate PR body.'
+  grok: .grok/skills/changelog-specialist/SKILL.md
+  claude: .claude/commands/changelog-specialist.md
+  cursor: .cursor/commands/changelog-specialist.md
+  github: .github/skills/changelog-specialist/SKILL.md
+- slash: /code-review
+  id: code-review
+  skill_dir: code-review
+  description: Diff-scoped code review quality gate. Wires the existing strict maintainability
+    code-review skill (code judo / file-size / spaghetti bar) together with process,
+  grok: .grok/skills/code-review/SKILL.md
+  claude: .claude/commands/code-review.md
+  cursor: .cursor/commands/code-review.md
+  github: .github/skills/code-review/SKILL.md
+- slash: /cyber-security-essentials
+  id: cyber-security-essentials
+  skill_dir: cyber-security-essentials
+  description: UK NCSC Cyber Essentials compliance assessor for code, config, and
+    CI.
+  grok: .grok/skills/cyber-security-essentials/SKILL.md
+  claude: .claude/commands/cyber-security-essentials.md
+  cursor: .cursor/commands/cyber-security-essentials.md
+  github: .github/skills/cyber-security-essentials/SKILL.md
+- slash: /daily-standup
+  id: daily-standup
+  skill_dir: daily-standup
+  description: 'Alias for /daily-standup-with-cache. Start a daily session: fetch
+    remote branches, report latest remote branch worked on, then cache + TODO + briefing.'
+  grok: .grok/skills/daily-standup/SKILL.md
+  claude: .claude/commands/daily-standup.md
+  cursor: .cursor/commands/daily-standup.md
+  github: .github/skills/daily-standup/SKILL.md
+- slash: /daily-standup-with-cache
+  id: daily-standup-with-cache
+  skill_dir: daily-standup-with-cache
+  description: Start a daily working session on project using the local cache + today's
+    TODO + open concerns. This is the recommended prompt/skill for almost every normal
+    deve
+  grok: .grok/skills/daily-standup-with-cache/SKILL.md
+  claude: .claude/commands/daily-standup-with-cache.md
+  cursor: .cursor/commands/daily-standup-with-cache.md
+  github: .github/skills/daily-standup-with-cache/SKILL.md
+- slash: /data-architect-expert
+  id: data-architect-expert
+  skill_dir: data-architect-expert
+  description: 'Senior data architect: greenfield ER design, schema analysis and improvement,
+    normalisation, indexing strategy, migration roadmaps.'
+  grok: .grok/skills/data-architect-expert/SKILL.md
+  claude: .claude/commands/data-architect-expert.md
+  cursor: .cursor/commands/data-architect-expert.md
+  github: .github/skills/data-architect-expert/SKILL.md
+- slash: /ddev-cleanup
+  id: ddev-cleanup
+  skill_dir: ddev-cleanup
+  description: End-of-day cleanup for Grok Build + ddev projects.
+  grok: .grok/skills/ddev-cleanup/SKILL.md
+  claude: .claude/commands/ddev-cleanup.md
+  cursor: .cursor/commands/ddev-cleanup.md
+  github: .github/skills/ddev-cleanup/SKILL.md
+- slash: /ddev-local-runtime
+  id: ddev-local-runtime
+  skill_dir: ddev-local-runtime
+  description: Mandatory rule that all local project commands for the project repository
+    run inside the DDEV runtime, not on the host shell.
+  grok: .grok/skills/ddev-local-runtime/SKILL.md
+  claude: .claude/commands/ddev-local-runtime.md
+  cursor: .cursor/commands/ddev-local-runtime.md
+  github: .github/skills/ddev-local-runtime/SKILL.md
+- slash: /didit-identity-integration
+  id: didit-identity-integration
+  skill_dir: didit-identity-integration
+  description: Full skill for Didit identity verification (KYC, KYB, AML, biometrics)
+    in Laravel app repos.
+  grok: .grok/skills/didit-identity-integration/SKILL.md
+  claude: .claude/commands/didit-identity-integration.md
+  cursor: .cursor/commands/didit-identity-integration.md
+  github: .github/skills/didit-identity-integration/SKILL.md
+- slash: /digitalocean-deploy
+  id: digitalocean-deploy
+  skill_dir: digitalocean-app-platform-docr-deploy
+  description: Senior DigitalOcean DevOps expert for project hosting (App Platform
+    + DOCR and/or Droplets), CI/CD via GitHub Actions, safe database updates, and
+    no-drift deplo
+  grok: .grok/skills/digitalocean-app-platform-docr-deploy/SKILL.md
+  claude: .claude/commands/digitalocean-deploy.md
+  cursor: .cursor/commands/digitalocean-deploy.md
+  github: .github/skills/digitalocean-app-platform-docr-deploy/SKILL.md
+- slash: /docker-expert
+  id: docker-expert
+  skill_dir: docker-expert
+  description: 'Docker expert for local dev and production deploy: multi-stage hardened
+    images, minimal runtime layers, .dockerignore discipline, non-root users.'
+  grok: .grok/skills/docker-expert/SKILL.md
+  claude: .claude/commands/docker-expert.md
+  cursor: .cursor/commands/docker-expert.md
+  github: .github/skills/docker-expert/SKILL.md
+- slash: /documentation-specialist
+  id: documentation-specialist
+  skill_dir: documentation-specialist
+  description: Full-project documentation maker for orchestrator template or any forked
+    app repo.
+  grok: .grok/skills/documentation-specialist/SKILL.md
+  claude: .claude/commands/documentation-specialist.md
+  cursor: .cursor/commands/documentation-specialist.md
+  github: .github/skills/documentation-specialist/SKILL.md
+- slash: /docx
+  id: docx
+  skill_dir: docx
+  description: Use this skill whenever the user wants to create, read, edit, or manipulate
+    Word documents (.docx files).
+  grok: .grok/skills/docx/SKILL.md
+  claude: .claude/commands/docx.md
+  cursor: .cursor/commands/docx.md
+  github: .github/skills/docx/SKILL.md
+- slash: /eval-maintenance-task
+  id: eval-maintenance-task
+  skill_dir: eval/maintenance-task
+  description: Post-maintenance evaluation skill for production readiness tasks (registry
+    cleanup, DB imports, live listings freshness, etc.).
+  grok: .grok/skills/eval/maintenance-task/SKILL.md
+  claude: .claude/commands/eval-maintenance-task.md
+  cursor: .cursor/commands/eval-maintenance-task.md
+  github: .github/skills/eval/maintenance-task/SKILL.md
+- slash: /filament-panel-review
+  id: filament-panel-review
+  skill_dir: filament-panel-review
+  description: Review one or more of the 7 Filament 5 panels in project multi-panel
+    architecture using the local cache first.
+  grok: .grok/skills/filament-panel-review/SKILL.md
+  claude: .claude/commands/filament-panel-review.md
+  cursor: .cursor/commands/filament-panel-review.md
+  github: .github/skills/filament-panel-review/SKILL.md
+- slash: /find-skills
+  id: find-skills
+  skill_dir: find-skills
+  description: Discover complementary agent skills on skills.sh after checking the
+    orchestrator catalog. Use when the user asks for a skill, how to do X, or to extend
+    capabili
+  grok: .grok/skills/find-skills/SKILL.md
+  claude: .claude/commands/find-skills.md
+  cursor: .cursor/commands/find-skills.md
+  github: .github/skills/find-skills/SKILL.md
+- slash: /frontend-web-design-expert
+  id: frontend-web-design-expert
+  skill_dir: frontend-web-design-expert
+  description: 'Framework-agnostic UI/UX expert: HTML, Tailwind, design tokens, responsive
+    layouts, and WCAG AA a11y.'
+  grok: .grok/skills/frontend-web-design-expert/SKILL.md
+  claude: .claude/commands/frontend-web-design-expert.md
+  cursor: .cursor/commands/frontend-web-design-expert.md
+  github: .github/skills/frontend-web-design-expert/SKILL.md
+- slash: /git-workflow-guardrails
+  id: git-workflow-guardrails
+  skill_dir: git-workflow-guardrails
+  description: Git and githooks workflow for safe delivery.
+  grok: .grok/skills/git-workflow-guardrails/SKILL.md
+  claude: .claude/commands/git-workflow-guardrails.md
+  cursor: .cursor/commands/git-workflow-guardrails.md
+  github: .github/skills/git-workflow-guardrails/SKILL.md
+- slash: /github-branch-hygiene
+  id: github-branch-hygiene
+  skill_dir: github-branch-hygiene
+  description: 'Safe remote/local branch prune: report-only default; --apply deletes
+    merged origin refs. Never touches master/develop/staging/production. Use on prune
+    remotes, '
+  grok: .grok/skills/github-branch-hygiene/SKILL.md
+  claude: .claude/commands/github-branch-hygiene.md
+  cursor: .cursor/commands/github-branch-hygiene.md
+  github: .github/skills/github-branch-hygiene/SKILL.md
+- slash: /github-ci-readiness-expert
+  id: github-ci-readiness-expert
+  skill_dir: github-ci-readiness-expert
+  description: GitHub CI/CD branch readiness expert for wave projects.
+  grok: .grok/skills/github-ci-readiness-expert/SKILL.md
+  claude: .claude/commands/github-ci-readiness-expert.md
+  cursor: .cursor/commands/github-ci-readiness-expert.md
+  github: .github/skills/github-ci-readiness-expert/SKILL.md
+- slash: /github-expert
+  id: github-expert
+  skill_dir: github-expert
+  description: GitHub platform expert for project workflows, Actions, PRs, security
+    scanning, automation.
+  grok: .grok/skills/github-expert/SKILL.md
+  claude: .claude/commands/github-expert.md
+  cursor: .cursor/commands/github-expert.md
+  github: .github/skills/github-expert/SKILL.md
+- slash: /github-workflow-expert
+  id: github-workflow-expert
+  skill_dir: github-workflow-expert
+  description: 'Programmatic GitHub Actions expert: create, amend, delete workflows
+    in .github/workflows/, manage repo and environment secrets via gh CLI, dispatch
+    and enable/d'
+  grok: .grok/skills/github-workflow-expert/SKILL.md
+  claude: .claude/commands/github-workflow-expert.md
+  cursor: .cursor/commands/github-workflow-expert.md
+  github: .github/skills/github-workflow-expert/SKILL.md
+- slash: /go-expert
+  id: go-expert
+  skill_dir: go-expert
+  description: 'Go 1.22+ expert: stdlib HTTP, chi/gin/echo (project-existing), sqlc/GORM,
+    modules, testing, observability, Docker.'
+  grok: .grok/skills/go-expert/SKILL.md
+  claude: .claude/commands/go-expert.md
+  cursor: .cursor/commands/go-expert.md
+  github: .github/skills/go-expert/SKILL.md
+- slash: /grill-me
+  id: grill-me
+  skill_dir: grill-me
+  description: Relentless design-tree interview until every branch is settled. Use
+    before building, when a plan is fuzzy, or when the user says grill this.
+  grok: .grok/skills/grill-me/SKILL.md
+  claude: .claude/commands/grill-me.md
+  cursor: .cursor/commands/grill-me.md
+  github: .github/skills/grill-me/SKILL.md
+- slash: /jersey-aml-compliance-expert
+  id: jersey-aml-compliance-expert
+  skill_dir: jersey-aml-compliance-expert
+  description: Expert on Jersey anti-money laundering, counter-terrorist financing
+    and counter-proliferation financing (AML/CFT/CPF).
+  grok: .grok/skills/jersey-aml-compliance-expert/SKILL.md
+  claude: .claude/commands/jersey-aml-compliance-expert.md
+  cursor: .cursor/commands/jersey-aml-compliance-expert.md
+  github: .github/skills/jersey-aml-compliance-expert/SKILL.md
+- slash: /jersey-data-protection-expert
+  id: jersey-data-protection-expert
+  skill_dir: jersey-data-protection-expert
+  description: Expert on the Data Protection (Jersey) Law 2018 (DPJL) and the Data
+    Protection Authority (Jersey) Law 2018.
+  grok: .grok/skills/jersey-data-protection-expert/SKILL.md
+  claude: .claude/commands/jersey-data-protection-expert.md
+  cursor: .cursor/commands/jersey-data-protection-expert.md
+  github: .github/skills/jersey-data-protection-expert/SKILL.md
+- slash: /laravel-expert
+  id: laravel-expert
+  skill_dir: laravel-expert-agent
+  description: Laravel 12 + Filament 5 expert for project. Use for architecture, resources,
+    Eloquent, panels, services, Artisan, testing, or when /laravel-expert-agent.
+  grok: .grok/skills/laravel-expert-agent/SKILL.md
+  claude: .claude/commands/laravel-expert.md
+  cursor: .cursor/commands/laravel-expert.md
+  github: .github/skills/laravel-expert-agent/SKILL.md
+- slash: /llm-wiki
+  id: llm-wiki
+  skill_dir: llm-wiki
+  description: 'Karpathy-style LLM wiki: ingest raw sources into a persistent markdown
+    wiki, query with index-first navigation, lint for contradictions/orphans/stale
+    pages.'
+  grok: .grok/skills/llm-wiki/SKILL.md
+  claude: .claude/commands/llm-wiki.md
+  cursor: .cursor/commands/llm-wiki.md
+  github: .github/skills/llm-wiki/SKILL.md
+- slash: /load-project-cache-first
+  id: load-project-cache-first
+  skill_dir: load-project-cache-first
+  description: Load project project cache (docs/codebase/ + TODO + CONCERNS + .grok/.copilot
+    memories) first before any deep exploration.
+  grok: .grok/skills/load-project-cache-first/SKILL.md
+  claude: .claude/commands/load-project-cache-first.md
+  cursor: .cursor/commands/load-project-cache-first.md
+  github: .github/skills/load-project-cache-first/SKILL.md
+- slash: /loop-compound
+  id: loop-compound
+  skill_dir: loop-compound
+  description: 'Compound learning closure (14-step roadmap steps 10–14): capture loop
+    lessons, promote to STATE.md + secure hash-chained vault graph (reports/vault/events.jsonl'
+  grok: .grok/skills/loop-compound/SKILL.md
+  claude: .claude/commands/loop-compound.md
+  cursor: .cursor/commands/loop-compound.md
+  github: .github/skills/loop-compound/SKILL.md
+- slash: /loop-engineering
+  id: loop-engineering
+  skill_dir: loop-engineering
+  description: 'Loop engineering for this template: design systems that prompt agents,
+    not hand prompts.'
+  grok: .grok/skills/loop-engineering/SKILL.md
+  claude: .claude/commands/loop-engineering.md
+  cursor: .cursor/commands/loop-engineering.md
+  github: .github/skills/loop-engineering/SKILL.md
+- slash: /loop-triage
+  id: loop-triage
+  skill_dir: loop-triage
+  description: L1 daily loop triage for the orchestrator template.
+  grok: .grok/skills/loop-triage/SKILL.md
+  claude: .claude/commands/loop-triage.md
+  cursor: .cursor/commands/loop-triage.md
+  github: .github/skills/loop-triage/SKILL.md
+- slash: /loop-verifier
+  id: loop-verifier
+  skill_dir: loop-verifier
+  description: Independent verifier for loop outputs. Checks artifacts and rubric
+    only — not maker reasoning. Enforces cache citations, L1 no-auto-fix, and loop-budget
+    complia
+  grok: .grok/skills/loop-verifier/SKILL.md
+  claude: .claude/commands/loop-verifier.md
+  cursor: .cursor/commands/loop-verifier.md
+  github: .github/skills/loop-verifier/SKILL.md
+- slash: /loqate-address-integration
+  id: loqate-address-integration
+  skill_dir: loqate-address-integration
+  description: Full skill for Loqate (GBG) Address Capture in Laravel app repos.
+  grok: .grok/skills/loqate-address-integration/SKILL.md
+  claude: .claude/commands/loqate-address-integration.md
+  cursor: .cursor/commands/loqate-address-integration.md
+  github: .github/skills/loqate-address-integration/SKILL.md
+- slash: /mariadb-database-expert
+  id: mariadb-database-expert
+  skill_dir: mariadb-database-expert
+  description: 'MariaDB 10.x/11.x expert for project: InnoDB/Aria, Galera, replication,
+    JSON, spatial, Laravel Eloquent, Python connectors.'
+  grok: .grok/skills/mariadb-database-expert/SKILL.md
+  claude: .claude/commands/mariadb-database-expert.md
+  cursor: .cursor/commands/mariadb-database-expert.md
+  github: .github/skills/mariadb-database-expert/SKILL.md
+- slash: /model-route
+  id: model-route
+  skill_dir: model-route
+  description: Suggest free open-source LLMs (Ollama) when the task does not need
+    the current frontier model; offer stay | oss | install-oss | free-cloud. Never
+    silent-switch.
+  grok: .grok/skills/model-route/SKILL.md
+  claude: .claude/commands/model-route.md
+  cursor: .cursor/commands/model-route.md
+  github: .github/skills/model-route/SKILL.md
+- slash: /model-schema-check
+  id: model-schema-check
+  skill_dir: model-schema-check
+  description: Review model vs database schema consistency on project using the local
+    cache and project tooling. Use before/after migrations or when schema drift is
+    suspected.
+  grok: .grok/skills/model-schema-check/SKILL.md
+  claude: .claude/commands/model-schema-check.md
+  cursor: .cursor/commands/model-schema-check.md
+  github: .github/skills/model-schema-check/SKILL.md
+- slash: /multi-workstream
+  id: multi-workstream
+  skill_dir: multi-workstream
+  description: Multi-workstream session v2 + agent graphs. Operator UX is slash commands
+    (/multi-workstream …). Same implementation on every host. Not multi-session SDK.
+  grok: .grok/skills/multi-workstream/SKILL.md
+  claude: .claude/commands/multi-workstream.md
+  cursor: .cursor/commands/multi-workstream.md
+  github: .github/skills/multi-workstream/SKILL.md
+- slash: /mysql-concurrency-test
+  id: mysql-concurrency-test
+  skill_dir: mysql-concurrency-test
+  description: Design MySQL concurrency tests adapted for Laravel 12 + Eloquent (lockForUpdate,
+    DB::transaction, queues, optimistic/pessimistic locking).
+  grok: .grok/skills/mysql-concurrency-test/SKILL.md
+  claude: .claude/commands/mysql-concurrency-test.md
+  cursor: .cursor/commands/mysql-concurrency-test.md
+  github: .github/skills/mysql-concurrency-test/SKILL.md
+- slash: /mysql-database-expert
+  id: mysql-database-expert
+  skill_dir: mysql-database-expert
+  description: 'MySQL 8.x expert for project: InnoDB, JSON, window functions, CTEs,
+    replication, Laravel Eloquent, Python connectors.'
+  grok: .grok/skills/mysql-database-expert/SKILL.md
+  claude: .claude/commands/mysql-database-expert.md
+  cursor: .cursor/commands/mysql-database-expert.md
+  github: .github/skills/mysql-database-expert/SKILL.md
+- slash: /nextjs-expert
+  id: nextjs-expert
+  skill_dir: nextjs-expert
+  description: 'Next.js 14/15 App Router expert: RSC, server actions, route handlers,
+    middleware, Tailwind, auth patterns, Vercel/Node deploy. Cache-first. Use on /nextjs-exper'
+  grok: .grok/skills/nextjs-expert/SKILL.md
+  claude: .claude/commands/nextjs-expert.md
+  cursor: .cursor/commands/nextjs-expert.md
+  github: .github/skills/nextjs-expert/SKILL.md
+- slash: /nuxt-expert
+  id: nuxt-expert
+  skill_dir: nuxt-expert
+  description: 'Nuxt 3/4 expert: file-based routing, server routes, composables, Pinia,
+    Nitro, SSR/SSG/prerender, Tailwind module. Cache-first. Use on /nuxt-expert or
+    /chain we'
+  grok: .grok/skills/nuxt-expert/SKILL.md
+  claude: .claude/commands/nuxt-expert.md
+  cursor: .cursor/commands/nuxt-expert.md
+  github: .github/skills/nuxt-expert/SKILL.md
+- slash: /orchestrator-deploy
+  id: orchestrator-deploy
+  skill_dir: orchestrator-deploy
+  description: Deploy orchestrator .grok skills, prompts, agents, and root chains
+    (CHAIN.md, chains/registry.yaml) to any target project.
+  grok: .grok/skills/orchestrator-deploy/SKILL.md
+  claude: .claude/commands/orchestrator-deploy.md
+  cursor: .cursor/commands/orchestrator-deploy.md
+  github: .github/skills/orchestrator-deploy/SKILL.md
+- slash: /paypal-billing
+  id: paypal-billing
+  skill_dir: paypal-billing-integration
+  description: Full skill for PayPal integration in project for payments and generating
+    billing documents (invoices, receipts) directly at PayPal.
+  grok: .grok/skills/paypal-billing-integration/SKILL.md
+  claude: .claude/commands/paypal-billing.md
+  cursor: .cursor/commands/paypal-billing.md
+  github: .github/skills/paypal-billing-integration/SKILL.md
+- slash: /prod-db-maintenance
+  id: prod-db-maintenance
+  skill_dir: prod-db-maintenance
+  description: Skill for invoking import or update of the production database as Stage
+    6 infrastructure (operating system).
+  grok: .grok/skills/prod-db-maintenance/SKILL.md
+  claude: .claude/commands/prod-db-maintenance.md
+  cursor: .cursor/commands/prod-db-maintenance.md
+  github: .github/skills/prod-db-maintenance/SKILL.md
+- slash: /project-drift-guardian
+  id: project-drift-guardian
+  skill_dir: project-drift-guardian
+  description: 'Guard against project and skill-contract drift: cache vs source, TODO
+    vs branch, verified_at/covers. Use before deploy, upgrade, or when scope may have
+    crept.'
+  grok: .grok/skills/project-drift-guardian/SKILL.md
+  claude: .claude/commands/project-drift-guardian.md
+  cursor: .cursor/commands/project-drift-guardian.md
+  github: .github/skills/project-drift-guardian/SKILL.md
+- slash: /prompt-patterns
+  id: prompt-patterns
+  skill_dir: prompt-patterns
+  description: High-signal prompt engineering patterns (grounded RAG with refusal,
+    Socratic code review, strict formatting, complex structure).
+  grok: .grok/skills/prompt-patterns/SKILL.md
+  claude: .claude/commands/prompt-patterns.md
+  cursor: .cursor/commands/prompt-patterns.md
+  github: .github/skills/prompt-patterns/SKILL.md
+- slash: /qa-agent
+  id: qa-agent
+  skill_dir: qa-agent
+  description: Full QA agent (reusable general structure + per-wave-project specializations).
+  grok: .grok/skills/qa-agent/SKILL.md
+  claude: .claude/commands/qa-agent.md
+  cursor: .cursor/commands/qa-agent.md
+  github: .github/skills/qa-agent/SKILL.md
+- slash: /read-codebase
+  id: read-codebase
+  skill_dir: read-codebase
+  description: Backward-compatible alias for acquire-codebase-knowledge.
+  grok: .grok/skills/read-codebase/SKILL.md
+  claude: .claude/commands/read-codebase.md
+  cursor: .cursor/commands/read-codebase.md
+  github: .github/skills/read-codebase/SKILL.md
+- slash: /readme-specialist
+  id: readme-specialist
+  skill_dir: readme-specialist
+  description: Documentation specialist for project README, guides, reference/*.md
+    . Limited to docs only. Use on /readme-specialist or when improving project docs.
+  grok: .grok/skills/readme-specialist/SKILL.md
+  claude: .claude/commands/readme-specialist.md
+  cursor: .cursor/commands/readme-specialist.md
+  github: .github/skills/readme-specialist/SKILL.md
+- slash: /research-deep-dive
+  id: research-deep-dive
+  skill_dir: research-deep-dive
+  description: Optional external-topic research before implementation.
+  grok: .grok/skills/research-deep-dive/SKILL.md
+  claude: .claude/commands/research-deep-dive.md
+  cursor: .cursor/commands/research-deep-dive.md
+  github: .github/skills/research-deep-dive/SKILL.md
+- slash: /schema-audit
+  id: schema-audit
+  skill_dir: schema-audit-agent
+  description: Read-only schema/migration auditor for project. Use on /schema-audit-agent
+    or for drift analysis.
+  grok: .grok/skills/schema-audit-agent/SKILL.md
+  claude: .claude/commands/schema-audit.md
+  cursor: .cursor/commands/schema-audit.md
+  github: .github/skills/schema-audit-agent/SKILL.md
+- slash: /script-not-shell
+  id: script-not-shell
+  skill_dir: script-not-shell
+  description: Avoid inline shell escaping failures by writing script files first.
+  grok: .grok/skills/script-not-shell/SKILL.md
+  claude: .claude/commands/script-not-shell.md
+  cursor: .cursor/commands/script-not-shell.md
+  github: .github/skills/script-not-shell/SKILL.md
+- slash: /security-audit
+  id: security-audit
+  skill_dir: security-audit-agent
+  description: Security, auth, permissions, CDD/consent auditor for project. Use on
+    /security-audit-agent , post-dep or form changes.
+  grok: .grok/skills/security-audit-agent/SKILL.md
+  claude: .claude/commands/security-audit.md
+  cursor: .cursor/commands/security-audit.md
+  github: .github/skills/security-audit-agent/SKILL.md
+- slash: /session-context-envelope
+  id: session-context-envelope
+  skill_dir: session-context-envelope
+  description: Fixed-size session spin-up for any platform.
+  grok: .grok/skills/session-context-envelope/SKILL.md
+  claude: .claude/commands/session-context-envelope.md
+  cursor: .cursor/commands/session-context-envelope.md
+  github: .github/skills/session-context-envelope/SKILL.md
+- slash: /session-resume
+  id: session-resume
+  skill_dir: session-resume
+  description: Same-day return after session-end, and resume-first gate for session-start.
+    Trust fresh resume card; skip redundant TODO/STATE reads.
+  grok: .grok/skills/session-resume/SKILL.md
+  claude: .claude/commands/session-resume.md
+  cursor: .cursor/commands/session-resume.md
+  github: .github/skills/session-resume/SKILL.md
+- slash: /skill-creator
+  id: skill-creator
+  skill_dir: skill-creator
+  description: Create new skills, modify and improve existing skills, and measure
+    skill performance with quantitative evals, parallel subagent runs (with/without
+    or old/new ba
+  grok: .grok/skills/skill-creator/SKILL.md
+  claude: .claude/commands/skill-creator.md
+  cursor: .cursor/commands/skill-creator.md
+  github: .github/skills/skill-creator/SKILL.md
+- slash: /skill-health
+  id: skill-health
+  skill_dir: skill-health
+  description: Read skill-health scores and verified_at/covers drift. Use after self-regulating
+    skills, weekly, or when quality may have silently dropped.
+  grok: .grok/skills/skill-health/SKILL.md
+  claude: .claude/commands/skill-health.md
+  cursor: .cursor/commands/skill-health.md
+  github: .github/skills/skill-health/SKILL.md
+- slash: /sqlite-database-expert
+  id: sqlite-database-expert
+  skill_dir: sqlite-database-expert
+  description: 'SQLite expert for project: embedded DB, Laravel :memory:/file drivers,
+    Python sqlite3, WAL mode, migrations, FTS5, strict tables.'
+  grok: .grok/skills/sqlite-database-expert/SKILL.md
+  claude: .claude/commands/sqlite-database-expert.md
+  cursor: .cursor/commands/sqlite-database-expert.md
+  github: .github/skills/sqlite-database-expert/SKILL.md
+- slash: /systematic-debugging
+  id: systematic-debugging
+  skill_dir: systematic-debugging
+  description: Root-cause debugging before any fix. Use on bugs, test failures, unexpected
+    behavior, or when previous fixes failed.
+  grok: .grok/skills/systematic-debugging/SKILL.md
+  claude: .claude/commands/systematic-debugging.md
+  cursor: .cursor/commands/systematic-debugging.md
+  github: .github/skills/systematic-debugging/SKILL.md
+- slash: /teach
+  id: teach
+  skill_dir: teach
+  description: Teach a topic across sessions (mission, ZPD lessons, references). Use
+    when the user wants to learn something, asks to be taught, or says teach me.
+  grok: .grok/skills/teach/SKILL.md
+  claude: .claude/commands/teach.md
+  cursor: .cursor/commands/teach.md
+  github: .github/skills/teach/SKILL.md
+- slash: /template-decontaminate
+  id: template-decontaminate
+  skill_dir: template-decontaminate
+  description: Post-deploy, pre-commit gate for forked app repos.
+  grok: .grok/skills/template-decontaminate/SKILL.md
+  claude: .claude/commands/template-decontaminate.md
+  cursor: .cursor/commands/template-decontaminate.md
+  github: .github/skills/template-decontaminate/SKILL.md
+- slash: /test-safety
+  id: test-safety
+  skill_dir: test-safety-agent
+  description: Enforce test DB safety and pre/post risk assessment for project tests.
+    Use before running tests or on /test-safety-agent.
+  grok: .grok/skills/test-safety-agent/SKILL.md
+  claude: .claude/commands/test-safety.md
+  cursor: .cursor/commands/test-safety.md
+  github: .github/skills/test-safety-agent/SKILL.md
+- slash: /test-specialist
+  id: test-specialist
+  skill_dir: test-specialist-agent
+  description: Write/improve/convert tests (Pest preferred). Red-green TDD at confirmed
+    seams; behavior tests that survive refactors. Use on /test-specialist-agent, test-first
+  grok: .grok/skills/test-specialist-agent/SKILL.md
+  claude: .claude/commands/test-specialist.md
+  cursor: .cursor/commands/test-specialist.md
+  github: .github/skills/test-specialist-agent/SKILL.md
+- slash: /todo-specialist
+  id: todo-specialist
+  skill_dir: todo-specialist-agent
+  description: Maintain project TODO-*.md (carry forward, prioritize, update from
+    work). Use on /todo-specialist-agent or when syncing tasks.
+  grok: .grok/skills/todo-specialist-agent/SKILL.md
+  claude: .claude/commands/todo-specialist.md
+  cursor: .cursor/commands/todo-specialist.md
+  github: .github/skills/todo-specialist-agent/SKILL.md
+- slash: /token-usage-meter
+  id: token-usage-meter
+  skill_dir: token-usage-meter
+  description: Always-on xAI/Grok token usage and prompt-cache monitor.
+  grok: .grok/skills/token-usage-meter/SKILL.md
+  claude: .claude/commands/token-usage-meter.md
+  cursor: .cursor/commands/token-usage-meter.md
+  github: .github/skills/token-usage-meter/SKILL.md
+- slash: /top-class-website-designer
+  id: top-class-website-designer
+  skill_dir: top-class-website-designer
+  description: PhD-level full-stack website/web-app architect (Python backends + MySQL
+    8+).
+  grok: .grok/skills/top-class-website-designer/SKILL.md
+  claude: .claude/commands/top-class-website-designer.md
+  cursor: .cursor/commands/top-class-website-designer.md
+  github: .github/skills/top-class-website-designer/SKILL.md
+- slash: /vector-database-expert
+  id: vector-database-expert
+  skill_dir: vector-database-expert
+  description: 'Vector database expert: fit assessment (should this project use vectors?),
+    then pgvector, Qdrant, Pinecone, Weaviate, Chroma, RAG schema, hybrid search.'
+  grok: .grok/skills/vector-database-expert/SKILL.md
+  claude: .claude/commands/vector-database-expert.md
+  cursor: .cursor/commands/vector-database-expert.md
+  github: .github/skills/vector-database-expert/SKILL.md
+- slash: /verification-before-completion
+  id: verification-before-completion
+  skill_dir: verification-before-completion
+  description: Evidence before any done/fixed/passing claim. Run the proof command
+    fresh, read output, then claim. Use before commit, PR, or handoff.
+  grok: .grok/skills/verification-before-completion/SKILL.md
+  claude: .claude/commands/verification-before-completion.md
+  cursor: .cursor/commands/verification-before-completion.md
+  github: .github/skills/verification-before-completion/SKILL.md
+- slash: /web-build-design
+  id: web-build-design
+  skill_dir: web-build-design
+  description: 'Web build & design lead: conversion-focused SaaS marketing, pricing,
+    portals.'
+  grok: .grok/skills/web-build-design/SKILL.md
+  claude: .claude/commands/web-build-design.md
+  cursor: .cursor/commands/web-build-design.md
+  github: .github/skills/web-build-design/SKILL.md
+- slash: /web-cache-expert
+  id: web-cache-expert
+  skill_dir: web-cache-expert
+  description: 'Website performance cache architect: HTTP/CDN, image and document
+    caching, cache refresh/invalidation, and multi-layer cache architecture for Laravel
+    and any we'
+  grok: .grok/skills/web-cache-expert/SKILL.md
+  claude: .claude/commands/web-cache-expert.md
+  cursor: .cursor/commands/web-cache-expert.md
+  github: .github/skills/web-cache-expert/SKILL.md
+- slash: /webapp-testing
+  id: webapp-testing
+  skill_dir: webapp-testing
+  description: Toolkit for interacting with and testing local web applications using
+    Playwright. Supports verifying frontend functionality, debugging UI behavior,
+    capturing br
+  grok: .grok/skills/webapp-testing/SKILL.md
+  claude: .claude/commands/webapp-testing.md
+  cursor: .cursor/commands/webapp-testing.md
+  github: .github/skills/webapp-testing/SKILL.md
+- slash: /webmcp-beta
+  id: webmcp-beta
+  skill_dir: webmcp-beta
+  description: Beta WebMCP (browser page tools via navigator.modelContext).
+  grok: .grok/skills/webmcp-beta/SKILL.md
+  claude: .claude/commands/webmcp-beta.md
+  cursor: .cursor/commands/webmcp-beta.md
+  github: .github/skills/webmcp-beta/SKILL.md
+chains:
+- slash: /chain ai-maturity
+  id: ai-maturity
+  name: AI Engineering Maturity
+  description: Cache load → 8-stage maturity assessment
+- slash: /chain always-on-memory
+  id: always-on-memory
+  name: Always-On Memory
+  description: Ingest/consolidate/query persistent memory using full model-route catalog
+    and project agent roster (Google always-on pattern).
+- slash: /chain beta-ready
+  id: beta-ready
+  name: Beta Ready Checklist
+  description: Cache load → beta checklist → drift gate
+- slash: /chain bug-hunt
+  id: bug-hunt
+  name: Bug Hunt
+  description: Cache load → bug scan (report-only). For fixes use bug-hunt-fix or
+    pass "fix" in args
+- slash: /chain bug-hunt-deep
+  id: bug-hunt-deep
+  name: Bug Hunt Deep
+  description: Bug hunt (report) → security → schema → test safety → test gaps. Fix
+    variant bug-hunt-fix-deep
+- slash: /chain bug-hunt-fix
+  id: bug-hunt-fix
+  name: Bug Hunt and Fix
+  description: Cache load → hunt → apply safe fixes → test safety → verify tests
+- slash: /chain bug-hunt-fix-deep
+  id: bug-hunt-fix-deep
+  name: Bug Hunt Fix Deep
+  description: Deep hunt with fixes → security suggest → test safety → tests for regressions
+- slash: /chain bug-hunt-pre-deploy
+  id: bug-hunt-pre-deploy
+  name: Bug Hunt Pre-Deploy
+  description: Drift gate → bug hunt (report) → security → test safety. Fix variant
+    append "fix" to args
+- slash: /chain bug-hunt-pre-deploy-fix
+  id: bug-hunt-pre-deploy-fix
+  name: Bug Hunt Pre-Deploy Fix
+  description: Drift → hunt with safe fixes → security → test safety → schema check
+- slash: /chain cache-freshness-watch
+  id: cache-freshness-watch
+  name: Cache Freshness Watch
+  description: L1 cache staleness report then verifier gate
+- slash: /chain cache-rebuild
+  id: cache-rebuild
+  name: Cache Rebuild
+  description: Cache load → full codebase scan and cache write
+- slash: /chain chain-health-watch
+  id: chain-health-watch
+  name: Chain Health Watch
+  description: L1 chain registry audit report then verifier gate
+- slash: /chain ci-branch-readiness
+  id: ci-branch-readiness
+  name: CI Branch Readiness
+  description: Cache → branch CI/CD analysis (per-wave) → GitHub policy → git guardrails;
+    block push on BLOCKED
+- slash: /chain code-review
+  id: code-review
+  name: Code Review (diff-scoped)
+  description: Code-health quality gate on the working diff — process + stack lens
+    + existing strict code-review skill (code judo); security when auth/secrets change.
+    Report-o
+- slash: /chain complex-task
+  id: complex-task
+  name: Complex Task Orchestration
+  description: Cache load then orchestrator decomposition for multi-domain work
+- slash: /chain cyber-essentials-hunt
+  id: cyber-essentials-hunt
+  name: Cyber Essentials Bug Hunt
+  description: CE assess → bug hunt → security audit for code compliance gaps
+- slash: /chain cyber-essentials-maturity
+  id: cyber-essentials-maturity
+  name: Cyber Essentials Maturity
+  description: CE assess → AI engineering maturity → security audit for SDLC posture
+- slash: /chain cyber-essentials-pre-deploy
+  id: cyber-essentials-pre-deploy
+  name: Cyber Essentials Pre-Deploy
+  description: Drift gate → CE assess → pre-deploy bug hunt → security audit
+- slash: /chain cyber-essentials-review
+  id: cyber-essentials-review
+  name: Cyber Essentials Review
+  description: UK NCSC Cyber Essentials code/config assess → deep security audit
+- slash: /chain database-design
+  id: database-design
+  name: Database Design
+  description: Data architect ER design → schema audit → engine expert (manifest-driven).
+    Cache-first.
+- slash: /chain delivery
+  id: delivery
+  name: Safe Delivery
+  description: Branch alignment → diff-scoped code review → git guardrails → tests
+    when code changed
+- slash: /chain deploy-check
+  id: deploy-check
+  name: Deploy Check
+  description: Drift → hardened Docker → GitHub workflows → git guardrails → DO deploy
+    → eval
+- slash: /chain deploy-dns-infra
+  id: deploy-dns-infra
+  name: Deploy DNS and Perimeter
+  description: Route 53 app + email DNS (DKIM) → DO firewall → SES verify → git commit
+    DNS JSON
+- slash: /chain didit-identity-setup
+  id: didit-identity-setup
+  name: Didit Identity Setup
+  description: Drift gate → Didit KYC/KYB integration
+- slash: /chain docker-deploy
+  id: docker-deploy
+  name: Docker Deploy Setup
+  description: Hardened image → CI workflow → GitHub policy → git guardrails → DO
+    registry
+- slash: /chain documentation-full
+  id: documentation-full
+  name: Full Documentation
+  description: Cache load → codebase scan (optional) → README → GitHub Docs-style
+    site + cache
+- slash: /chain documentation-refresh
+  id: documentation-refresh
+  name: Documentation Refresh
+  description: Cache load → README polish → doc set update (no full scan)
+- slash: /chain eod-shutdown
+  id: eod-shutdown
+  name: End of Day Shutdown
+  description: Close TODO → README → token report → ddev-cleanup (mandatory clean
+    git) → vault emit + rich resume card for next session-start. All changes committed,
+    porcelain
+- slash: /chain filament-review
+  id: filament-review
+  name: Filament Panel Review
+  description: Cache load → panel audit → security follow-up
+- slash: /chain frontend-ui
+  id: frontend-ui
+  name: Frontend UI and Components
+  description: HTML/Tailwind ui_spec → stack expert (Laravel/Livewire/HTMX/Go default;
+    SPA only when manifest matches)
+- slash: /chain github-ci-watch
+  id: github-ci-watch
+  name: GitHub CI Watch
+  description: L1 GitHub Actions health report then verifier gate
+- slash: /chain github-workflow-setup
+  id: github-workflow-setup
+  name: GitHub Workflow Setup
+  description: Cache → CI policy review → workflow/secrets CRUD → security audit →
+    git delivery
+- slash: /chain laravel-database-design
+  id: laravel-database-design
+  name: Laravel Database Design
+  description: Full stack DB design — architect → model check → Laravel → engine →
+    Filament. Cache-first.
+- slash: /chain laravel-feature
+  id: laravel-feature
+  name: Laravel Feature
+  description: Branch alignment → Laravel expert → test safety and tests when code
+    changes
+- slash: /chain loop-daily
+  id: loop-daily
+  name: Loop Daily Triage
+  description: L1 triage report then verifier gate
+- slash: /chain loop-engineering-audit
+  id: loop-engineering-audit
+  name: Loop Engineering Audit
+  description: Cache load → loop maturity and readiness assessment
+- slash: /chain loqate-address-setup
+  id: loqate-address-setup
+  name: Loqate Address Setup
+  description: Drift gate → Loqate Address Capture integration
+- slash: /chain migration-safe
+  id: migration-safe
+  name: Migration Safe
+  description: Schema check → audit → test safety → engine → Laravel models (when
+    laravel)
+- slash: /chain multi-workstream
+  id: multi-workstream
+  name: Multi-workstream
+  description: Slash-friendly multi-workstream brief — list, brief, graph (no diamond
+    unless demo chain).
+- slash: /chain multi-workstream-demo
+  id: multi-workstream-demo
+  name: Multi-workstream diamond demo
+  description: Run the diamond agent-graph demo (fan-out workstreams → code reduce
+    → mermaid/JSON).
+- slash: /chain multi-workstream-diamond
+  id: multi-workstream-diamond
+  name: Multi-workstream diamond (Shape B recommend)
+  description: 'After session-start: recommend safe multi-lane work from workstreams+TODO.
+    Preserve primary focus; never auto-exec; never unhold. Report-only Shape B plan.'
+- slash: /chain paypal-setup
+  id: paypal-setup
+  name: PayPal Billing Setup
+  description: Drift gate → PayPal integration configuration
+- slash: /chain pre-flight
+  id: pre-flight
+  name: Pre-Flight Check
+  description: Branch scope → drift scan → test DB safety before starting work
+- slash: /chain prod-db-ops
+  id: prod-db-ops
+  name: Production DB Operations
+  description: Drift gate → prod DB maintenance → post-maintenance eval
+- slash: /chain promote-master
+  id: promote-master
+  name: Promote Master
+  description: Audit develop → sync master conflicts → merge develop to master via
+    PR
+- slash: /chain push-secrets-guard
+  id: push-secrets-guard
+  name: Push Secrets Guard
+  description: GitHub posture review → git guardrails with mandatory secrets/env pre-push
+    hooks (GitGuardian-safe)
+- slash: /chain qa-gate
+  id: qa-gate
+  name: QA Gate (after complex work)
+  description: After bug-hunt / rotation / analysis → qa-agent gate for sign-off
+- slash: /chain qa-pre-deploy
+  id: qa-pre-deploy
+  name: QA Pre-Deploy
+  description: Full qa-agent pre-deploy (risks, tests, domain, readiness)
+- slash: /chain qa-pre-pr
+  id: qa-pre-pr
+  name: QA Pre-PR Gate
+  description: Cache → qa-agent pre-pr (diff focus, safety, domain risks, tests).
+    Pass an app specialization via skill_args or invocation when the app added one.
+- slash: /chain qa-scan
+  id: qa-scan
+  name: QA Scan
+  description: Cache load → qa-agent scan (report + checklist). Lightweight health
+    check.
+- slash: /chain repo-health
+  id: repo-health
+  name: Repo Health Check
+  description: GitHub audit → git workflow verification → drift and sync gates
+- slash: /chain repo-health-watch
+  id: repo-health-watch
+  name: Repo Health Watch
+  description: L1 branch/PR hygiene report then verifier gate
+- slash: /chain research-deep-dive
+  id: research-deep-dive
+  name: Research Deep Dive (external)
+  description: Cache load → perspective frame → gather (user-approved sources) → research
+    memo
+- slash: /chain security-flywheel
+  id: security-flywheel
+  name: Security Flywheel
+  description: Chrome-style find→triage→fix→ship→prevent status (template + apps).
+    Same find→triage→fix→ship lifecycle. Report-first.
+- slash: /chain security-review
+  id: security-review
+  name: Security Review
+  description: Security audit with test DB safety gate
+- slash: /chain ses-email-setup
+  id: ses-email-setup
+  name: SES Email Setup
+  description: Route 53 email DNS (DKIM/SPF/DMARC) then Amazon SES — use deploy-dns-infra
+    for go-live
+- slash: /chain session-end
+  id: session-end
+  name: Session End (mid-day pause)
+  description: Pause work to leave and return later the same day. Captures WIP checkpoint,
+    optional TODO resume note, workspace pointer + light vault pause lesson. Does
+    NOT re
+- slash: /chain session-resume
+  id: session-resume
+  name: Session Resume (same-day return)
+  description: Return after mid-day /chain session-end on the **same calendar day**.
+    Distinct from session-start (new day / after eod). remote_last first → trust session-end
+    c
+- slash: /chain session-start
+  id: session-start
+  name: Session Start
+  description: Auto-switch remote_last (clean tree) → check+resume-card always → envelope
+    → security sweep → lean cache (0 when card fresh) → compound gate → working mode
+- slash: /chain template-deploy
+  id: template-deploy
+  name: Template Deploy
+  description: Cache load then deploy .grok + root chains to target project
+- slash: /chain token-monitor
+  id: token-monitor
+  name: Token Monitor
+  description: Sync Grok session context size, log trends, warn on bloat and cache
+    misses
+- slash: /chain vector-db-assess
+  id: vector-db-assess
+  name: Vector DB Fit Assessment
+  description: Assess whether project benefits from vector DB — report-only recommendation.
+    Cache-first.
+- slash: /chain vector-db-setup
+  id: vector-db-setup
+  name: Vector DB Setup
+  description: Vector store selection, RAG schema, hybrid search — cache-first; optional
+    ER via data-architect
+- slash: /chain web-cache-review
+  id: web-cache-review
+  name: Web Cache Review
+  description: Cache-first review of HTTP/CDN/image/document caching and refresh plan
+    for performant websites (Laravel and multi-stack).
+- slash: /chain web-design
+  id: web-design
+  name: Web Build and Design
+  description: Design lead → frontend UI spec → stack expert (Laravel/Go default;
+    SPA when manifest matches) → README
+- slash: /chain webmcp-setup
+  id: webmcp-setup
+  name: WebMCP Beta Setup
+  description: Opt-in beta — explain/local-setup/scaffold browser WebMCP page tools.
+    Not host MCP. load-cache → webmcp-beta → optional security spot → git guardrails
+    if commit
+- slash: /chain wiki-ingest
+  id: wiki-ingest
+  name: Wiki Ingest
+  description: Ingest one raw source into the LLM wiki (propose multi-page updates,
+    index + log). L1 approval for writes; dual-write vault when accepted.
+- slash: /chain wiki-lint
+  id: wiki-lint
+  name: Wiki Lint
+  description: L1 health check of the LLM wiki (contradictions, orphans, stale sources).
+    Report-only; no auto-fix.
+- slash: /chain wiki-lint-watch
+  id: wiki-lint-watch
+  name: Wiki Lint Watch
+  description: L1 wiki health (wiki_lint_check + host snapshot) then loop-verifier.
+    Report-only; manual until scheduled.
+- slash: /chain wiki-query
+  id: wiki-query
+  name: Wiki Query
+  description: Answer a question from the wiki (index-first, capped pages). Optional
+    file-back.
+- slash: /chain workflow-debug
+  id: workflow-debug
+  name: Workflow Debug / Failure Diagnosis
+  description: Cache load → github-workflow-expert (diagnose-failure.sh + log analysis)
+    → github-expert (policy) → git-workflow-guardrails (apply fix + commit). Stops
+    continua
+- slash: /chain workstream-graph-demo
+  id: workstream-graph-demo
+  name: Workstream graph example
+  description: 'Plan name for inventory diamond (workstreams + vault only). Same steps
+    as multi-workstream-demo. Operator: /multi-workstream example.'

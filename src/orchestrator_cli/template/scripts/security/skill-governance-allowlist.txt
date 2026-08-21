@@ -1,0 +1,6 @@
+# Paths (substring match on relative path) exempt from skill-governance critical hits.
+# Prefer adding tool_governance: justified to the skill instead of growing this list.
+# scripts/orchestrator-skill-governance.py
+# malware lint self-docs
+scripts/orchestrator-malware-lint.py
+scripts/orchestrator-skill-governance.py
