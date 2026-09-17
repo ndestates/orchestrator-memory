@@ -3,7 +3,8 @@
 Local/offline-first: never fails hard. Opt out with ``ORCHESTRATOR_NO_REMOTE_VERSION=1``.
 
 Env:
-  ORCHESTRATOR_GITHUB_REPO   default ``ndestates/orchestrator``
+  ORCHESTRATOR_GITHUB_REPO   default ``ndestates/orchestrator-memory`` (public product).
+                             Maintainers may override to the private factory.
   ORCHESTRATOR_GITHUB_API    default ``https://api.github.com``
   GITHUB_TOKEN / GH_TOKEN    optional for private repos
   ORCHESTRATOR_NO_REMOTE_VERSION  set to 1/true/yes to skip network
@@ -17,6 +18,9 @@ import os
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
+
+# Public product face. Private factory is ndestates/orchestrator (override via env).
+DEFAULT_GITHUB_REPO = "ndestates/orchestrator-memory"
 
 
 @dataclass(frozen=True)
@@ -43,7 +47,17 @@ def _timeout() -> float:
 
 
 def _repo() -> str:
-    return (os.environ.get("ORCHESTRATOR_GITHUB_REPO") or "ndestates/orchestrator").strip()
+    return (os.environ.get("ORCHESTRATOR_GITHUB_REPO") or DEFAULT_GITHUB_REPO).strip()
+
+
+def release_wheel_url(version: str, repo: str | None = None) -> str:
+    """GitHub Release wheel URL for an exact product version (must match npm)."""
+    ver = (version or "").strip().lstrip("v")
+    target = (repo or _repo()).strip() or DEFAULT_GITHUB_REPO
+    return (
+        f"https://github.com/{target}/releases/download/v{ver}/"
+        f"orchestrator-{ver}-py3-none-any.whl"
+    )
 
 
 def _api_base() -> str:
@@ -105,3 +119,13 @@ def best_available(local: str | None, remote: RemoteVersion | None) -> tuple[str
     if local:
         return local.lstrip("v"), "local_template"
     return None, "none"
+
+
+__all__ = [
+    "DEFAULT_GITHUB_REPO",
+    "RemoteVersion",
+    "best_available",
+    "fetch_latest_release_version",
+    "release_wheel_url",
+    "remote_version_suppressed",
+]

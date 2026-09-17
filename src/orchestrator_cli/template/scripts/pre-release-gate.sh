@@ -6,7 +6,8 @@
 #   bash scripts/pre-release-gate.sh
 #   bash scripts/pre-release-gate.sh --skip-slow   # skip license e2e (local only)
 #
-# Wired into .github/workflows/release.yml — do not ship without this green.
+# Wired into the private factory .github/workflows/release.yml.
+# Public orchestrator-memory uses product-release.yml (VERSION/wheel only).
 
 set -euo pipefail
 

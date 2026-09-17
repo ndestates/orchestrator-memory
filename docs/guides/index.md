@@ -1,6 +1,6 @@
 # Guides
 
-[UPDATED 2026-07-22] — multi-workstream per-LLM guides; multi-platform MCP; WebMCP beta
+[UPDATED 2026-09-17] — product **3.0.0**; npm-only user install; dead wave-deploy-log link removed
 
 Task-oriented instructions for daily work and maintenance.
 
@@ -23,7 +23,7 @@ Guides provide step-by-step instructions for common tasks when using the templat
 | [**Multi-workstream**](multi-workstream.md) | Day-scale tracks + diamond recommend — all LLMs |
 | [**Multi-workstream setup**](multi-workstream/setup.md) | Register, activate/unhold, focus, diamond multi-lane |
 | [**Web cache architecture**](web-cache-architecture.md) | HTTP/CDN/image/document caching — `/web-cache-expert` · `/chain web-cache-review` |
-| [**Multi-workstream pre-release**](multi-workstream-prerelease.md) | **v1.9.0-pre.5** opt-in; **stable remains v1.8.9** |
+| [**Multi-workstream pre-release**](multi-workstream-prerelease.md) | Historical 1.9.x notes (current product is **3.0.0**) |
 | [**Cache and token savings**](cache-and-token-savings.md) | **Why cache-first pays** — lean vs deep, MCP vs full files, measure with meter |
 | [**Per-app upgrade**](per-app-upgrade.md) | **After each release:** upgrade your apps one-by-one (no wave) |
 | [**Local Ollama (optional BYOM)**](local-ollama.md) | Optional local LLM — host / DDEV / docker-compose install + detect |
@@ -32,8 +32,7 @@ Guides provide step-by-step instructions for common tasks when using the templat
 | [Chains and skills](chains-and-skills.md) | `/chain`, catalogs, opt-out, new safe chains |
 | [Documentation](documentation.md) | Producing and refreshing this doc site (outline-first, vault integration) |
 | [Template deploy](template-deploy.md) | Policy detail for `init`/`upgrade` |
-| [Wave deploy log](wave-deploy-log.md) | Historical fleet records only |
-| [**Production ship**](production-ship.md) | Tag release → GitHub wheel + npm + PyPI + VS Code VSIX |
+| [**Production ship**](production-ship.md) | Tag **3.x** → matching GitHub wheel + npm |
 | [**Security flywheel**](security-flywheel.md) | Chrome lifecycle; optional peer apps |
 | [**Host-first memory**](host-first-memory.md) | Host CLI + VS Code; any project |
 | [**Vault learning expansion**](vault-learning-expansion.md) | **v1.5.0** A/B/C pipes (EOD, TODO query, CI emit) |

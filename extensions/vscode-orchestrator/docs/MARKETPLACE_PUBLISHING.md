@@ -13,7 +13,7 @@ Publisher: **`ndestates`** · Extension: **`ndestates.orchestrator-memory`**
    https://marketplace.visualstudio.com/manage  
 4. Store PAT in GitHub:  
    ```bash
-   gh secret set VSCE_PAT --repo ndestates/orchestrator
+   gh secret set VSCE_PAT --repo ndestates/orchestrator-memory
    # paste Azure DevOps PAT (not a GitHub token)
    ```
 
@@ -22,26 +22,21 @@ Publisher: **`ndestates`** · Extension: **`ndestates.orchestrator-memory`**
 ### On every version tag
 
 ```bash
-# VERSION / package.json / extension package.json aligned (e.g. 2.1.0)
-git tag -a v2.2.0 -m "Release v2.2.0"
-git push origin v2.2.0
+# VERSION / package.json / extension package.json aligned (e.g. 3.0.0)
+git tag -a v3.0.0 -m "Release v3.0.0"
+git push origin v3.0.0
 ```
 
 Runs:
 
-- `.github/workflows/release.yml` — wheels + GitHub Packages npm + VSIX attach  
-- `.github/workflows/vscode-marketplace.yml` — **`vsce publish`** when `VSCE_PAT` is set  
+- `.github/workflows/product-release.yml` — matching wheel + sdist on this public repo  
+- Marketplace upload remains a human step unless `VSCE_PAT` is set  
 
 ### Manual marketplace-only
 
-GitHub → **Actions** → **VS Code Marketplace** → **Run workflow**
+GitHub → **Actions** → **Product release** → **Run workflow** (wheel), then upload the VSIX on Marketplace manage.
 
-- `version`: e.g. `2.1.0`  
-- `dry_run`: true = package only  
-
-```bash
-gh workflow run vscode-marketplace.yml -f version=2.1.0
-```
+- `version`: e.g. `3.0.0`
 
 ## Publish from your laptop (same as Grok)
 

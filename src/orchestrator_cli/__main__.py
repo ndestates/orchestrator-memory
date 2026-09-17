@@ -85,8 +85,9 @@ def build_parser() -> argparse.ArgumentParser:
             default=None,
             metavar="TAG",
             help=(
-                "fetch template from GitHub Releases (default: latest). "
-                "Example: --from-github v1.8.5. Private: set GITHUB_TOKEN."
+                "fetch template from GitHub Releases (default: latest on "
+                "ndestates/orchestrator-memory). Example: --from-github v3.0.0. "
+                "Override repo with ORCHESTRATOR_GITHUB_REPO; private factory needs GITHUB_TOKEN."
             ),
         )
         ip.add_argument(

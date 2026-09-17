@@ -1,20 +1,20 @@
 # Orchestrator Template Documentation
 
-[UPDATED 2026-07-21] — **v1.8.8** multi-platform MCP + ChatGPT surface + host tools (ripgrep)
+[UPDATED 2026-09-17] — **v3.0.0** public product · npm-only install · matching GitHub Release wheels
 
 This documentation explains how to use the **orchestrator template** — a manifest-first, cache-first system for AI-assisted delivery. It ships skills, prompts, agents, loops, and chains synced across **Grok, Claude Code, GitHub Copilot, Gemini, Cursor, and ChatGPT/OpenAI**.
 
 **Bring your own keys:** You must have **your own** accounts (and API keys where needed) with those providers. Orchestrator does not supply model API keys. See [Bring your own keys](reference/bring-your-own-keys.md).
 
-**Install path:** [Installation](getting-started/installation.md) · **BYOK:** [Bring your own keys](reference/bring-your-own-keys.md) · **Upgrade your apps:** [Per-app upgrade](guides/per-app-upgrade.md) · **MCP + hosts:** [Multi-platform MCP and host tools](guides/multi-platform-mcp-and-host-tools.md) · **Licensing:** [Licensing](reference/licensing.md).  
-Per-app `orchestrator init` / `upgrade` only — multi-app wave is blocked by default (abandoned for routine releases).
+**Install path:** [Installation](getting-started/installation.md) (`npm install -g @ndestates/orchestrator`) · **BYOK:** [Bring your own keys](reference/bring-your-own-keys.md) · **Upgrade your apps:** [Per-app upgrade](guides/per-app-upgrade.md) · **Licensing:** [Licensing](reference/licensing.md).  
+Per-app `orchestrator init` / `upgrade` only — multi-app wave is removed.
 
 For repository overview, see the [root README](../README.md).
 
 ## Getting started
 
 - [Overview](getting-started/index.md) — what this project is and who it is for
-- [Installation](getting-started/installation.md) — Linux/macOS, Windows PowerShell, package CLI, host tools, MCP ensure, per-app install
+- [Installation](getting-started/installation.md) — **npm only** for users; maintainer/private factory quarantined
 - [Bring your own keys](reference/bring-your-own-keys.md) — **required:** your own model-provider accounts and API keys
 - [Quickstart](getting-started/quickstart.md) — first successful session in under 15 minutes
 - [Project overview](getting-started/project-overview.md) — architecture at a glance
@@ -38,7 +38,6 @@ For repository overview, see the [root README](../README.md).
 - [**Per-app upgrade**](guides/per-app-upgrade.md) — **after each orchestrator release**, upgrade apps one-by-one
 - [**Local Ollama (optional BYOM)**](guides/local-ollama.md) — optional local LLM install (host / DDEV / compose)
 - [Template deploy](guides/template-deploy.md) — policy detail for init/upgrade
-- [Wave deploy log](guides/wave-deploy-log.md) — historical fleet records only
 - [Knowledge vault](guides/knowledge-vault.md) — secure self-building graph ledger (reports/vault, compound integration)
 - [Prompt injection (installed apps)](guides/prompt-injection-installed-apps.md) — trust boundary, guardrails check, product AI
 - Compliance: Jersey DP/AML experts + safe chains + DPIAs (see guides/ + .grok/skills/jersey-*)

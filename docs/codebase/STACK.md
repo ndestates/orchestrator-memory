@@ -1,6 +1,6 @@
 # Stack
 
-[UPDATED 2026-08-16] — full `/read-codebase` refresh after v2.2.5 (CLI + VSIX + memory). Prior cache 2026-07-07.
+[UPDATED 2026-09-17] — product **3.0.0** lockstep (CLI + npm + extension). Prior cache 2026-08-16.
 
 > Lens: Operator, Developer — evidence from manifest, `pyproject.toml`, `package.json`, `extensions/vscode-orchestrator/package.json`, scan `=== DETECTED STACK ===`.
 
@@ -21,9 +21,9 @@ No `[ASK USER]` on stack engine: generic + local is intentional. SQLite at `repo
 
 | Artifact | Version | Evidence |
 |----------|---------|----------|
-| Template / CLI | **2.2.5** | `/VERSION`, hatch `tool.hatch.version` |
-| npm `@ndestates/orchestrator` | 2.2.5 | root `package.json` |
-| VSIX `ndestates.orchestrator-memory` | 2.2.5 | `extensions/vscode-orchestrator/package.json` |
+| Template / CLI | **3.0.0** | `/VERSION`, hatch `tool.hatch.version` |
+| npm `@ndestates/orchestrator` | 3.0.0 | root `package.json` (publish only after matching Release wheel) |
+| VSIX `ndestates.orchestrator-memory` | 3.0.0 | `extensions/vscode-orchestrator/package.json` |
 | MCP package | 0.1.0 | `mcp-server/pyproject.toml` |
 
 ## Languages and runtimes

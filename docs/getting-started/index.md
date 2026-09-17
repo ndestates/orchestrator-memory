@@ -1,25 +1,25 @@
 # Getting started
 
-[UPDATED 2026-07-21] — host tools + MCP + multi-host (incl. ChatGPT)
+[UPDATED 2026-09-17] — npm install · product **3.0.0**
 
 New contributors and operators start here.
 
 ## Overview
 
-This section helps you get up and running with the orchestrator template quickly. Compatible AI clients: **Grok, Claude Code, GitHub Copilot, Gemini, Cursor, ChatGPT/Codex**.
+This section helps you get up and running with Orchestrator Memory quickly. Compatible AI clients: **Grok, Claude Code, GitHub Copilot, Gemini, Cursor, ChatGPT/Codex**.
 
-**Install first:** use the per-app CLI (`orchestrator init` / `upgrade`). Multi-app fleet wave deploy is **not** the default path.
+**Install first:** `npm install -g @ndestates/orchestrator`. Then optionally write template files with `npx orchestrator init` / `upgrade`. Multi-app fleet wave deploy is **not** the default path.
 
 ## Before you begin
-- Git and Python 3 on your system (uv recommended for MCP venv on hosts without `python3-venv`).
-- An AI client configured with the project skills / MCP example for that host.
-- **ripgrep** recommended: `bash scripts/install-host-tools.sh --yes`.
+- Node.js 18+ and Python 3.10+
+- An AI client configured with **your** accounts / API keys ([BYOK](../reference/bring-your-own-keys.md))
+- **ripgrep** recommended after template files exist in an app (`rg` via apt/brew; see [Installation](installation.md))
 
 ## In this section
 
 | Page | Description |
 |------|-------------|
-| [Installation](installation.md) | Linux/macOS, Windows, host tools (`rg`), MCP ensure, per-app CLI |
+| [Installation](installation.md) | **npm only** for users; maintainer/private paths quarantined |
 | [Quickstart](quickstart.md) | Run your first session with `/chain session-start` |
 | [Who I am setup](who-i-am-setup.md) | Persistent operator profile for multi-AI sessions |
 | [Project overview](project-overview.md) | Manifest, cache, chains, and loops explained |

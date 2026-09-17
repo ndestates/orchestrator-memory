@@ -1,6 +1,6 @@
 # Concerns
 
-[UPDATED 2026-08-17] — Marketplace P1 retargeted to 2.3.0; memory auto-reseed on VERSION mismatch.
+[UPDATED 2026-09-17] — product **3.0.0**; npm/wheel lockstep on orchestrator-memory.
 
 Lens: Security, Operator, Developer, Product
 
@@ -20,7 +20,7 @@ Lens: Security, Operator, Developer, Product
 12. **Template malware / supply chain:** threat scan + malware lint + CODEOWNERS + bundle hash + SHA256SUMS. Residual: novel obfuscation; `--no-verify`; unpinned Action SHAs; unsigned releases.
 13. **LLM Wiki (lean):** token bloat, stale synthesis, secrets in `raw/`/`wiki/`. Mitigations: compress-or-skip, approval for writes, session-start index/log only.
 14. **Always-on memory staleness (mitigated 2026-08-17):** `session-memory-brief.py` auto-reseeds when store `VERSION=` is behind file `VERSION`. Residual: heuristic query until the new seed is the newest hit.
-15. **Marketplace leftover 2.2.5 (closed 2026-08-17):** VSIX/Marketplace abandoned as user install. P1 is npx/npmjs + v2.3.0 **wheel** on orchestrator-memory. Existing app trees unchanged.
+15. **npm/wheel desync (2.3.10 / closed as current-line 2026-09-17):** npm reached 2.3.10 while Releases only had a v2.3.5 wheel. Current line is **3.0.0**; `product-release.yml` + `check-release-wheel.py` require matching artifacts. Do not npm-publish 3.x before the wheel exists. VSIX/Marketplace remains parked as a user install.
 16. **Product vs template identity:** README sells Orchestrator Memory; manifest `project.name` remains “Project Template” (`identity=ok` on orchestrator source). Cache must not assume an app stack. `[ASK USER]`
 
 ## Mitigations

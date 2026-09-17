@@ -1,6 +1,6 @@
 # Orchestrator Template Cache Index
 
-[UPDATED 2026-08-20] — product face **2.3.4**; `/github-branch-hygiene` in catalog; MCP off. Scan: `.codebase-freshness.txt`.
+[UPDATED 2026-09-17] — product face **3.0.0**; public repo `ndestates/orchestrator-memory`; npm-only user install.
 
 **Human documentation:** [docs/index.md](../index.md) — guides, reference, operations (knowledge-vault, daily-workflow, manifest, delivery).
 
@@ -8,7 +8,7 @@ This repository is a **project-agnostic orchestrator template** plus the shipped
 
 ## Project Snapshot
 
-- **Name:** Project Template (`ndestates/orchestrator`) — product face: Orchestrator Memory **2.3.4**
+- **Name:** Orchestrator Memory (`ndestates/orchestrator-memory`) — product **3.0.0** (private factory: `ndestates/orchestrator`)
 - **Goal:** Manifest-first, cache-first AI delivery + local memory briefs
 - **Default branch:** `master`
 - **Promotion:** `feature/*` → `develop` → `master`
@@ -34,7 +34,7 @@ This repository is a **project-agnostic orchestrator template** plus the shipped
 | Cache docs | `docs/codebase/` | Lean session startup (this folder) |
 | TODO | `TODO/` | Daily coordination (`TODO/2026-08-21_TODO.md`) |
 | Reports | `reports/loops/`, `reports/vault/`, `reports/memory/`, `reports/sessions/` | Loops, vault ledger, SQLite memory, resume cards |
-| CI | `.github/workflows/` | 13 workflows: tooling-tests, product-release, Marketplace, loops, MCP, malware |
+| CI | `.github/workflows/` | Public tree: `product-release.yml` (matching wheel). Factory workflows stay in private `ndestates/orchestrator`. |
 
 ## Cache Files
 

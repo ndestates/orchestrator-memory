@@ -168,29 +168,20 @@ python3 -c "from pathlib import Path; import sys; sys.path.insert(0,'.'); from s
 The extension shells out to `orchestrator`. Without it, Memory commands fail.
 
 ```bash
-# A) uv + GitHub Release wheel (preferred) — use a *published* tag (see Releases)
-# Latest published wheel train (example): 2.0.0 — 2.1.0 only after that release exists
-VER=2.2.0
-uv tool install --force \
-  "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
-
-# Or from this repo (gets tree tip, e.g. 2.1.0):
-# bash scripts/install.sh --uv-tool
-
-# B) pip + wheel
-pip install --upgrade \
-  "https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
-
-# C) From clone
-git clone https://github.com/ndestates/orchestrator.git && cd orchestrator
-bash scripts/install.sh --uv-tool
-
-# D) npm GitHub Packages (wrapper → Python CLI)
-# ~/.npmrc: @ndestates:registry=https://npm.pkg.github.com
-# NODE_AUTH_TOKEN with read:packages
+# User path (only):
 npm install -g @ndestates/orchestrator
 
-# Verify — both must work
+# If python -m orchestrator_cli is missing, install the matching public wheel
+# (same version as the npm package — do not mix 3.x npm with a 2.x wheel):
+VER=3.0.0
+python3 -m pip install --upgrade \
+  "https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
+
+# Maintainer only — public checkout:
+# git clone https://github.com/ndestates/orchestrator-memory.git && cd orchestrator-memory
+# bash scripts/install.sh --uv-tool
+
+# Verify
 orchestrator version
 orchestrator memory status
 orchestrator memory db-path
@@ -198,7 +189,7 @@ orchestrator memory db-path
 
 If `which orchestrator` is empty: add `~/.local/bin` (or npm global bin) to `PATH`, or set **Settings → Orchestrator: Cli Path** to the absolute binary.
 
-If you see `invalid choice: 'memory'`: CLI is **too old** — reinstall **2.0.0+**.
+If you see `invalid choice: 'memory'`: CLI is **too old** — reinstall **3.0.0+**.
 
 ---
 

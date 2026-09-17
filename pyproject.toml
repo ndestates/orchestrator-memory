@@ -59,9 +59,11 @@ only-include = [
   "NOTICE",
   "VERSION",
   "hatch_build.py",
+  "hatch_template.py",
 ]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+pythonpath = ["src"]
 addopts = "-q"

@@ -22,7 +22,7 @@ from pathlib import Path
 from typing import Any
 
 from . import cli_hygiene
-from .remote_version import best_available, fetch_latest_release_version
+from .remote_version import best_available, fetch_latest_release_version, release_wheel_url
 from .template_root import dev_repo_root, template_root
 from .version import cli_version, is_newer, package_metadata_version, template_version
 
@@ -202,10 +202,12 @@ def plan_self_upgrade(
                 [uv, "tool", "install", "--force", "--from", str(root), "orchestrator"]
             ]
         else:
-            plan["method"] = "uv_tool_pypi"
+            wheel = release_wheel_url(target)
+            plan["method"] = "uv_tool_github_wheel"
             plan["commands"] = [
-                [uv, "tool", "install", "--force", f"orchestrator=={_core(target)}"]
+                [uv, "tool", "install", "--force", f"orchestrator @ {wheel}"]
             ]
+            plan["wheel_url"] = wheel
         plan["message"] = (
             f"plan: uv-tool install host CLI {current} → {target} "
             f"(method={plan['method']}, source={source})"
@@ -225,6 +227,7 @@ def plan_self_upgrade(
                 [sys.executable, "-m", "pip", "install", str(root)]
             ]
     else:
+        wheel = release_wheel_url(target)
         plan["commands"] = [
             [
                 sys.executable,
@@ -232,9 +235,10 @@ def plan_self_upgrade(
                 "pip",
                 "install",
                 "-U",
-                f"orchestrator=={_core(target)}",
+                wheel,
             ]
         ]
+        plan["wheel_url"] = wheel
     plan["message"] = (
         f"plan: pip install host CLI {current} → {target} "
         f"(method={plan['method']}, source={source})"
