@@ -4,6 +4,14 @@ from __future__ import annotations
 
 import os
 
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from hatch_template import template_is_vcs_tracked
 from orchestrator_cli.remote_version import (
     DEFAULT_GITHUB_REPO,
     _repo,
@@ -35,6 +43,11 @@ def test_maintainer_can_override_factory_repo() -> None:
             os.environ.pop("ORCHESTRATOR_GITHUB_REPO", None)
         else:
             os.environ["ORCHESTRATOR_GITHUB_REPO"] = old
+
+
+def test_public_template_is_tracked_so_wheel_skips_force_include() -> None:
+    dest = ROOT / "src" / "orchestrator_cli" / "template"
+    assert template_is_vcs_tracked(ROOT, dest) is True
 
 
 def test_release_wheel_url_matches_version() -> None:
