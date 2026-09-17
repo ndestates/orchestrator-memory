@@ -62,7 +62,8 @@ npx orchestrator init . --no-pr
 
 4. Paste the brief into Claude, Grok, Cursor, Copilot, Gemini or ChatGPT.
 
-Fleet/wave scripts are deleted. Do not use uv, pip, or VSIX to install.
+Fleet/wave scripts are deleted. Do not use uv, pip, or VSIX to install.  
+Public source and matching wheels: https://github.com/ndestates/orchestrator-memory
 
 ---
 

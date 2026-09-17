@@ -83,7 +83,7 @@ Wheel build stages a residue-filtered template into `orchestrator_cli/template/`
 |----------|---------|---------|
 | Python wheel + sdist | hatchling / `product-release.yml` | GitHub Release |
 | VSIX | `vscode-marketplace.yml` | Artifact + **human** Marketplace upload (optional `VSCE_PAT`) |
-| npm `@ndestates/orchestrator` | `package.json` | GitHub Packages |
+| npm `@ndestates/orchestrator` | `package.json` | npmjs (after matching GitHub Release wheel) |
 
 ## MCP architecture
 

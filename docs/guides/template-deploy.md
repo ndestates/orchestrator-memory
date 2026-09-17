@@ -24,7 +24,7 @@ Full platform install (bootstrap this repo, Windows PowerShell, pip, npm): [Inst
 
 Multi-app fleet wave scripts and `orchestrator wave` are **deleted** (Phase A of the app-installable plan). There is no env override. Upgrade each app with the CLI only.
 
-Historical records: [Wave deploy log](wave-deploy-log.md).
+Fleet wave tooling and its historical log are removed from this public tree.
 
 ## Target projects (reference)
 

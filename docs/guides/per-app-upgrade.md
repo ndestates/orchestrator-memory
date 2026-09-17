@@ -1,6 +1,9 @@
 # Per-app upgrade (no fleet wave)
 
-[UPDATED 2026-07-22] — Stable **v1.8.9**. Optional pre-release **v1.9.0-pre.5** (multi-workstream install fix; not Latest).
+[UPDATED 2026-09-17] — Current product **3.0.0** (npm + matching public Release). Historical 1.x examples below are **not** the current line.
+
+**Users:** `npm install -g @ndestates/orchestrator` then `npx orchestrator upgrade /path/to/app --no-pr`.  
+**`--from-github`** defaults to [ndestates/orchestrator-memory](https://github.com/ndestates/orchestrator-memory/releases) (override with `ORCHESTRATOR_GITHUB_REPO`).
 
 ## Overview
 
@@ -14,8 +17,8 @@ After a new orchestrator release, **update each application repository yourself*
 
 ## Prerequisites
 
-1. **Orchestrator template** at the release you want (stable: **v1.8.9**).  
-   Multi-workstream **pre-release** (opt-in only): **v1.9.0-pre.5** — see [multi-workstream-prerelease.md](multi-workstream-prerelease.md).
+1. **Orchestrator** at the release you want (current: **v3.0.0**).  
+   Historical 1.x notes in this file are rollback examples only.
 2. **CLI** on your PATH (or module form).
 3. Each **app** is a git repo. A dirty tree is **handled automatically** (`stash -u` →
    deploy → `stash pop`). Do not guess `--stash`. Pass **`--no-stash`** only to refuse.
@@ -73,7 +76,7 @@ orchestrator check .
 
 `--from-github` clones/downloads the release into `~/.cache/orchestrator/releases/<ver>` (override with `ORCHESTRATOR_CACHE`) and uses it as the template root — **no sibling monorepo required**. Without `--yes`, GitHub upgrades stay **dry-run**.
 
-**Version sources (best of):** local CLI/`VERSION`, app stamp `scripts/orchestrator-template-version`, sibling `../orchestrator/VERSION`, env `ORCHESTRATOR_TEMPLATE_VERSION`, and **GitHub Releases latest** (`ORCHESTRATOR_GITHUB_REPO`, default `ndestates/orchestrator`). Private repos need `GITHUB_TOKEN` or `GH_TOKEN`. Disable network probe: `ORCHESTRATOR_NO_REMOTE_VERSION=1`.
+**Version sources (best of):** local CLI/`VERSION`, app stamp `scripts/orchestrator-template-version`, sibling `../orchestrator/VERSION`, env `ORCHESTRATOR_TEMPLATE_VERSION`, and **GitHub Releases latest** (`ORCHESTRATOR_GITHUB_REPO`, default `ndestates/orchestrator-memory`). Private factory override: `ORCHESTRATOR_GITHUB_REPO=ndestates/orchestrator` plus `GITHUB_TOKEN`. Disable network probe: `ORCHESTRATOR_NO_REMOTE_VERSION=1`.
 
 Opt out of auto-announce: `export ORCHESTRATOR_NO_UPDATE_CHECK=1`.
 
@@ -82,7 +85,7 @@ still uses the full CLI package when comparing against a newer template checkout
 **Apply still needs a host CLI** whose template root is at least the target version (or a sibling orchestrator checkout).
 
 
-## Step 1 — Get release v1.4.2 of orchestrator
+## Step 1 — Get the release (current: **v3.0.0**; 1.4.2 examples below are historical)
 
 ### A. From git (recommended while developing)
 
@@ -109,7 +112,7 @@ orchestrator version
 
 ```bash
 # Download orchestrator-*.whl from:
-#   https://github.com/ndestates/orchestrator/releases/tag/v1.4.2
+#   https://github.com/ndestates/orchestrator-memory/releases/tag/v3.0.0
 python3 -m pip install --upgrade /path/to/orchestrator-1.4.2-*.whl
 
 orchestrator version
@@ -240,7 +243,7 @@ Details: [Template deploy](template-deploy.md).
 
 Fleet scripts and `orchestrator wave` are **deleted**. There is no
 `ORCHESTRATOR_WAVE_DEPLOY_APPROVED` override. Document each app upgrade in that
-app’s PR / TODO. Historical notes: [Wave deploy log](wave-deploy-log.md).
+app’s PR / TODO.
 
 ## Troubleshooting
 
@@ -256,5 +259,4 @@ app’s PR / TODO. Historical notes: [Wave deploy log](wave-deploy-log.md).
 
 - [Installation](../getting-started/installation.md) — bootstrap + package paths
 - [Template deploy](template-deploy.md) — policy and inventory notes
-- [Wave deploy log](wave-deploy-log.md) — historical fleet only
-- Releases: <https://github.com/ndestates/orchestrator/releases>
+- Releases: <https://github.com/ndestates/orchestrator-memory/releases>

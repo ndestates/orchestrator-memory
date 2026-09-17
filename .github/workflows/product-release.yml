@@ -1,0 +1,120 @@
+# Public product release — matching GitHub Release wheel (+ optional npm).
+# Factory pytest/security suite lives in private ndestates/orchestrator (release.yml).
+# Never publish npm X.Y.Z before this job attaches orchestrator-X.Y.Z-py3-none-any.whl.
+name: Product release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "X.Y.Z (must match VERSION when set)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Gate VERSION == tag
+        id: ver
+        env:
+          DISPATCH_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          VER="$(tr -d 'v \n\r' < VERSION)"
+          test -n "$VER"
+          echo "version=${VER}" >> "$GITHUB_OUTPUT"
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            TAG="${GITHUB_REF_NAME#v}"
+            if [[ "${TAG}" != "${VER}" ]]; then
+              echo "Tag ${GITHUB_REF_NAME} does not match VERSION ${VER}" >&2
+              exit 1
+            fi
+          elif [[ -n "${DISPATCH_VERSION}" && "${DISPATCH_VERSION}" != "${VER}" ]]; then
+            echo "Dispatch version ${DISPATCH_VERSION} != VERSION ${VER}" >&2
+            exit 1
+          fi
+
+      - name: Version alignment
+        run: python3 scripts/check-version-alignment.py
+
+      - name: Expected wheel name
+        run: python3 scripts/check-release-wheel.py --local
+
+      - name: Install hatchling
+        run: python3 -m pip install --upgrade pip hatchling
+
+      - name: Build wheel and sdist
+        run: python3 -m hatchling build
+
+      - name: Checksums and wheel present
+        run: |
+          set -euo pipefail
+          cd dist
+          sha256sum * > SHA256SUMS.txt
+          ls -la
+          python3 ../scripts/check-release-wheel.py --local --dist .
+
+      - name: GitHub Release + wheel
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: Orchestrator Memory v${{ steps.ver.outputs.version }}
+          generate_release_notes: true
+          files: |
+            dist/orchestrator-${{ steps.ver.outputs.version }}-py3-none-any.whl
+            dist/orchestrator-${{ steps.ver.outputs.version }}.tar.gz
+            dist/SHA256SUMS.txt
+
+      - name: Optional npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${NODE_AUTH_TOKEN:-}" ]]; then
+            echo "NPM_TOKEN unset — skip npm publish."
+            echo "Human step (only after this Release has the wheel):"
+            echo "  npm publish --access public"
+            echo "  npm view @ndestates/orchestrator version   # must equal ${{ steps.ver.outputs.version }}"
+            exit 0
+          fi
+          npm publish --access public
+
+      - name: Optional VSIX package
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          npm install -g @vscode/vsce
+          (cd extensions/vscode-orchestrator && vsce package --allow-star-activation)
+          VSIX="extensions/vscode-orchestrator/orchestrator-memory-${{ steps.ver.outputs.version }}.vsix"
+          if [[ -f "${VSIX}" ]]; then
+            echo "VSIX_PATH=${VSIX}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Attach VSIX when built
+        if: env.VSIX_PATH != ''
+        continue-on-error: true
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          files: ${{ env.VSIX_PATH }}

@@ -1,47 +1,38 @@
 # Quickstart
 
-[UPDATED 2026-07-21] — ensure MCP + host tools before first session
+[UPDATED 2026-09-17] — npm install · product **3.0.0**
 
 ## Overview
 
-Get from clone to a working AI session in under 15 minutes. This template has no application runtime — you work with skills, cache, and git.
+Get a working AI session in under 15 minutes. Install the host CLI with npm, optionally write template files into one app, then run `/chain session-start`.
 
-Full platform install (Windows PowerShell, pip package, per-app CLI): [Installation](installation.md).  
-MCP + every host: [Multi-platform MCP and host tools](../guides/multi-platform-mcp-and-host-tools.md).  
+Full install (BYOK, DDEV, troubleshooting): [Installation](installation.md).  
 Licensing: [Licensing](../reference/licensing.md).
 
 ## Before you begin
 
-- Git installed
-- Python 3 available on the host (**uv** recommended if `ensurepip` is missing)
+- Node.js 18+ and Python 3.10+
 - An AI client (Grok, Claude, Copilot, Gemini, Cursor, or ChatGPT/Codex)
-- You are on a feature branch (not `master`) for day-to-day work
+- **Your own** provider accounts / API keys ([BYOK](../reference/bring-your-own-keys.md))
 
 ## Steps
 
-1. Clone the repository and open it in your editor.
-
-2. Run the bootstrap installer (recommended):
+1. Install the host CLI (only user method):
 
    ```bash
-   # Linux / macOS / WSL — CLI + host tools (rg) + MCP venv
-   bash scripts/install.sh --cli --host-tools --mcp
+   npm install -g @ndestates/orchestrator
+   orchestrator version
+   orchestrator memory brief --seed
    ```
 
-   ```powershell
-   # Windows PowerShell
-   .\scripts\install.ps1 -Cli -HostTools
-   # MCP venv is easier inside WSL: wsl -e bash -lc 'cd /path/to/repo && bash scripts/ensure-mcp-host.sh'
-   ```
-
-3. Confirm tools:
+2. Optional — write template files in one app:
 
    ```bash
-   rg --version
-   bash scripts/ensure-mcp-host.sh --check
+   cd /path/to/app
+   npx orchestrator init . --no-pr
    ```
 
-4. **One-time:** set up your operator profile ("who I am"):
+3. **One-time** in that app (if `who-i-am` is present):
 
    ```bash
    bash scripts/setup-who-i-am.sh
@@ -50,15 +41,13 @@ Licensing: [Licensing](../reference/licensing.md).
    Edit `.grok/memories/who-i-am.md`, then run `/multi-ai-best-practices-setup` once.  
    See [Who I am setup](who-i-am-setup.md).
 
-5. Start a session with the default chain:
+4. Start a session with the default chain:
 
    ```text
    /chain session-start
    ```
 
-   This loads cache, runs standup, and sets lean response mode. Expect `mcp=yes@dev_only` when MCP is ready.
-
-6. Check today's work file:
+5. Check today's work file:
 
    ```text
    TODO/YYYY-MM-DD_TODO.md
@@ -66,29 +55,19 @@ Licensing: [Licensing](../reference/licensing.md).
 
    Use the latest date file in `TODO/`.
 
-7. After editing `.grok/skills/`, sync to other models:
-
-   ```bash
-   python3 scripts/sync_grok_to_github_claude.py
-   python3 scripts/check_name_alignment.py
-   ```
-
 ## Verify
 
-- `git branch --show-current` shows your feature branch
+- `orchestrator version` prints **3.0.0** (or the installed 3.x)
 - Latest `TODO/*.md` is readable and matches your scope
-- `bash scripts/chain-audit.sh` reports score 100/100
+- `/chain session-start` produces a brief you can paste into any assistant
 
 ## Next steps
 
-- [Installation](installation.md) — full install and per-app CLI
-- [Multi-platform MCP and host tools](../guides/multi-platform-mcp-and-host-tools.md) — production MCP + `rg` + every AI host
-- [Cache and token savings](../guides/cache-and-token-savings.md) — why lean cache-first sessions stay cheap
-- [Daily workflow](../guides/daily-workflow.md) — ongoing session habits
-- [Chains and skills](../guides/chains-and-skills.md) — when to use `/chain`
-- [Project overview](project-overview.md) — how the pieces fit together
+- [Installation](installation.md)
+- [Project overview](project-overview.md)
+- [Daily workflow](../guides/daily-workflow.md)
 
 ## Related
 
 - [Getting started index](index.md)
-- [Licensing](../reference/licensing.md)
+- [Documentation hub](../index.md)

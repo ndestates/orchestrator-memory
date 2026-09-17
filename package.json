@@ -1,16 +1,16 @@
 {
   "name": "@ndestates/orchestrator",
-  "version": "2.3.5",
+  "version": "3.0.0",
   "description": "Stop re-pasting your entire repo. Local AI project memory + token cache for Claude, Grok, Cursor, Copilot & more. One brief → every session. Free. Private. Apache-2.0.",
   "license": "Apache-2.0",
   "author": "ND Holdings Limited",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ndestates/orchestrator.git"
+    "url": "git+https://github.com/ndestates/orchestrator-memory.git"
   },
-  "homepage": "https://github.com/ndestates/orchestrator#readme",
+  "homepage": "https://github.com/ndestates/orchestrator-memory#readme",
   "bugs": {
-    "url": "https://github.com/ndestates/orchestrator/issues"
+    "url": "https://github.com/ndestates/orchestrator-memory/issues"
   },
   "keywords": [
     "ai",

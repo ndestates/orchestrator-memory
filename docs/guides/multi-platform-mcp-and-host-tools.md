@@ -156,4 +156,4 @@ Default selections still include `scripts` (launchers + ensure scripts when pres
 - [Platform surfaces](../reference/platform-surfaces.md)
 - [mcp-server/README.md](../../mcp-server/README.md)
 - [**WebMCP (beta)**](webmcp-beta.md) — **different layer:** browser page tools via `navigator.modelContext` (not host stdio MCP)
-- Releases: <https://github.com/ndestates/orchestrator/releases>
+- Releases: <https://github.com/ndestates/orchestrator-memory/releases>

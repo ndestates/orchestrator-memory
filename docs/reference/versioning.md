@@ -1,12 +1,12 @@
 # Versioning (host · template · app)
 
-[UPDATED 2026-08-04] — CLI + extension same VERSION; Marketplace next must exceed live
+[UPDATED 2026-09-17] — product **3.0.0**; public default repo `ndestates/orchestrator-memory`
 
 ## Single source of truth
 
 | Artifact | Role |
 |----------|------|
-| **`VERSION`** | **SSOT** — full product identity (`1.9.5` or `1.9.0-pre.5`) |
+| **`VERSION`** | **SSOT** — full product identity (`3.0.0` or `3.0.0-pre.1`) |
 | `scripts/orchestrator-template-version` | Deployed stamp apps/session-check read |
 | `package.json` `version` | npm wrapper (must match `VERSION`) |
 | `extensions/vscode-orchestrator/package.json` | Extension + Marketplace train (**same** as CLI / VERSION) |
@@ -43,8 +43,8 @@ orchestrator status /path/to/app
 
 | Situation | Action |
 |-----------|--------|
-| Host CLI behind template / release | `orchestrator self-upgrade --to 1.9.5 --yes` or `bash scripts/install.sh --uv-tool` |
-| App lock behind template | `orchestrator upgrade /path/to/app --from-github v1.9.5 --yes --no-pr` |
+| Host CLI behind template / release | `npm install -g @ndestates/orchestrator@latest` or `orchestrator self-upgrade --from-github --yes` |
+| App lock behind template | `orchestrator upgrade /path/to/app --from-github v3.0.0 --yes --no-pr` |
 | App install missing on other branches | `orchestrator install-persist .` (on a branch that has the lock) |
 | Template source repo | **Do not** `init` yourself — not a consumer app |
 
@@ -52,10 +52,10 @@ orchestrator status /path/to/app
 
 ```json
 {
-  "version": "1.9.5",
-  "release_tag": "v1.9.5",
+  "version": "3.0.0",
+  "release_tag": "v3.0.0",
   "profile": "laravel",
-  "cli_version": "1.9.5",
+  "cli_version": "3.0.0",
   "installed_at": "…",
   "ssot": "VERSION"
 }
@@ -71,11 +71,12 @@ orchestrator status /path/to/app
 
 ## Bumping a release (template maintainers)
 
-1. Set `VERSION` to **next** semver (**must be > marketplace-live**, e.g. live 2.2.1 → ship 2.2.2)
+1. Set `VERSION` to **next 3.x** semver (current line is **3.0.0**; do not resume 2.3.x)
 2. Sync mirrors: `node scripts/npm/sync-version.js` (root pkg + stamp + **extension** + CLI pin)
-3. Verify: `python3 scripts/check-version-alignment.py` (CLI pin + extension must match)
-4. Regenerate bundle hashes: `python3 scripts/orchestrator-bundle-hash.py generate`
-5. Tag `vX.Y.Z`, publish GitHub release (wheel **and** VSIX both `X.Y.Z`)
-6. Refresh host package: `bash scripts/install.sh --uv-tool` or pip/uv wheel for **same** `X.Y.Z`
-7. Marketplace: upload **same** `orchestrator-memory-X.Y.Z.vsix` (not an older patch)
-8. Apps: per-app `upgrade --from-github vX.Y.Z` then `install-persist` if needed
+3. Verify: `python3 scripts/check-version-alignment.py` and `python3 scripts/check-release-wheel.py --local`
+4. Tag `vX.Y.Z` on **ndestates/orchestrator-memory** (`.github/workflows/product-release.yml` attaches the wheel)
+5. Publish npm **only after** the matching wheel is on that Release
+6. Optional Marketplace: upload **same** `orchestrator-memory-X.Y.Z.vsix`
+7. Apps: per-app `upgrade --from-github vX.Y.Z`
+
+Default remote probe: `ORCHESTRATOR_GITHUB_REPO` → `ndestates/orchestrator-memory` (factory override allowed).

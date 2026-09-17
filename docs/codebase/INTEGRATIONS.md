@@ -1,6 +1,6 @@
 # Integrations
 
-[UPDATED 2026-08-16] — product-release, Marketplace, tooling-tests; wave deploy removed.
+[UPDATED 2026-09-17] — public `product-release.yml`; factory workflows not in this tree.
 
 > Lens: Operator, Security — evidence from `.github/workflows/`, `mcp-server/`, `package.json`, `services/license-api/README.md`.
 
@@ -8,12 +8,12 @@
 
 | Integration | Path / command |
 |-------------|----------------|
-| Actions | `.github/workflows/*.yml` (**13**) |
+| Actions | Public: `.github/workflows/product-release.yml`. Factory suite stays private. |
 | Branch protection | `develop`, `master` — PR required |
 | Promotion PRs | `branch-promotion-prs.yml` |
 | Dependabot | `.github/dependabot.yml` |
 | CLI | `gh pr`, `gh run`, `gh workflow` |
-| Packages | npm publishConfig `https://npm.pkg.github.com` (`@ndestates/orchestrator`) |
+| Packages | npmjs `@ndestates/orchestrator` (optional `NPM_TOKEN`); matching wheel on GitHub Release |
 | Releases | tag `v*` → wheel + sdist + VSIX |
 
 ### Workflow summary

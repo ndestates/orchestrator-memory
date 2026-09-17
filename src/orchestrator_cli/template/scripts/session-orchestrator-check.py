@@ -10,7 +10,8 @@ Available version resolution (first / best-of):
 2. ``scripts/orchestrator-template-version`` (shipped with the template deploy)
 3. Sibling checkout ``../orchestrator/VERSION`` (common monorepo layout)
 4. ``orchestrator_cli.template_version()`` if the CLI package is importable
-5. **GitHub Releases latest** (optional network; opt out ``ORCHESTRATOR_NO_REMOTE_VERSION=1``)
+5. **GitHub Releases latest** on ``ndestates/orchestrator-memory``
+   (override ``ORCHESTRATOR_GITHUB_REPO``; opt out ``ORCHESTRATOR_NO_REMOTE_VERSION=1``)
 6. Fall back to the installed lock version (can only confirm "installed", not a newer release)
 
 Session-start auto-upgrade (apps only)::
@@ -155,7 +156,7 @@ def _fetch_github_latest() -> tuple[str | None, str]:
     """Return (version, source) from GitHub Releases latest, or (None, reason)."""
     if _remote_suppressed():
         return None, "remote_suppressed"
-    repo = (os.environ.get("ORCHESTRATOR_GITHUB_REPO") or "ndestates/orchestrator").strip()
+    repo = (os.environ.get("ORCHESTRATOR_GITHUB_REPO") or "ndestates/orchestrator-memory").strip()
     api = (os.environ.get("ORCHESTRATOR_GITHUB_API") or "https://api.github.com").rstrip("/")
     try:
         timeout = max(0.5, min(30.0, float(os.environ.get("ORCHESTRATOR_REMOTE_VERSION_TIMEOUT") or "3")))

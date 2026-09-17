@@ -1,8 +1,8 @@
 # Host-first always-on memory
 
-[UPDATED 2026-08-01] · **2.0.0+** · **Apache-2.0 freeware**
+[UPDATED 2026-09-17] · **3.0.0+** · **Apache-2.0 freeware**
 
-Stable model: install the **host CLI once**, use memory in **any project**, optional **VS Code / Cursor** add-in.  
+Stable model: install the **host CLI once** with npm, use memory in **any project**, optional **VS Code / Cursor** add-in.  
 You do **not** need Packagist or a paid license.
 
 **★ End-user instructions (memory DB + vault) — please read:**  
@@ -29,34 +29,19 @@ Per-app `init`/`upgrade` remains optional for full skill surfaces — not requir
 
 ---
 
-## Install host CLI (summary)
-
-Pick one (details and auth in the extension README §1):
+## Install host CLI (users)
 
 ```bash
-# A) uv + GitHub Release wheel (preferred)
-VER=2.1.0
-uv tool install --force \
-  "orchestrator @ https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
-
-# B) pip + wheel
-pip install "https://github.com/ndestates/orchestrator/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
-
-# C) PyPI when published
-# uv tool install orchestrator==2.1.0
-
-# D) npm GitHub Packages (@ndestates/orchestrator) — needs read:packages PAT + ~/.npmrc
-# npm install -g @ndestates/orchestrator
-
-# E) From clone
-# bash scripts/install.sh --uv-tool
-
+npm install -g @ndestates/orchestrator
 orchestrator version
 orchestrator memory status
 ```
 
-Keep `~/.local/bin` (or uv/npm global bin) on `PATH`.  
-Refresh later: `orchestrator self-upgrade --yes` or reinstall the wheel.
+If `python -m orchestrator_cli` is missing, install the **matching** public wheel printed by the shim (same version as npm) from [orchestrator-memory Releases](https://github.com/ndestates/orchestrator-memory/releases).
+
+uv, pip, `install.sh`, and git clone are **maintainer** paths — see [Installation](../getting-started/installation.md#maintainer--private-factory).
+
+Refresh later: `npm install -g @ndestates/orchestrator@latest` or `orchestrator self-upgrade --from-github --yes`.
 
 ---
 
@@ -123,12 +108,12 @@ orchestrator memory brief --seed
 
 ## VS Code / Cursor
 
-1. Install host CLI (above).  
+1. Install host CLI with npm (above).  
 2. Install extension `ndestates.orchestrator-memory` (Marketplace or VSIX).  
 3. Palette: **Orchestrator: Memory Brief (session start)** (and Query / Ingest / Seed / Status / Serve).  
 4. Setting `orchestrator.cliPath` if the binary is not on `PATH`.
 
-Step-by-step for every channel: [extension README](../../extensions/vscode-orchestrator/README.md).
+Step-by-step: [extension README](../../extensions/vscode-orchestrator/README.md).
 
 ---
 
@@ -139,6 +124,6 @@ Step-by-step for every channel: [extension README](../../extensions/vscode-orche
 ## Related
 
 - [Always-on memory (engine)](always-on-memory.md)
-- [Production ship (npm / pip / VSIX)](production-ship.md)
+- [Production ship (matching npm + wheel)](production-ship.md)
 - [Installation](../getting-started/installation.md)
 - [Stronger with every update](../reference/stronger-with-every-update.md)

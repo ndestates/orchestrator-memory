@@ -103,6 +103,8 @@ function missingModuleMessage(version) {
   return (
     '[orchestrator] Python package `orchestrator` is not installed (no auto-pip).\n' +
     `  ${pipWheelLine(ver)}\n` +
+    '  That wheel must exist on the same GitHub Release as this npm version\n' +
+    `  (ndestates/orchestrator-memory v${ver}). A 404 means npm and Releases are out of sync.\n` +
     '  Advanced / maintainer: uv tool install from the same wheel.\n' +
     '  Existing PATH installs of `orchestrator` are unchanged.'
   );

@@ -2,7 +2,7 @@
   "name": "orchestrator-memory",
   "displayName": "Orchestrator Memory — AI token cache",
   "description": "Local project memory for AI coding. Type /session-start, /chain, /memory-brief in the IDE Command Palette, Chat (@orchestrator), and paste the same / commands into Claude, Grok, Cursor, Copilot. Free Apache-2.0.",
-  "version": "2.3.5",
+  "version": "3.0.0",
   "publisher": "ndestates",
   "license": "SEE LICENSE IN LICENSE.txt",
   "copyright": "Copyright (c) 2026 ND Estates Limited and contributors",
@@ -40,11 +40,11 @@
   "homepage": "https://marketplace.visualstudio.com/items?itemName=ndestates.orchestrator-memory",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ndestates/orchestrator.git",
+    "url": "https://github.com/ndestates/orchestrator-memory.git",
     "directory": "extensions/vscode-orchestrator"
   },
   "bugs": {
-    "url": "https://github.com/ndestates/orchestrator/issues"
+    "url": "https://github.com/ndestates/orchestrator-memory/issues"
   },
   "qna": false,
   "activationEvents": [
@@ -345,7 +345,7 @@
         },
         "orchestrator.publishedCliVersion": {
           "type": "string",
-          "default": "2.3.5",
+          "default": "3.0.0",
           "description": "GitHub Release version used for one-click wheel install (must exist as a published release)."
         },
         "orchestrator.memory.scope": {

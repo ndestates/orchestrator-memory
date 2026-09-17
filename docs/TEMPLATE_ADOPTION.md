@@ -1,15 +1,25 @@
 # Template Adoption and Update Guide
 
-[UPDATED 2026-07-09] — per-app CLI installer; fleet wave not the default. See [Installation](getting-started/installation.md), [Licensing](reference/licensing.md), [Template deploy](guides/template-deploy.md).
+[UPDATED 2026-09-17] — public product **3.0.0**. Users install with npm; this page is **maintainer / fork** adoption. See [Installation](getting-started/installation.md).
 
 This document explains how to use this orchestrator as a template for your project and how to track and integrate template updates over time.
 
 ## Preferred: install into an existing app repo
 
-From a checkout of the **orchestrator** template (with CLI installed):
+Preferred for apps (no clone):
 
 ```bash
-bash scripts/install.sh --cli   # once, in the orchestrator repo
+npm install -g @ndestates/orchestrator
+npx orchestrator init /path/to/your-app --no-pr --dry-run
+npx orchestrator init /path/to/your-app --no-pr
+```
+
+From a checkout of the **public** product (maintainer):
+
+```bash
+git clone https://github.com/ndestates/orchestrator-memory.git
+cd orchestrator-memory
+bash scripts/install.sh --cli   # maintainer only
 # Windows: .\scripts\install.ps1 -Cli
 
 orchestrator init /path/to/your-app --no-pr --dry-run
@@ -42,7 +52,7 @@ cd your-project
 Option B: Manual copy and rebase:
 
 ```bash
-git clone https://github.com/ndestates/orchestrator.git your-project
+git clone https://github.com/ndestates/orchestrator-memory.git your-project
 cd your-project
 git remote rename origin upstream
 git remote add origin https://github.com/your-org/your-project.git
@@ -105,7 +115,7 @@ If you used Option B above, you already have `upstream` configured.
 Otherwise, add the template as a remote:
 
 ```bash
-git remote add upstream https://github.com/ndestates/orchestrator.git
+git remote add upstream https://github.com/ndestates/orchestrator-memory.git
 git fetch upstream
 ```
 
@@ -113,8 +123,8 @@ git fetch upstream
 
 Periodically review:
 
-- <https://github.com/ndestates/orchestrator/commits/master>
-- <https://github.com/ndestates/orchestrator/releases>
+- <https://github.com/ndestates/orchestrator-memory/commits/master>
+- <https://github.com/ndestates/orchestrator-memory/releases>
 
 ## Integrating Template Updates
 
@@ -254,7 +264,7 @@ git push origin <your-branch> --force-with-lease
 
 ## Questions?
 
-- Review the template repository: <https://github.com/ndestates/orchestrator>
+- Review the public product repository: <https://github.com/ndestates/orchestrator-memory>
 - Check for issues or discussions in the template repo
 - Adapt this guide to your team's workflow
 

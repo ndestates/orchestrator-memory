@@ -127,7 +127,7 @@ code --install-extension ndestates.orchestrator-memory
 **VSIX** (Release asset or local build)
 
 ```bash
-code --install-extension /path/to/orchestrator-memory-2.1.0.vsix
+code --install-extension /path/to/orchestrator-memory-3.0.0.vsix
 ```
 
 After install: **Orchestrator: Read instructions (memory + vault)** → **Setup / Install CLI** → **Memory + vault storage** → **Memory Brief**.
@@ -136,14 +136,9 @@ After install: **Orchestrator: Read instructions (memory + vault)** → **Setup 
 
 | Channel | Commands |
 |---------|----------|
-| **uv + Release wheel** (preferred) | `VER=2.2.0` (must be a **published** GitHub Release) · `uv tool install --force "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"` |
-| **From git clone** | `bash scripts/install.sh --uv-tool` (tree tip, e.g. 2.1.0+) |
-| **pip + wheel** | `pip install "https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"` |
-| **PyPI** (when live) | `uv tool install orchestrator` / `pip install orchestrator` |
-| **npm GitHub Packages** | `~/.npmrc` with `@ndestates:registry=https://npm.pkg.github.com` + PAT `read:packages` · `npm i -g @ndestates/orchestrator` |
-| **npmjs.org** (when live) | `npm i -g @ndestates/orchestrator` |
-| **Git clone** | `bash scripts/install.sh --uv-tool` |
-| **Editable** | `pip install -e .` from repo root |
+| **npmjs (only user path)** | `npm i -g @ndestates/orchestrator` |
+| **Matching Release wheel** | If `python -m orchestrator_cli` is missing: install `orchestrator-3.0.0-py3-none-any.whl` from [orchestrator-memory Releases](https://github.com/ndestates/orchestrator-memory/releases) (same version as npm) |
+| **Maintainer** | uv/pip/`install.sh` from a public checkout — see [Installation](../../docs/getting-started/installation.md#maintainer--private-factory) |
 
 ```bash
 which orchestrator

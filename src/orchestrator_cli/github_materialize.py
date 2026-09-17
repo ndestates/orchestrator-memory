@@ -68,7 +68,7 @@ def resolve_release(tag: str | None = None) -> RemoteVersion:
             raise RuntimeError(
                 "Could not resolve latest GitHub release "
                 f"(repo={_repo()}). Set GITHUB_TOKEN for private repos, "
-                "or pass an explicit tag: --from-github v1.8.5"
+                "or pass an explicit tag: --from-github v3.0.0"
             )
         return latest
 

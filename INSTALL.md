@@ -3,7 +3,7 @@
 
 # Installation
 
-[UPDATED 2026-08-17] — one method: **npm install**
+[UPDATED 2026-09-17] — one method: **npm install** · product **3.0.0**
 
 There is **no** fleet/wave install. There is **no** uv/pip/VSIX product path.
 
@@ -30,7 +30,7 @@ Upgrade that app later:
 npx orchestrator upgrade . --no-pr
 ```
 
-If `python3` is missing, install Python 3.10+. If `python -m orchestrator_cli` is missing, the CLI prints the one wheel line (no auto-pip).
+If `python3` is missing, install Python 3.10+. If `python -m orchestrator_cli` is missing, the CLI prints the one wheel line for **this npm version** from [orchestrator-memory Releases](https://github.com/ndestates/orchestrator-memory/releases) (no auto-pip).
 
 ## Uninstall
 
@@ -49,3 +49,5 @@ orchestrator version
 
 Package: https://www.npmjs.com/package/@ndestates/orchestrator  
 Guide: [docs/getting-started/installation.md](docs/getting-started/installation.md)
+
+Maintainer / private factory (clone, uv, pip, `install.sh`): see the same guide, section **Maintainer / private factory**.

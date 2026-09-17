@@ -11,6 +11,16 @@ This extension follows [Semantic Versioning](https://semver.org/):
 Host product version lives in repo root `VERSION` and **must match** the release train
 (CLI wheel + extension + Marketplace). Bump via root `VERSION` + `node scripts/npm/sync-version.js`.
 
+## 3.0.0 — 2026-09-17
+
+**SemVer: MAJOR** — product line moves to **3.x**. Public install docs and metadata point at `ndestates/orchestrator-memory`. npm and the GitHub Release wheel must ship the same `X.Y.Z`.
+
+### Changed
+
+- Align extension + `publishedCliVersion` with root **VERSION 3.0.0**
+- Repository / bugs URLs → public `orchestrator-memory`
+- Host CLI install copy: npm-only for users
+
 ## 2.3.0 — 2026-08-16
 
 **SemVer: MINOR** — product version lockstep with template **2.3.0** (self-regulating skills).

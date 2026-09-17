@@ -1,42 +1,31 @@
-# Production ship — host install (npm, pip, VS Code)
+# Production ship — matching npm + GitHub Release wheel
 
+[UPDATED 2026-09-17] · **Apache-2.0 freeware** · product **3.0.0** · optional [Patreon](https://www.patreon.com/ndestates)
 
-> **Repository split (2026-08-02)**  
+> **Repository split**  
 > | Repo | Visibility | Role |  
 > |------|------------|------|  
-> | **[ndestates/orchestrator-memory](https://github.com/ndestates/orchestrator-memory)** | **Public** | Product: host CLI wheel, VSIX, install docs, release tags |  
+> | **[ndestates/orchestrator-memory](https://github.com/ndestates/orchestrator-memory)** | **Public** | Product: host CLI wheel, npm metadata, install docs, release tags |  
 > | **[ndestates/orchestrator](https://github.com/ndestates/orchestrator)** | **Private** | Factory: full template, `develop` / feature branches, internal work |  
 >
-> End users install from **orchestrator-memory** releases only. Maintainers develop on **orchestrator** (private).
-
-[UPDATED 2026-08-01] · **Apache-2.0 freeware** · product **2.2.0** · optional [Patreon](https://www.patreon.com/ndestates)
-
-How **end users** install the orchestrator in production, and how **maintainers** publish a release.
+> End users install with **npm**. Maintainers develop on the private factory and publish **matching** artifacts here.
 
 ### Bring your own keys (required)
 
-This product is **not** a cloud model API. **You** must have:
-
-- Accounts with the AI tools you use (Claude, Grok/xAI, Copilot, Cursor, Gemini, ChatGPT/OpenAI, …), and  
-- **Your own** API keys when you call a provider API (env vars / host settings — never committed to git).
-
-We do **not** issue or embed OpenAI, Anthropic, xAI, Google, or other vendor keys.  
+This product is **not** a cloud model API. **You** must have accounts with the AI tools you use and **your own** API keys when you call a provider API.  
 Full policy: [Bring your own keys](../reference/bring-your-own-keys.md).
-
-There is **no Packagist** path (that is PHP/Composer — see FAQ below).
 
 | Surface | Package / artifact | What users run |
 |---------|-------------------|----------------|
 | **npm (only)** | `@ndestates/orchestrator` on **npmjs** | `npm install -g @ndestates/orchestrator` |
-| **VSIX / Marketplace / uv / pip / fleet** | **Not product install paths** | Do not document |
+| **GitHub Release wheel** | Same version as npm | Printed by the shim when `orchestrator_cli` is missing |
+| **VSIX / Marketplace / uv / pip / fleet** | **Not product install paths** | Maintainer / parked |
 
-In-app template (`init`/`upgrade`) is **explicit** and separate. Existing app repos are not rewritten until someone runs upgrade. Publish npm + wheel from **orchestrator-memory**, not this factory.
+`init`/`upgrade` is **explicit** and separate. Existing app repos are not rewritten until someone runs upgrade.
 
 ---
 
-## A. Users — install in production (any machine)
-
-### 1) Only: npm install (npmjs)
+## A. Users — install in production
 
 ```bash
 npm install -g @ndestates/orchestrator
@@ -45,157 +34,105 @@ orchestrator memory brief --seed
 npx orchestrator init /path/to/app --no-pr   # files; explicit
 ```
 
-Requires Python 3.10+. If `import orchestrator_cli` fails:
+Requires Python 3.10+. If `import orchestrator_cli` fails, install the **matching** wheel:
 
 ```bash
+VER=3.0.0
 python3 -m pip install --upgrade \
-  "https://github.com/ndestates/orchestrator-memory/releases/download/v2.3.0/orchestrator-2.3.0-py3-none-any.whl"
+  "https://github.com/ndestates/orchestrator-memory/releases/download/v${VER}/orchestrator-${VER}-py3-none-any.whl"
 ```
 
-### 2) Advanced / maintainer: uv tool (Python)
+`VER` must equal the npm package version. A 404 means that Release was not published — do not mix npm 3.x with an older 2.x wheel.
 
-```bash
-# From GitHub Release wheel (no full clone required once published)
-uv tool install \
-  "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl"
-
-# Or when PyPI publish is enabled:
-# uv tool install orchestrator==2.2.0
-
-orchestrator version
-orchestrator memory brief --seed
-```
-
-Ensure `~/.local/bin` (or uv’s tool bin) is on `PATH`.
-
-### 3) pip (same wheel; PATH install)
-
-```bash
-pip install \
-  "https://github.com/ndestates/orchestrator-memory/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl"
-# or: pip install orchestrator==2.2.0   # after PyPI
-```
-
-### 4) GitHub Packages (legacy Node registry — not the user path)
-
-User npx resolves on **npmjs**. GitHub Packages is no longer the documented install. Maintainers may still have old `~/.npmrc` entries; remove `@ndestates:registry=https://npm.pkg.github.com` so `npx` hits npmjs.
-
-### 5) From a git checkout (ops / maintainers)
-
-```bash
-git clone https://github.com/ndestates/orchestrator.git
-cd orchestrator
-git checkout v2.2.0   # or master after release
-
-bash scripts/install.sh --uv-tool          # preferred host CLI
-# bash scripts/install.sh --npm            # Node wrapper
-# bash scripts/install.sh --cli --host-tools --mcp
-
-orchestrator version
-orchestrator memory status
-```
-
-Windows: `.\scripts\install.ps1 -Cli` / `-Npm`.
-
-### 6) VS Code / Cursor extension — **parked**
-
-Not a user install path. Existing VSIX installs may still call the host CLI. Do not publish Marketplace updates as the install story. Use the IDE terminal + npx.
-
-Palette: Read instructions · Command Hub · Memory + vault storage · Brief · Query · Ingest · Seed · Status · Serve · Run /chain · skills  
-Setting: `orchestrator.cliPath` (default `orchestrator` on PATH).  
-**SemVer:** extension **2.2.0** is a **MINOR** (features); ship with product `VERSION` **2.2.0**.
-
-### 6) Optional: template into one app repo
-
-```bash
-orchestrator init /path/to/app --from-github v2.2.0 --yes --no-pr
-orchestrator upgrade /path/to/app --from-github v2.2.0 --yes --no-pr --quiet
-```
-
-Not required for `orchestrator memory` alone.
+uv / pip / clone / `install.sh` live under [Installation → Maintainer / private factory](../getting-started/installation.md#maintainer--private-factory).
 
 ---
 
-## B. Maintainers — ship a production release
+## B. Maintainers — cut a matching 3.x release
+
+**Rule:** never publish npm `X.Y.Z` without a GitHub Release `vX.Y.Z` that attaches `orchestrator-X.Y.Z-py3-none-any.whl`. That mismatch is what made npm 2.3.10 request a missing v2.3.10 wheel.
+
+This public repo ships `.github/workflows/product-release.yml` (VERSION/stamp gate only — no factory pytest suite). The private factory may still have `release.yml` with the full `pre-release-gate.sh`.
 
 ### Preconditions
 
-1. Feature work merged to **`master`** (or release branch you tag from).  
-2. `VERSION` / stamp / `package.json` aligned: `python3 scripts/check-version-alignment.py`  
-3. Pre-release gate green: `bash scripts/pre-release-gate.sh`  
-4. License: **Apache-2.0** (`LICENSE`, `NOTICE`)  
-5. Repo secrets (optional channels — skip cleanly if unset):
+1. Feature work merged to **`master`** (or the branch you tag from).
+2. Product identity is **3.x+** (`VERSION`, stamp, `package.json`, extension). Do not keep shipping 2.3.x as current.
+3. `python3 scripts/check-version-alignment.py` is green.
+4. `python3 scripts/check-release-wheel.py --local` is green (expected wheel name matches `VERSION`).
+5. Optional secrets (skip cleanly if unset):
 
 | Secret | Used for |
 |--------|----------|
-| `GITHUB_TOKEN` | Automatic — GitHub Release + **GitHub Packages npm** (`packages: write`) |
-| `PYPI_API_TOKEN` | Optional — `twine upload` → PyPI |
-| `NPM_TOKEN` | Optional — also publish to **npmjs.org** |
-| `VSCE_PAT` | **Legacy optional** — CLI `vsce publish` only; prefer Marketplace manage UI |
+| `GITHUB_TOKEN` | Automatic — GitHub Release attach (`contents: write`) |
+| `NPM_TOKEN` | Optional — publish `@ndestates/orchestrator` to npmjs |
+| `PYPI_API_TOKEN` | Optional — PyPI (name `orchestrator` may be taken) |
+| `VSCE_PAT` | Legacy optional Marketplace CLI publish |
 
-GitHub Packages publish does **not** need a separate secret beyond default Actions permissions.
-
-### Release steps (production)
+### Release steps (this public repo)
 
 ```bash
-# 1. On clean master (example)
+# 1. On clean master
 git checkout master
 git pull --ff-only
-# ensure VERSION is 2.0.0 and features merged
+python3 scripts/check-version-alignment.py   # VERSION == 3.0.0 (or next 3.x)
 
-# 2. Tag (triggers .github/workflows/release.yml)
-git tag -a v2.2.0 -m "Release v2.2.0"
-git push origin v2.2.0
+# 2. Tag — triggers product-release.yml
+git tag -a v3.0.0 -m "Release v3.0.0"
+git push origin v3.0.0
 
-# Or: Actions → Release → Run workflow → version=2.0.0 target=master
+# Or: Actions → Product release → Run workflow → version=3.0.0
 ```
 
-### What release workflows do on `v*` tags
+### What `product-release.yml` does on `v*` tags
 
-| Workflow | Repo | Gate |
-|----------|------|------|
-| **`release.yml`** | Private **`ndestates/orchestrator`** only | Full `pre-release-gate.sh` (pytest + security) |
-| **`product-release.yml`** | Public **`ndestates/orchestrator-memory`** only | VERSION/stamp only — **no** factory suite |
+1. Gate: `VERSION` == tag (and stamp / package.json / extension pin)
+2. Build wheel + sdist + `SHA256SUMS.txt`
+3. Create/update **GitHub Release** on **ndestates/orchestrator-memory** and attach artifacts
+4. **npm publish** only if `NPM_TOKEN` is set; otherwise print the exact human npm command
+5. Optional VSIX package when `vsce` is available (Marketplace upload stays a human step unless `VSCE_PAT` is set)
 
-**Product release (`product-release.yml`) steps:**
+### Human steps if CI publish is blocked (no secrets)
 
-1. Gate: VERSION == tag (+ stamp + package.json)  
-2. Create/update **GitHub Release** + notes  
-3. **Build** wheel + sdist + SHA256SUMS (+ bundle-hashes if present)  
-4. **Attach** artifacts  
-5. **npm** GitHub Packages (optional npmjs/PyPI with secrets)  
-6. **VSIX** package + attach; Marketplace if `VSCE_PAT` set
+Do these **in order** so npm never leads the wheel:
+
+1. Confirm `VERSION` is the 3.x you intend (example **3.0.0**).
+2. Merge this branch to `master`.
+3. Tag and push `v3.0.0` on **ndestates/orchestrator-memory**.
+4. Confirm Actions **Product release** built and attached `orchestrator-3.0.0-py3-none-any.whl`.
+5. If the workflow could not publish npm:
+
+   ```bash
+   npm publish --access public
+   npm view @ndestates/orchestrator version   # must print 3.0.0
+   ```
+
+6. Verify the wheel URL returns 200 (not 404):
+
+   ```bash
+   python3 scripts/check-release-wheel.py --remote
+   curl -I "https://github.com/ndestates/orchestrator-memory/releases/download/v3.0.0/orchestrator-3.0.0-py3-none-any.whl"
+   ```
+
+7. Optional: upload `orchestrator-memory-3.0.0.vsix` via [Marketplace manage](https://marketplace.visualstudio.com/manage/publishers/ndestates).
+
+**Do not** `npm publish` 3.0.0 (or any later 3.x) before the matching Release wheel exists.
 
 ### Verify after ship
 
 ```bash
-# GitHub assets
-gh release view v2.2.0
-
-# Host CLI from wheel URL
-uv tool install --force "orchestrator @ https://github.com/ndestates/orchestrator-memory/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl"
-orchestrator version
-orchestrator memory status
-
-# npm (if secret was set)
+gh release view v3.0.0 --repo ndestates/orchestrator-memory
 npm view @ndestates/orchestrator version
-
-# PyPI (if secret was set)
-pip index versions orchestrator   # or: pip install orchestrator==2.2.0
+npm install -g @ndestates/orchestrator@3.0.0
+orchestrator version
 ```
-
-### PyPI package name note
-
-`pyproject.toml` uses name `orchestrator`. If that name is taken or blocked on PyPI, rename before first publish (e.g. `ndestates-orchestrator`) and update postinstall + docs. GitHub Release wheels always work without PyPI.
 
 ### npm registries
 
 | Registry | Package | When |
 |----------|---------|------|
-| **GitHub Packages** | `@ndestates/orchestrator` | Every `v*` release (default) |
-| **npmjs.org** | `@ndestates/orchestrator` | Only if `NPM_TOKEN` set |
-
-Install from GitHub Packages needs a PAT with `read:packages` (and SSO authorize for the org if required).
+| **npmjs.org** | `@ndestates/orchestrator` | User path — only after the matching wheel is on the Release |
+| **GitHub Packages** | `@ndestates/orchestrator` | Optional / legacy; not the documented install |
 
 ---
 
@@ -203,23 +140,22 @@ Install from GitHub Packages needs a PAT with `read:packages` (and SSO authorize
 
 ```text
 ┌────────────────── users ──────────────────┐
-│  uv / pip wheel    npm -g    VS Code VSIX │
-└─────────┬───────────┬───────────┬─────────┘
-          │           │           │
-          ▼           ▼           ▼
-     orchestrator CLI (Python) ◄── extension shells out
-          │
-          ├─ memory (any project)
-          ├─ version / self-upgrade
-          └─ optional init/upgrade into app repos
+│  npm install -g @ndestates/orchestrator   │
+│  (shim → python -m orchestrator_cli)      │
+│  missing module → matching Release wheel  │
+└──────────────────┬────────────────────────┘
+                   ▼
+            orchestrator CLI (Python)
+                   ├─ memory (any project)
+                   ├─ version / self-upgrade
+                   └─ optional init/upgrade into app repos
 ```
 
 | Do | Don’t |
 |----|--------|
-| Ship **host package** first | Require every app to re-deploy skills for memory |
-| Tag `vX.Y.Z` from master | Tag from a dirty feature branch |
-| Attach wheels to GitHub Release | Rely only on unreleased feature branches |
-| Treat VS Code as thin client | Embed full template in the extension |
+| Ship **npm + wheel** at the same `X.Y.Z` | Publish npm without the GitHub wheel |
+| Tag `vX.Y.Z` on **orchestrator-memory** | Point users at the private factory |
+| Keep 3.x as the current line | Patch 2.3.x as current |
 
 ---
 
@@ -227,51 +163,24 @@ Install from GitHub Packages needs a PAT with `read:packages` (and SSO authorize
 
 | Channel | Status |
 |---------|--------|
-| GitHub Release pipeline | **Ready** — builds wheel + sdist + VSIX on `v*` tags |
-| Product version | **2.2.0** (`VERSION` / stamp / npm / extension) |
-| Tag `v2.2.0` | Cut after pre-release gate on merge target (`master` / release branch) |
-| Wheel URL | `…/releases/download/v2.2.0/orchestrator-2.2.0-py3-none-any.whl` |
-| Slash registration | `python3 scripts/register-all-slash-commands.py` (all hosts) |
-| PyPI / npm secrets | Optional — publish only if secrets configured |
-| VS Code Marketplace | **VSIX package + manage UI** (publisher `ndestates`, product **Visual Studio Code**). CI never requires `VSCE_PAT`. |
-
-### VS Code extension ship path (Orchestrator Memory — AI token cache)
-
-| Step | Who | How |
-|------|-----|-----|
-| 1. Package | CI / local | `vsce package` in `extensions/vscode-orchestrator/` or workflow **VS Code Marketplace** (package-only) |
-| 2. Publish | Human | [manage/publishers/ndestates](https://marketplace.visualstudio.com/manage/publishers/ndestates) → **Visual Studio Code** → upload `orchestrator-memory-*.vsix` |
-| 3. Install | User | Marketplace search **Orchestrator Memory** or `code --install-extension …vsix` |
-
-**Do not** put Azure DevOps PATs in GitHub for day-to-day ship (global PATs retire **1 Dec 2026**). PAT/`vsce publish` remains opt-in legacy only.
-
-Current extension version in tree: see `extensions/vscode-orchestrator/package.json` (**2.2.0** — semver MINOR with product `VERSION`).
-
-**To ship host + extension to production:** merge feature work → master → tag `vX.Y.Z` → confirm Actions release job green → point users at the wheel URL (and npm/PyPI if secrets set) → upload latest VSIX on manage.
-
-Workflow: `.github/workflows/vscode-marketplace.yml` (default **package-only**).
+| Product version in this tree | **3.0.0** (`VERSION` / stamp / npm / extension) |
+| Last published GitHub Release (before this cut) | **v2.3.5** wheel exists; npm **2.3.10** had no matching wheel |
+| `product-release.yml` | In this public repo — builds wheel on `v*` tags |
+| npm 3.0.0 | **Not published by this change** — human/CI with `NPM_TOKEN` |
+| VS Code Marketplace | Optional; not the user install story |
 
 ---
 
 ## FAQ — Why not Packagist?
 
-[Packagist](https://packagist.org/) is the registry for **PHP Composer** packages (`composer require …`). This product’s runtime is:
-
-| Stack | Registry |
-|-------|----------|
-| **Python CLI** | PyPI / GitHub Release wheels / `uv tool` |
-| **Node wrapper** | npm (`@ndestates/orchestrator`) |
-| **Editor** | VS Code Marketplace / VSIX |
-
-Publishing to Packagist would only make sense for a **thin PHP shim** that shells out to the Python CLI — extra packaging, two version clocks, and almost no benefit for Laravel apps that already install the **host** tool with uv/npm. App code stays PHP; **the orchestrator is not a PHP library**.
+[Packagist](https://packagist.org/) is the registry for **PHP Composer** packages. This product’s runtime is Python + an npm shim. Publishing to Packagist would add a second version clock with no benefit.
 
 ---
 
 ## Related
 
 - [Installation](../getting-started/installation.md)  
+- [Public vs private repos](../reference/public-private-repos.md)  
 - [Host-first memory](host-first-memory.md)  
-- [Licensing (freeware + Patreon)](../reference/licensing.md)  
 - [Versioning](../reference/versioning.md)  
-- Extension: `extensions/vscode-orchestrator/README.md`  
-- Workflow: `.github/workflows/release.yml`
+- Workflow: `.github/workflows/product-release.yml`

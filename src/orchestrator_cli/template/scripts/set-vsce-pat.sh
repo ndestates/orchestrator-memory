@@ -9,12 +9,12 @@
 #
 # Usage (only if you still want opt-in CI publish):
 #   bash scripts/set-vsce-pat.sh
-#   bash scripts/set-vsce-pat.sh --repo ndestates/orchestrator
+#   bash scripts/set-vsce-pat.sh --repo ndestates/orchestrator-memory
 #   VSCE_PAT='…' bash scripts/set-vsce-pat.sh   # non-interactive
 #
 set -euo pipefail
 
-REPO="${REPO:-ndestates/orchestrator}"
+REPO="${REPO:-ndestates/orchestrator-memory}"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --repo) REPO="$2"; shift 2 ;;
